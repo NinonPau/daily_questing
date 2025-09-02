@@ -1,12 +1,24 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-<h1>Welcome to Questify!</h1>
-<p>Track your tasks, moods, and gain XP every day!</p>
 
 <% if user_signed_in? %>
-  <%= link_to "Go to Dashboard", dashboard_path, class: "btn btn-primary" %>
-  <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+  <!-- Header -->
+  <header>
+    <h2><%= @user.username %></h2>
+    <p>XP: <%= @user.total_xp || 0 %></p>
+    <p>Mood: <%= @latest_mood&.mood_type || "Unknown" %></p>
+    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+  </header>
+
+  <!-- Dashboard Buttons -->
+  <div class="dashboard-buttons">
+    <%= link_to "Add Special Quest", new_task_path, class: "btn btn-primary" %>
+  </div>
+
+
 <% else %>
+  <!-- Public View -->
+  <h1>Welcome to QuestTracker!</h1>
+  <p>Track your tasks, moods, and gain XP every day!</p>
+
   <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
   <%= link_to "Log In", new_user_session_path, class: "btn btn-secondary" %>
 <% end %>
