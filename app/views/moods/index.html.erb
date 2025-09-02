@@ -5,12 +5,11 @@
 
 <ul class="moods-card">
 
-  <% @moods.each do |mood| %>
+<li><%= current_user.user_mood&.mood_type %>
 
-    <%# Maybe content is not specific enough? %>
-    <li> <%= mood.content %> </li>
-
-
-  <% end %>
+<h2> One mood button link_to method patch </h2>
+<h2> One mood </h2>
+<h2> One mood </h2>
+<h2> One mood </h2>
 
 </ul>

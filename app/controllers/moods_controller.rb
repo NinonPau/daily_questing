@@ -1,5 +1,7 @@
 class MoodsController < ApplicationController
+
   def index
-    @moods = Moods.all
+    @moods = UserMood.all
   end
+
 end
