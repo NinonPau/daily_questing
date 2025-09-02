@@ -10,18 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_01_155517) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_02_141226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "tasks", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.string "name"
     t.text "description"
     t.boolean "daily"
-    t.boolean "duo"
+    t.boolean "completed"
     t.float "xp"
+    t.boolean "duo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "user_moods", force: :cascade do |t|
@@ -32,18 +35,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_01_155517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_moods_on_user_id"
-  end
-
-  create_table "user_tasks", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "task_id", null: false
-    t.boolean "completed"
-    t.boolean "frozen"
-    t.float "xp_earned"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["task_id"], name: "index_user_tasks_on_task_id"
-    t.index ["user_id"], name: "index_user_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -60,7 +51,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_01_155517) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "tasks", "users"
   add_foreign_key "user_moods", "users"
-  add_foreign_key "user_tasks", "tasks"
-  add_foreign_key "user_tasks", "users"
 end
