@@ -1,8 +1,7 @@
 class TasksController < ApplicationController
-<<<<<<< HEAD
   def index
     @tasks = Task.all
-=======
+  end
 
   def new
     @task = Task.new
@@ -21,6 +20,5 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :daily, :xp)
->>>>>>> master
   end
 end
