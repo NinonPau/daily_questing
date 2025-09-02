@@ -3,8 +3,9 @@
 <div class="col-md-6">
 <h1> Quests</h1>
 
-<div class= "task">
+
   <% @tasks.each do |task| %>
+    <div class= "task">
     <p><strong>Task:</strong> <%= task.name %></p>
     <p><%= task.user_task.complited ? "✔" : "❌" %></p>
     <p><%= task.description %></p>
