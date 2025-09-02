@@ -1,12 +1,12 @@
 <div class="container">
 <h1> Quests</h1>
 
-<ul>
+<ol>
   <% @tasks.each do |task| %>
-      <li><%= task.name %></li>
-    <li><%= task.duo ? "✔" : "❌" %></li>
+    <li><%= task.name %></li>
+    <li><%= task.user_task.complited ? "✔" : "❌" %></li>
     <li><%= task.description %></li>
   <% end %>
-  </ul>
+  </ol>
 <%= link_to "Main Menu", root_path, class: "btn btn-primary" %>
 </div>
