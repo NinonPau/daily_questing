@@ -5,12 +5,13 @@
 
 
   <% @tasks.each do |task| %>
-    <div class= "task">
+    <div class="task">
     <p><strong>Task:</strong> <%= task.name %></p>
-    <p><%= task.user_task.complited ? "✔" : "❌" %></p>
+    <p><%= task.user_task.completed ? "✔" : "❌" %></p>
     <p><%= task.description %></p>
+    </div>
   <% end %>
-  </div>
+
 <div class="button">
 <%= link_to "Main Menu", root_path, class: "btn btn-primary" %>
 </div>
