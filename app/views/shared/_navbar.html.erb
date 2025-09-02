@@ -1,38 +1,45 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4" style="border-radius: 15px;">
+  <div class="container d-flex justify-content-between align-items-center">
+
+    <!-- Left empty for spacing -->
+    <div style="width:40px;"></div>
+
+    <!-- Logo / App Name centered -->
+    <a class="navbar-brand fw-bold mx-auto text-center" href="<%= root_path %>" style="font-size: 1.5rem;">
+      Questify
+    </a>
+
+    <!-- Right side: avatar + buttons -->
+    <% if user_signed_in? %>
+      <div class="d-flex align-items-center gap-2">
+        <!-- Collapsible buttons -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarButtons">
+          <div class="d-flex gap-2">
+            <%= link_to "🗡️ Quests", tasks_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
+            <%= link_to "➕ Add Quest", new_task_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
+            <%= link_to "🌱 Mood", "#", class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;" %>
+            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm", style: "border-radius:12px;" %>
+          </div>
+        </div>
+
+        <!-- Avatar placeholder -->
+        <div style="width:40px; height:40px; background-color:#6c757d; border-radius:50%;
+                    text-align:center; line-height:40px; color:white; font-weight:bold;">
+          <%= current_user.username.first.upcase %>
+        </div>
+      </div>
+    <% else %>
+      <!-- Public buttons -->
+      <div class="d-flex gap-2">
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
+        <%= link_to "Log In", new_user_session_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
+      </div>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Mobile toggle button for buttons only -->
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
-          </li>
-          <li class="nav-item dropdown">
-          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
-          </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
   </div>
-</div>
+</nav>

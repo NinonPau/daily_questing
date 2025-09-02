@@ -1,24 +1,24 @@
 
 <% if user_signed_in? %>
-  <!-- Header -->
-  <header>
-    <h2><%= @user.username %></h2>
-    <p>XP: <%= @user.total_xp || 0 %></p>
-    <p>Mood: <%= @latest_mood&.mood_type || "Unknown" %></p>
-    <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+  <!-- Hero Header -->
+  <header class="text-center my-4">
+    <div class="card shadow-lg p-4" style="max-width: 600px; margin: 0 auto; border-radius: 18px; background: linear-gradient(135deg, #3498db, #8e44ad); color: white;">
+      <h2 style="font-size: 2rem; font-weight: bold;"><%= @user.username %></h2>
+      <p style="font-size: 1.2rem; margin: 0.5rem 0;">XP: <strong><%= current_user.total_xp || 0 %></strong></p>
+      <p style="font-size: 1.1rem;">Mood: <%= @latest_mood&.mood_type || "Unknown" %></p>
+      <div class="mt-3">
+        <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-light btn-sm mx-2", style: "border-radius: 12px;" %>
+      </div>
+    </div>
   </header>
 
-  <!-- Dashboard Buttons -->
-  <div class="dashboard-buttons">
-    <%= link_to "Add Special Quest", new_task_path, class: "btn btn-primary" %>
+  <!-- Dashboard Actions -->
+  <div class="d-flex justify-content-center flex-wrap gap-3 my-4">
+    <%= link_to "Add Special Quest", new_task_path, class: "btn btn-primary btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to "View Quests", tasks_path, class: "btn btn-success btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to "Log Mood", "#", class: "btn btn-warning btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to "Random Quest", "#", class: "btn  btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
   </div>
-
-
 <% else %>
-  <!-- Public View -->
-  <h1>Welcome to QuestTracker!</h1>
-  <p>Track your tasks, moods, and gain XP every day!</p>
-
-  <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
-  <%= link_to "Log In", new_user_session_path, class: "btn btn-secondary" %>
+  <%= render "public_home" %>
 <% end %>
