@@ -2,6 +2,10 @@ require "json"
 require "open-uri"
 
 class TasksController < ApplicationController
+  def index
+    @tasks = Task.all
+  end
+
   def new
     @task = Task.new
   end
