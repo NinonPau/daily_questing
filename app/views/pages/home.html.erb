@@ -1,2 +1,6 @@
 <h1>Pages#home</h1>
 <p>Find me in app/views/pages/home.html.erb</p>
+
+<%= simple_form_for :task, url: random_task_path do |f| %>
+  <%= f.submit "Random Quest", class: "btn btn-primary" %>
+<% end %>

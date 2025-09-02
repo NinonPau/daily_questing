@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :tasks, only: [:new, :create, :random]
+  resources :tasks, only: [:new, :create]
+  post "/tasks/random", to: "tasks#random", as: "random_task"
 end
