@@ -1,8 +1,12 @@
-<h1>All Tasks</h1>
+<div class="container">
+<h1> Quests</h1>
 
 <ul>
   <% @tasks.each do |task| %>
-    <li><%= task.name %></li>
+      <li><%= task.name %></li>
+    <li><%= task.done ? "✔" : "❌" %></li>
+    <li><%= task.description %></li>
   <% end %>
-</ul>
-
+  </ul>
+<%= link_to "Main Menu", root_path, class: "btn btn-primary" %>
+</div>
