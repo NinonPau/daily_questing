@@ -1,12 +1,18 @@
 <div class="container">
+<div class="row justify-content-center">
+<div class="col-md-6">
 <h1> Quests</h1>
 
-<ol>
+<div class= "task">
   <% @tasks.each do |task| %>
-    <li><%= task.name %></li>
-    <li><%= task.user_task.complited ? "✔" : "❌" %></li>
-    <li><%= task.description %></li>
+    <p><strong>Task:</strong> <%= task.name %></p>
+    <p><%= task.user_task.complited ? "✔" : "❌" %></p>
+    <p><%= task.description %></p>
   <% end %>
-  </ol>
+  </div>
+<div class="button">
 <%= link_to "Main Menu", root_path, class: "btn btn-primary" %>
+</div>
+</div>
+</div>
 </div>
