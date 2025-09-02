@@ -1,0 +1,46 @@
+<!-- app/views/pages/home_logged_in.html.erb -->
+
+<h1>Bienvenue <%= current_user.username %> !</h1>
+<p>XP total : <%= current_user.total_xp || 0 %></p>
+
+<hr>
+
+<h2>Vos quêtes</h2>
+<% if @user_tasks.present? && @user_tasks.any? %>
+  <ul>
+    <% @user_tasks.each do |ut| %>
+      <li><%= ut.task.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no quests yet!</p>
+<% end %>
+
+
+<hr>
+
+<h2>Actions</h2>
+<div>
+  <%= link_to "Créer une Special Quest", new_task_path, class: "btn" %>
+  <%= link_to "Créer une Random Quest", "#", class: "btn" %>
+  <%= link_to "Voir Quests", tasks_path, class: "btn" %>
+  <%= link_to "Demander l'aide d'un ami", "#", class: "btn" %>
+  <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn" %>
+</div>
+
+<hr>
+
+<h2>Amis et leurs moods</h2>
+<% if @friends.any? %>
+  <ul>
+    <% @friends.each do |friend| %>
+      <li>
+        <strong><%= friend.username %></strong>
+        - Mood: <%= @friends_moods[friend.id]&.last&.mood_type || "inconnu" %>
+        - XP: <%= friend.total_xp || 0 %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Vous n'avez pas encore d'amis enregistrés.</p>
+<% end %>
