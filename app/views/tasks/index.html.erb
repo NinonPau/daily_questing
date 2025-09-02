@@ -7,7 +7,7 @@
   <% @tasks.each do |task| %>
     <div class="task">
     <p><strong>Task:</strong> <%= task.name %></p>
-    <p><%= task.user_task.completed ? "✔" : "❌" %></p>
+    <p><%= task.completed ? "✔" : "❌" %></p>
     <p><%= task.description %></p>
     </div>
   <% end %>
