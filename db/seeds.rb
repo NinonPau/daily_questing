@@ -18,7 +18,7 @@ User.delete_all
 users = 10.times.map do
   User.create!(
     email: Faker::Internet.unique.email,
-    password: "password", 
+    password: "password",
     username: Faker::Internet.username,
     total_xp: rand(0..5000)
   )
@@ -43,7 +43,7 @@ users.each do |user|
       user: user,
       task: task,
       completed: Faker::Boolean.boolean,
-      frozen: Faker::Boolean.boolean,
+      ignored: Faker::Boolean.boolean,
       xp_earned: rand(5..task.xp)
     )
   end
