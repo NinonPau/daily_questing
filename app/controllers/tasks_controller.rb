@@ -2,6 +2,8 @@ require "json"
 require "open-uri"
 
 class TasksController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @tasks = Task.all
   end
@@ -23,8 +25,7 @@ class TasksController < ApplicationController
     url = "https://bored.api.lewagon.com/api/activity"
     activity_serialized = URI.parse(url).read
     activity = JSON.parse(activity_serialized)
-    @task = Task.new(name: activity["activity"], description: "Type of quest: #{activity["type"]} - Number of participants recommended: #{activity["participants"]}")
-    raise
+    @task = current_user.tasks.new(id: current_user.id, name: activity["activity"], description: "Type of quest: #{activity["type"]} - Number of participants recommended: #{activity["participants"]}", xp: 20)
     if @task.save
       redirect_to tasks_path, notice: "Quest successfully created!"
     else
