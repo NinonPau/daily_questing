@@ -7,9 +7,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to new_task_path,  notice: "Quest successfully created!"
+      redirect_to new_task_path, notice: "Quest successfully created!"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
