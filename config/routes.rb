@@ -11,10 +11,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :tasks, only: [:index, :new, :create, :edit, :update] do
-   member do
-    patch :complete
-   end
-  end
 
+  resources :tasks, only: [:index, :new, :create, :edit, :update] do
+    member do
+      patch :complete
+    end
+    collection do
+      post :random
+    end
+  end
 end
