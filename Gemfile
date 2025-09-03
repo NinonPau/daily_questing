@@ -76,3 +76,7 @@ end
 
 # seed
 gem "faker"
+
+# authorization
+gem "pundit"
+
