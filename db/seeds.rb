@@ -8,8 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 require 'faker'
-# Nettoyer avant de reseed
-Task.delete_all
+# Clean before reseed
 UserMood.delete_all
 Task.delete_all
 User.delete_all
@@ -37,16 +36,12 @@ tasks = 15.times.map do
 end
 
 users.each do |user|
-  # rand(1..3).times do
     UserMood.create!(
       user: user,
       mood_type: %w[happy sad focused tired motivated].sample,
       xp_bonus: rand(0.5..50),
 
     )
-  # end
 end
 
-
-
-# puts "Seed finished #{User.count} users, #{Task.count} tasks, #{UserTask.count} user_tasks and  #{UserMood.count} user_moods."
+puts "Seed finished #{User.count} users, #{Task.count} tasks and #{UserMood.count} user_moods."
