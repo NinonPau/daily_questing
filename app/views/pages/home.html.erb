@@ -1,2 +1,28 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+
+<% if user_signed_in? %>
+  <!-- Hero Header -->
+  <header class="text-center my-4">
+    <div class="card shadow-lg p-4" style="max-width: 600px; margin: 0 auto; border-radius: 18px; background: linear-gradient(135deg, #3498db, #8e44ad); color: white;">
+      <h2 style="font-size: 2rem; font-weight: bold;"><%= @user.username %></h2>
+      <p style="font-size: 1.2rem; margin: 0.5rem 0;">XP: <strong><%= current_user.total_xp || 0 %></strong></p>
+      <p style="font-size: 1.1rem;">Mood: <%= @latest_mood&.mood_type || "Unknown" %></p>
+      <div class="mt-3">
+        <%= button_to "Log Out",
+              destroy_user_session_path,
+              method: :delete,
+              class: "btn btn-light btn-sm mx-2",
+              style: "border-radius: 12px;" %>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Actions -->
+  <div class="d-flex justify-content-center flex-wrap gap-3 my-4">
+    <%= link_to "Add Special Quest", new_task_path, class: "btn btn-primary btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to "View Quests", tasks_path, class: "btn btn-success btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to "Log Mood", "#", class: "btn btn-warning btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to "Random Quest", "#", class: "btn btn-pink btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+  </div>
+<% else %>
+  <%= render "public_home" %>
+<% end %>

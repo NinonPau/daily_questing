@@ -75,3 +75,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# seed
+gem "faker"
+
+# authorization
+gem "pundit"
