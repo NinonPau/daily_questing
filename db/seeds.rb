@@ -9,7 +9,7 @@
 #   end
 require 'faker'
 # Nettoyer avant de reseed
-UserTask.delete_all
+Task.delete_all
 UserMood.delete_all
 Task.delete_all
 User.delete_all
@@ -31,24 +31,10 @@ tasks = 15.times.map do
     description: Faker::Lorem.sentence(word_count: 8),
     daily: Faker::Boolean.boolean,
     duo: Faker::Boolean.boolean,
-    xp: rand(10..100)
+    xp: rand(10..100),
+    user: User.all.sample()
   )
 end
-
-
-users.each do |user|
-  rand(3..8).times do
-    task = tasks.sample
-    UserTask.create!(
-      user: user,
-      task: task,
-      completed: Faker::Boolean.boolean,
-      ignored: Faker::Boolean.boolean,
-      xp_earned: rand(5..task.xp)
-    )
-  end
-end
-
 
 users.each do |user|
   # rand(1..3).times do
@@ -63,4 +49,4 @@ end
 
 
 
-puts "Seed finished #{User.count} users, #{Task.count} tasks, #{UserTask.count} user_tasks and  #{UserMood.count} user_moods."
+# puts "Seed finished #{User.count} users, #{Task.count} tasks, #{UserTask.count} user_tasks and  #{UserMood.count} user_moods."
