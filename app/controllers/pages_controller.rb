@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update]
   def index
-    @pages = policy_scope(Page) # affiches pages visible pour l'U
+    @pages = policy_scope(Page) 
   end
 
   def show
@@ -29,11 +29,11 @@ class PagesController < ApplicationController
 
   private
 
-  def set_page #recupere la page avec le bon ID
+  def set_page 
     @page = Page.find(params[:id])
   end
 
-  def page_params # securite -strong params-
+  def page_params 
     params.require(:page).permit(:title, :content)
   end
 end
