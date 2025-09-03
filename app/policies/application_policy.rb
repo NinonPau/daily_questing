@@ -27,10 +27,10 @@ class TaskPolicy < ApplicationPolicy
     record.user == user
   end
 
-  class Scope < Scope
-    def resolve
+ # class Scope < Scope - tadd with friend feature?
+   # def resolve
 
-      scope.where(user: [user]) # + user.friends - to add with friend feature?
-    end
-  end
+     # scope.where(user: [user])  + user.friends 
+    #end
+  #end
 end
