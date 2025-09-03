@@ -1,12 +1,15 @@
 <% if user_signed_in? %>
   <h3 class="mb-4 text-center" style="font-size:1.8rem; color:#2c3e50;">Your Quests</h3>
+
   <!-- go back to home page button -->
   <div class="mb-3">
     <%= link_to "Back", root_path, class: "btn btn-secondary" %>
   </div>
-  <!-- list of task -->
+
+  <!-- list of today's tasks only -->
   <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
-    <% current_user.tasks.each do |quest| %>
+    <% current_user.tasks.where(date: Date.today).each do |quest| %>
+    <!--only the task of the day are display -->
       <div class="mb-4">
         <div class="card shadow-sm" style="border-radius:15px; background-color:#f9f9f9;">
           <div class="card-header d-flex justify-content-between align-items-center"
@@ -22,6 +25,11 @@
           <div class="card-body text-center" style="line-height:1.5; font-size:1rem;">
             <p class="card-text"><%= quest.description %></p>
             <p>XP Reward: <strong><%= quest.xp || 0 %> XP</strong></p>
+            <% if quest.daily? %>
+              <p><em>Daily Quest</em></p>
+            <% else %>
+              <p><em>For <%= quest.date.strftime("%d %b %Y") %></em></p>
+            <% end %>
           </div>
 
           <div class="card-footer text-center" style="border-radius:0 0 15px 15px;">
@@ -35,31 +43,30 @@
     <% end %>
   </div>
 
+  <!-- Add new quest button -->
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
 
   <!-- Congratulation POPUP -->
   <% if flash[:notice] %>
-  <div class="modal fade show" style="display:block;" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content text-center p-4 shadow rounded">
-        <h5 class="mb-3">Congratulations!</h5>
-        <p><%= flash[:notice] %></p>
-        <div class="mt-3 d-flex justify-content-around">
-          <%= link_to "Home Page", root_path, class: "btn btn-primary", style: "min-width:120px;" %>
-          <%= link_to "My Quests", tasks_path, class: "btn btn-success", style: "min-width:120px;" %>
+    <div class="modal fade show" style="display:block;" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4 shadow rounded">
+          <h5 class="mb-3">Congratulations!</h5>
+          <p><%= flash[:notice] %></p>
+          <div class="mt-3 d-flex justify-content-around">
+            <%= link_to "Home Page", root_path, class: "btn btn-primary", style: "min-width:120px;" %>
+            <%= link_to "My Quests", tasks_path, class: "btn btn-success", style: "min-width:120px;" %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
     <!-- Modal backdrop -->
     <div class="modal-backdrop fade show"></div>
   <% end %>
-<div class="mb-3">
-  <%= link_to "Back", root_path, class: "btn btn-secondary" %>
-</div>
+
 <% else %>
   <%= render "public_home" %>
 <% end %>

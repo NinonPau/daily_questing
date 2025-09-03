@@ -79,5 +79,4 @@ end
 # authorization
 gem "pundit"
 
-# add recurence on task/ appointement
-gem 'ice_cube'
+
