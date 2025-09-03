@@ -6,16 +6,16 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def show?
-    # L'utilisateur peut voir sa propre task ou celles de ses amis
-    record.user == user || user.friends.include?(record.user)
+    # user can see is own pages 
+    record.user == user  #|| user.friends.include?(record.user) --for friend feature
   end
 
   def create?
-    true # tout utilisateur peut créer ses tasks
+    true # all user can create task
   end
 
   def update?
-    # L'utilisateur ne peut modifier que ses propres tasks
+    # user can only modify is own task
     record.user == user
   end
 
