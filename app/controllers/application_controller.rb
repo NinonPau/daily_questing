@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?#step one to change automatique form of registration (+ username)
 
 
-  protected #private ne peut etre appele que ds la meme instance/ protected depuis l'interieur de l'object(peut appeler avant before_action sans le rendre public)restreint mais appelable pour callback.
+  protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-  end # ajoute username to the formulaire
+  end # add username to the form
 
   private
 
