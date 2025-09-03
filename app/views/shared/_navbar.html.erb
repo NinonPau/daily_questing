@@ -15,10 +15,11 @@
         <!-- Collapsible buttons -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarButtons">
           <div class="d-flex gap-2">
-            <%= link_to "🗡️ Quests", tasks_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
-            <%= link_to "➕ Add Quest", new_task_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
-            <%= link_to "🌱 Mood", "#", class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;" %>
-            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm", style: "border-radius:12px;" %>
+            <%= link_to "Quests", tasks_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
+            <%= link_to "Add Quest", new_task_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
+            <%= link_to "Mood", "#", class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;" %>
+            <%= button_to "Log Out",
+              destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm", style: "border-radius:12px;" %>
           </div>
         </div>
 
