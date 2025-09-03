@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/faker-ruby/faker.git
+  revision: 8fbda8de78d6827cae94bc2dee7dfa4d9a91f261
+  branch: main
+  specs:
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
+
+GIT
   remote: https://github.com/heartcombo/simple_form.git
   revision: c2c7faf3e532072e1ef511a97d677ae0e7c38957
   specs:
@@ -130,8 +138,6 @@ GEM
     erb (5.0.2)
     erubi (1.13.1)
     execjs (2.10.0)
-    faker (3.5.2)
-      i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -340,7 +346,7 @@ DEPENDENCIES
   debug
   devise
   dotenv-rails
-  faker
+  faker!
   font-awesome-sass (~> 6.1)
   ice_cube
   importmap-rails
