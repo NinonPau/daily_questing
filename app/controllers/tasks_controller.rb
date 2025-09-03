@@ -1,16 +1,16 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user! #
-  before_action :set_task, only: [:complete]#
+  before_action :authenticate_user! 
+  before_action :set_task, only: [:complete]
   def index
-    @tasks = current_user.tasks # Task.all
+    @tasks = current_user.tasks 
   end
 
   def new
-    @task = current_user.tasks.new #Task.new
+    @task = current_user.tasks.new 
   end
 
   def create
-    @task = current_user.tasks.new(task_params)#Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     if @task.save
       redirect_to new_task_path, notice: "Quest successfully created!"
     else
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :description, :daily, :xp)
   end
 
-  def set_task #ensure U. can only acces/ modify his quests
+  def set_task 
     @task = current_user.tasks.find(params[:id])
   end
 end
