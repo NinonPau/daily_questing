@@ -6,8 +6,8 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def show?
-    # user can see is own pages 
-    record.user == user  #|| user.friends.include?(record.user) --for friend feature
+    # user can see is own pages
+    record.user == user  # || user.friends.include?(record.user) --for friend feature
   end
 
   def create?
@@ -30,7 +30,7 @@ class TaskPolicy < ApplicationPolicy
  # class Scope < Scope - tadd with friend feature?
    # def resolve
 
-     # scope.where(user: [user])  + user.friends 
+     # scope.where(user: [user])  + user.friends
     #end
   #end
 end
