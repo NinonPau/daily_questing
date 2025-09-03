@@ -14,7 +14,15 @@ class TasksController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+
+  def edit
+    @task = Task.find(params[:id])
   end
+  
+  def update
+
+  end
+end
 
   private
 
