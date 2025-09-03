@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-
-<%= simple_form_for :task, url: random_task_path do |f| %>
-  <%= f.submit "Random Quest", class: "btn btn-primary" %>
-=======
-
 <% if user_signed_in? %>
   <!-- Hero Header -->
   <header class="text-center my-4">
@@ -28,9 +20,10 @@
     <%= link_to "Add Special Quest", new_task_path, class: "btn btn-primary btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <%= link_to "View Quests", tasks_path, class: "btn btn-success btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <%= link_to "Log Mood", "#", class: "btn btn-warning btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-    <%= link_to "Random Quest", "#", class: "btn btn-pink btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= simple_form_for :task, url: random_task_path do |f| %>
+      <%= f.submit "Random Quest", class: "btn btn-pink btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <% end %>
   </div>
 <% else %>
   <%= render "public_home" %>
->>>>>>> master
 <% end %>
