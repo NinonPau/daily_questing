@@ -1,0 +1,47 @@
+
+<h2><%= current_user.user_mood&.mood_type %></h2>
+
+<%# TODO: link to update method in moodcontroller based on submit-button %>
+
+<div class="moods-card">
+  <ul>
+
+    <li> <i class="fa-solid fa-face-smile-wink"></i> Amazing
+      <%= button_to 'Select', user_mood_path(:id), method: :update %>
+
+    </li>
+
+
+
+
+
+    <li> <i class="fa-solid fa-face-smile-wink"></i> Amazing
+      <%= simple_form_for @user_mood do |f| %>
+        <%= f.submit "Select", class: "btn btn-warning" %>
+      <% end %>
+    </li>
+
+    <li> <i class="fa-solid fa-face-smile-beam"></i> Good
+      <%= simple_form_for @user_mood do |f| %>
+        <%= f.submit "Select", class: "btn btn-warning" %>
+      <% end %>
+      </li>
+
+    <li> <i class="fa-solid fa-face-smile-beam"></i> Ok'ish
+      <%= simple_form_for @user_mood do |f| %>
+        <%= f.submit "Select", class: "btn btn-warning" %>
+      <% end %></li>
+
+    <li> <i class="fa-solid fa-face-smile-beam"></i> Bad
+      <%= simple_form_for @user_mood do |f| %>
+        <%= f.submit "Select", class: "btn btn-warning" %>
+      <% end %></li>
+  </ul>
+</div>
+
+
+<div class="back-link">
+  <%= link_to root_path do %>
+  <p> <i class="fa-solid fa-walkie-talkie"></i> Back to Homepage</p>
+  <% end %>
+</div>
