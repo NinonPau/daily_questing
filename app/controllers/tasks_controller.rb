@@ -1,12 +1,12 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
   before_action :set_task, only: [:complete]
   def index
-    @tasks = current_user.tasks 
+    @tasks = current_user.tasks
   end
 
   def new
-    @task = current_user.tasks.new 
+    @task = current_user.tasks.new
   end
 
   def create
@@ -18,6 +18,19 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+    @task = Task.find(params[:id])
+  end
+
+  def update
+    @task = Task.find(params[:id])
+    if @task.update(task_params)
+      redirect_to tasks_path, notice:"Your task was successfully updated"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def complete
     @task = current_user.tasks.find(params[:id])
     if @task.update(completed: true)
@@ -26,7 +39,7 @@ class TasksController < ApplicationController
     else
       redirect_to tasks_path, alert: "Could not complete the quest."
     end
-  end#
+  end
 
   private
 
@@ -34,7 +47,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :description, :daily, :xp)
   end
 
-  def set_task 
+  def set_task
     @task = current_user.tasks.find(params[:id])
   end
 end
