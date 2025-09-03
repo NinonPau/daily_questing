@@ -76,8 +76,5 @@ group :test do
   gem "selenium-webdriver"
 end
 
-# seed
-gem "faker"
-
 # authorization
 gem "pundit"

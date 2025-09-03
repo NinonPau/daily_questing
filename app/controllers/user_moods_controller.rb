@@ -10,13 +10,16 @@ class UserMoodsController < ApplicationController
   #patch method to update the user_mood based on the mood_type
 
   def update
-    raise
-    @user_mood = UserMood(:id)
+    @user_mood = UserMood.find(params[:id])
+    @user_mood.update(strong_params)
+    # redirect_to root_path
   end
 
 
   private
 
-  #strong params
+  def strong_params
+    params.require(:user_mood).permit(:mood_type, :id)
+  end
 
 end
