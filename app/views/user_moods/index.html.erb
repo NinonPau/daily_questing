@@ -5,9 +5,18 @@
 
 <div class="moods-card">
   <ul>
+
+    <li> <i class="fa-solid fa-face-smile-wink"></i> Amazing
+      <%= button_to 'Select', user_mood_path(:id), method: :update %>
+
+    </li>
+
+
+
+
+
     <li> <i class="fa-solid fa-face-smile-wink"></i> Amazing
       <%= simple_form_for @user_mood do |f| %>
-        <%= f.input :mood_type, value: "Amazing", class: "d-none" %>
         <%= f.submit "Select", class: "btn btn-warning" %>
       <% end %>
     </li>
