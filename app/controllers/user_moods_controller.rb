@@ -12,7 +12,8 @@ class UserMoodsController < ApplicationController
   def update
     @user_mood = UserMood.find(params[:id])
     @user_mood.update(strong_params)
-    # redirect_to root_path
+    @user_mood.save
+    redirect_to root_path
   end
 
 
