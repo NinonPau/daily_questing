@@ -1,5 +1,6 @@
 <h1 class="text-center mb-4">Create quest</h1>
-  <div class="container d-flex justify-content-center align-items-center">
+  <div class="container d-flex justify-content-center align-items-center text-center">
+    <div class="w-50" style="max-width: 900px;">
     <%= form_with model: @task, local: true do |f| %>
 
         <!-- errors in red background -->
@@ -42,7 +43,9 @@
             ["Expedition -- +50 XP", 50],
             ["Ultimate Trial -- +100 XP", 100]
           ]), { prompt: "Select your Challenge" }, class: "form-select" %>
-        </div>
+  </div>
+    </div>
+    </div>
   <div class="buttons d-flex justify-content-center align-items-center">
   <%= link_to "Go back", tasks_path, class: "btn btn-primary me-4" %>
   <%= f.submit "Save Changes", class: "btn btn-primary" %>
