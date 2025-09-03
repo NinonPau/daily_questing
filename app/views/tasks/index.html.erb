@@ -31,6 +31,11 @@
               <p><em>For <%= quest.date.strftime("%d %b %Y") %></em></p>
             <% end %>
           </div>
+          <div class="task-item" style="display: flex; justify-content: flex-end; align-items: center;">
+            <%= link_to edit_task_path(quest), class: "edit_button fs-2" do %>
+              ✏️
+            <% end %>
+          </div>
 
           <div class="card-footer text-center" style="border-radius:0 0 15px 15px;">
             <% unless quest.completed %>
