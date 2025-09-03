@@ -217,6 +217,8 @@ GEM
     public_suffix (6.0.2)
     puma (6.6.1)
       nio4r (~> 2.0)
+    pundit (2.5.0)
+      activesupport (>= 3.0.0)
     racc (1.8.1)
     rack (3.2.0)
     rack-session (2.1.1)
@@ -343,6 +345,7 @@ DEPENDENCIES
   jbuilder
   pg (~> 1.1)
   puma (>= 5.0)
+  pundit
   rails (~> 7.1.5, >= 7.1.5.2)
   sassc-rails
   selenium-webdriver
