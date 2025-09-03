@@ -20,7 +20,7 @@
     <%= link_to "Add Special Quest", new_task_path, class: "btn btn-primary btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <%= link_to "View Quests", tasks_path, class: "btn btn-success btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <%= link_to "Log Mood", "#", class: "btn btn-warning btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-    <%= simple_form_for :task, url: random_task_path do |f| %>
+    <%= simple_form_for :task, url: random_tasks_path do |f| %>
       <%= f.submit "Random Quest", class: "btn btn-pink btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <% end %>
   </div>
