@@ -1,11 +1,16 @@
-<%# TODO: Button REDIRECT TO HOMEPAE %>
+<%# HEADERBANNER? %>
 
-<ul class="moods-card">
+<%# TODO: Button REDIRECT TO HOMEPAE and make it bigger %>
+<div class="back-link">
+  <%= link_to root_path do %>
+  <p>  <i class="fa-solid fa-walkie-talkie"></i></p>
+  <% end %>
+</div>
 
-<li><%= current_user.user_mood&.mood_type %>
+<h2><%= current_user.user_mood&.mood_type %><h/2>
 
 <%# TODO: link to update method in moodcontroller based on submit-button %>
-
+<ul class="moods-card">
 <h2> One mood button link_to method patch </h2>
 <h2> One mood </h2>
 <h2> One mood </h2>
