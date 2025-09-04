@@ -1,48 +1,71 @@
-<h1>Your Friends</h1>
+<div class="container mt-4">
 
-<!-- Pending friend requests -->
-<h2>Pending Requests</h2>
-<% if @pending_requests.any? %>
-  <ul>
-    <% @pending_requests.each do |friendship| %>
-      <li>
-        <%= friendship.user.username %>
-        <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch %>
-        <%= button_to "Reject", friendship_path(friendship, status: "rejected"), method: :patch %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No pending requests.</p>
-<% end %>
+  <h1 class="text-primary mb-4">Your Friends</h1>
 
-<hr>
+  <!-- Pending friend requests -->
+  <h2 class="h5 text-secondary mb-2">Pending Requests</h2>
+  <% if @pending_requests.any? %>
+    <ul class="list-group mb-4">
+      <% @pending_requests.each do |friendship| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span><%= friendship.user.username %></span>
+          <div>
+            <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch, class: "btn btn-sm btn-success me-2" %>
+            <%= button_to "Reject", friendship_path(friendship, status: "rejected"), method: :patch, class: "btn btn-sm btn-danger" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted mb-4">No pending requests.</p>
+  <% end %>
 
-<!-- Accepted friends -->
-<h2>Friends</h2>
-<% if @friends.any? %>
-  <ul>
-    <% @friends.each do |friend| %>
-      <% friendship = Friendship.find_by(user: current_user, friend: friend) || Friendship.find_by(user: friend, friend: current_user) %>
-      <!-- bonne relation quel que soit le sens-->
-      <li>
-        <%= friend.username %>
-        <% if friendship %>
-          <%= button_to "Remove Friend", friendship_path(friendship), method: :delete %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>You have no friends yet.</p>
-<% end %>
+  <hr>
 
-<hr>
+  <!-- Accepted friends -->
+  <h2 class="h5 text-secondary mb-2">Friends</h2>
+  <% if @friends.any? %>
+    <ul class="list-group mb-4">
+      <% @friends.each do |friend| %>
+        <% friendship = Friendship.find_by(user: current_user, friend: friend) || Friendship.find_by(user: friend, friend: current_user) %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span><%= friend.username %></span>
+          <% if friendship %>
+            <%= button_to "Remove Friend", friendship_path(friendship), method: :delete, class: "btn btn-sm btn-outline-danger" %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted mb-4">You have no friends yet.</p>
+  <% end %>
 
-<!-- Send new friend request -->
-<h2>Send Friend Request</h2>
-<%= form_with url: friendships_path, local: true do |f| %>
-  <%= label_tag :friend_username, "Friend's Username" %>
-  <%= text_field_tag :friend_username %>
-  <%= f.submit "Send Request" %>
-<% end %>
+  <hr>
+
+  <!-- Send new friend request -->
+  <h2 class="h5 text-secondary mb-2">Send Friend Request</h2>
+  <%= form_with url: friendships_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
+    <div class="col-auto">
+      <%= label_tag :friend_username, "Friend's Username", class: "form-label" %>
+      <%= text_field_tag :friend_username, nil, class: "form-control" %>
+    </div>
+    <div class="col-auto mt-4">
+      <%= f.submit "Send Request", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <hr>
+
+  <!-- Create a New Chat Room -->
+  <h2 class="h5 text-secondary mb-2">Create a New Chat Room</h2>
+  <%= form_with model: ChatRoom.new, url: chat_rooms_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
+    <div class="col-auto">
+      <%= f.label :name, "Chat Name", class: "form-label" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="col-auto mt-4">
+      <%= f.submit "Create Chat", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+</div>

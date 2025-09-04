@@ -1,0 +1,11 @@
+=> 
+[[32m#<User id: 1, email: "rosanne@marks.example", created_at: "2025-09-04 19:39:54.986546000 +0000", updated_at: "2025-09-04 19:39:54.986546000 +0000", username: "evita_pollich", total_xp: 1.0>[0m,
+ [32m#<User id: 2, email: "bridgette@oconner.test", created_at: "2025-09-04 19:39:55.151443000 +0000", updated_at: "2025-09-04 19:39:55.151443000 +0000", username: "pauline", total_xp: 1480.0>[0m,
+ [32m#<User id: 3, email: "del.bernier@turcotte.test", created_at: "2025-09-04 19:39:55.316101000 +0000", updated_at: "2025-09-04 19:39:55.316101000 +0000", username: "minh", total_xp: 1118.0>[0m,
+ [32m#<User id: 4, email: "bret.tremblay@glover.example", created_at: "2025-09-04 19:39:55.481015000 +0000", updated_at: "2025-09-04 19:39:55.481015000 +0000", username: "fatimah", total_xp: 1144.0>[0m,
+ [32m#<User id: 5, email: "pierre@koepp-cole.test", created_at: "2025-09-04 19:39:55.647426000 +0000", updated_at: "2025-09-04 19:39:55.647426000 +0000", username: "un.skiles", total_xp: 4663.0>[0m,
+ [32m#<User id: 6, email: "pennie@wehner.test", created_at: "2025-09-04 19:39:55.809262000 +0000", updated_at: "2025-09-04 19:39:55.809262000 +0000", username: "rick", total_xp: 3741.0>[0m,
+ [32m#<User id: 7, email: "nicholle@bergnaum.test", created_at: "2025-09-04 19:39:55.971978000 +0000", updated_at: "2025-09-04 19:39:55.971978000 +0000", username: "leila.davis", total_xp: 931.0>[0m,
+ [32m#<User id: 8, email: "oretha@russel.example", created_at: "2025-09-04 19:39:56.141881000 +0000", updated_at: "2025-09-04 19:39:56.141881000 +0000", username: "hung", total_xp: 2002.0>[0m,
+ [32m#<User id: 9, email: "bradly@carroll.example", created_at: "2025-09-04 19:39:56.307135000 +0000", updated_at: "2025-09-04 19:39:56.307135000 +0000", username: "mao", total_xp: 4349.0>[0m,
+ [32m#<User id: 10, email: "claudia@witting.test", created_at: "2025-09-04 19:39:56.470084000 +0000", updated_at: "2025-09-04 19:39:56.470084000 +0000", username: "waldo_cummerata", total_xp: 4519.0>[0m]

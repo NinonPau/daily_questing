@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_04_194827) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_04_200039) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,6 +37,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_04_194827) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "creator_id"
+    t.index ["creator_id"], name: "index_chat_rooms_on_creator_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -101,6 +103,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_04_194827) do
   add_foreign_key "chat_messages", "users", column: "sender_id"
   add_foreign_key "chat_room_users", "chat_rooms"
   add_foreign_key "chat_room_users", "users"
+  add_foreign_key "chat_rooms", "users", column: "creator_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "messages", "users", column: "recipient_id"

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :chat_messages
   has_many :chat_rooms, through: :chat_messages
   has_many :chat_messages, foreign_key: :sender_id, dependent: :destroy
+  has_many :created_chat_rooms, class_name: "ChatRoom", foreign_key: :creator_id, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

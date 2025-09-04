@@ -33,9 +33,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :chat_rooms, only: [:index, :show] do
+  resources :chat_rooms, only: [:index, :show, :create, :destroy] do
     member do
       post :create_message
+      post :invite
     end
   end
 end
