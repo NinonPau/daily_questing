@@ -22,4 +22,5 @@ Rails.application.routes.draw do
       post :random
     end
   end
+  resources :friendships, only: [:index, :create, :update, :destroy]
 end

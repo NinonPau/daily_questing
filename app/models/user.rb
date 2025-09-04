@@ -1,5 +1,14 @@
 class User < ApplicationRecord
   has_many :tasks
+  # current user accept many frineds that actualy accept my invitation
+  has_many :friendships
+  has_many :friends, -> { where(friendships: { status: "accepted" }) }, through: :friendships # way to do condition insinde a has_many
+  # i am on many friends list is they accept my invitation
+  has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
+  has_many :inverse_friends, -> { where(friendships: { status: "accepted" }) }, through: :inverse_friendships, source: :user
+  # permet current_user.friends> fiend i accepted / current_user.inverse_friends > the one that add me
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,5 +23,5 @@ class User < ApplicationRecord
   def mood_type_or_default
     user_mood&.mood_type || "Unknown"
   end
-  
+
 end

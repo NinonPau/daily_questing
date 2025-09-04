@@ -1,0 +1,48 @@
+<h1>Your Friends</h1>
+
+<!-- Pending friend requests -->
+<h2>Pending Requests</h2>
+<% if @pending_requests.any? %>
+  <ul>
+    <% @pending_requests.each do |friendship| %>
+      <li>
+        <%= friendship.user.username %>
+        <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch %>
+        <%= button_to "Reject", friendship_path(friendship, status: "rejected"), method: :patch %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No pending requests.</p>
+<% end %>
+
+<hr>
+
+<!-- Accepted friends -->
+<h2>Friends</h2>
+<% if @friends.any? %>
+  <ul>
+    <% @friends.each do |friend| %>
+      <% friendship = Friendship.find_by(user: current_user, friend: friend) || Friendship.find_by(user: friend, friend: current_user) %>
+      <!-- bonne relation quel que soit le sens-->
+      <li>
+        <%= friend.username %>
+        <% if friendship %>
+          <%= button_to "Remove Friend", friendship_path(friendship), method: :delete %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You have no friends yet.</p>
+<% end %>
+
+<hr>
+
+<!-- Send new friend request -->
+<h2>Send Friend Request</h2>
+<%= form_with url: friendships_path, local: true do |f| %>
+  <%= label_tag :friend_username, "Friend's Username" %>
+  <%= text_field_tag :friend_username %>
+  <%= f.submit "Send Request" %>
+<% end %>
