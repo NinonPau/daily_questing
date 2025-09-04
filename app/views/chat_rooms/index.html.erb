@@ -1,0 +1,12 @@
+<h1>Chat Rooms</h1>
+
+<ul>
+  <% @chat_rooms.each do |room| %>
+    <li>
+      <%= link_to room.name, chat_room_path(room), class: "btn btn-primary mb-2" %>
+      <small>(<%= room.chat_messages.count %> messages)</small>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Back to Home", root_path, class: "btn btn-secondary mt-3" %>

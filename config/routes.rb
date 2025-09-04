@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'chat_rooms/index'
+  get 'chat_rooms/show'
+  get 'chats/index'
+  get 'chats/create'
   devise_for :users
   root to: "pages#home"
 
@@ -22,5 +26,16 @@ Rails.application.routes.draw do
       post :random
     end
   end
-  resources :friendships, only: [:index, :create, :update, :destroy]
+  resources :friendships, only: [:index, :create, :update, :destroy] do
+    member do
+      patch :accept
+      patch :reject
+    end
+  end
+
+  resources :chat_rooms, only: [:index, :show] do
+    member do
+      post :create_message
+    end
+  end
 end

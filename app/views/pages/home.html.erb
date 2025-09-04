@@ -31,7 +31,12 @@
     <!-- New Friendship Button -->
     <%= link_to "Manage Friends", friendships_path, class: "btn btn-info btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
   </div>
+    <!-- Nouveau bouton Chat -->
+    <div class="d-flex justify-content-center flex-wrap gap-3 my-4">
+      <%= link_to "Chat Rooms", chat_rooms_path, class: "btn btn-info btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    </div>
+</div>
+
 <% else %>
   <%= render "public_home" %>
 <% end %>
-

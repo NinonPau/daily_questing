@@ -7,8 +7,9 @@ class User < ApplicationRecord
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inverse_friends, -> { where(friendships: { status: "accepted" }) }, through: :inverse_friendships, source: :user
   # permet current_user.friends> fiend i accepted / current_user.inverse_friends > the one that add me
-
-
+  has_many :chat_messages
+  has_many :chat_rooms, through: :chat_messages
+  has_many :chat_messages, foreign_key: :sender_id, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
