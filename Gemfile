@@ -78,3 +78,5 @@ end
 
 # authorization
 gem "pundit"
+
+

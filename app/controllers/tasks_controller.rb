@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:complete]
 
   def index
-    @tasks = current_user.tasks
+    @tasks = current_user.tasks.where(date: Date.today) # print only the task of today
   end
 
   def new
@@ -15,6 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.new(task_params)
+    @task.date ||= Date.today unless @task.daily? # if its not daily quest they get the date of today
     if @task.save
       redirect_to new_task_path, notice: "Quest successfully created!"
     else
@@ -39,7 +40,7 @@ class TasksController < ApplicationController
       render :home, status: :unprocessable_entity
     end
   end
-  
+
   def edit
     @task = Task.find(params[:id])
   end
@@ -66,7 +67,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :daily, :xp)
+    params.require(:task).permit(:name, :description, :daily, :xp, :date)
   end
 
   def set_task

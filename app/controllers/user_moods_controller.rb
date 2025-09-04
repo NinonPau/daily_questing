@@ -1,13 +1,9 @@
 class UserMoodsController < ApplicationController
-
+  before_action :authenticate_user!
+  
   def index
-    # @moods = UserMood.all
     @user_mood = current_user.user_mood
   end
-
-
-
-  #patch method to update the user_mood based on the mood_type
 
   def update
     @user_mood = UserMood.find(params[:id])
@@ -15,7 +11,6 @@ class UserMoodsController < ApplicationController
     @user_mood.save
     redirect_to root_path
   end
-
 
   private
 
