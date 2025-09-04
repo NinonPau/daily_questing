@@ -44,13 +44,14 @@
 
           <div class="card-footer text-center" style="border-radius:0 0 15px 15px;">
             <% unless quest.completed %>
-              <% unless quest.ignored %>
-                <%= button_to "Mark as Freeze", ignore_task_path(quest), method: :patch,
-                  class: "btn btn-danger btn-sm", style: "min-width:120px;" %>
-                <%= button_to "Mark as Done", complete_task_path(quest), method: :patch,
+              <%= button_to "Mark as Done", complete_task_path(quest), method: :patch,
                   class: "btn btn-success btn-sm", style: "min-width:120px;" %>
-              <% end %>
-              <% end %>
+            <% end %>
+
+            <% unless quest.ignored %>
+              <%= button_to "Mark as Freeze", ignore_task_path(quest), method: :patch,
+                  class: "btn btn-danger btn-sm", style: "min-width:120px;" %>
+            <% end %>
           </div>
         </div>
       </div>
