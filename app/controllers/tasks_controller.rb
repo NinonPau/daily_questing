@@ -65,12 +65,12 @@ class TasksController < ApplicationController
   end
 
   def ignore
-    @task = current_user.task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
     if @task.update(ignored: true)
-      respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to tasks_path, notice: "You freezed the quest '#{@task.name}'!" }
-      end
+      # respond_to do |format|
+      # format.turbo_stream
+      # format.html
+      redirect_to tasks_path, notice: "You freezed the quest '#{@task.name}'!"
     else
       redirect_to tasks_path
     end

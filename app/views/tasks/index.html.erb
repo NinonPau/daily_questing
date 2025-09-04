@@ -41,7 +41,7 @@
             <% unless quest.completed %>
               <%= button_to "Mark as Done", complete_task_path(quest), method: :patch,
                   class: "btn btn-success btn-sm", style: "min-width:120px;" %>
-              <%= button_to "Mark as Freeze", method: :patch, class: "btn btn-success btn-sm", style: "min-width:120px;" %>
+              <%= button_to "Mark as Freeze", ignore_task_path(quest), method: :patch, class: "btn btn-success btn-sm", style: "min-width:120px;", data: { turbo_stream: true } %>
             <% end %>
           </div>
         </div>
