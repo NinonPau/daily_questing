@@ -4,7 +4,7 @@
 
 <div class="moods-card">
   <ul>
-
+    <%# button for initial selection and then make it vanish afterwards %>
     <li> <i class="fa-solid fa-face-smile-wink"></i> Amazing
       <%= simple_form_for @user_mood do |f| %>
         <%= f.hidden_field :mood_type, value: "Amazing" %>
