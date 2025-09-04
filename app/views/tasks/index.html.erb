@@ -11,7 +11,11 @@
     <% current_user.tasks.where(date: Date.today).each do |quest| %>
     <!--only the task of the day are display -->
       <div class="mb-4">
-        <div class="card shadow-sm" style="border-radius:15px; background-color:#f9f9f9;">
+          <% if quest.ignored? %>
+        <div class="card shadow-sm" style="background-color: grey">
+          <% else %>
+          <div class="card shadow-sm" style="background-color: red">
+            <% end %>
           <div class="card-header d-flex justify-content-between align-items-center"
                style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
             <span><%= quest.name %></span>
@@ -68,11 +72,11 @@
       </div>
     </div>
 
-  <!-- Freeze method -->
-    <%= "background-color: grey;" if quests.ignored %>
-      <h5><%= quest.name %></h5>
-      <p><%= quest.description %></p>
-  </div>
+  <%# <!-- Freeze method -->
+     <div class = "freezed" style="background-color: <%= @task.ignored ? 'grey' : '' %>
+      <%# <p><%= quest.name %></p>
+      <%# <p><%= quest.description %></p>
+
 
     <!-- Modal backdrop -->
     <div class="modal-backdrop fade show"></div>
