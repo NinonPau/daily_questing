@@ -1,5 +1,5 @@
 
-<h2>Your current Mood: <%= current_user.user_mood&.mood_type %></h2>
+<h2>Your current Mood: <%= current_user.user_mood ? current_user.user_mood.mood_type : "Not logged" %></h2>
 
 
 <div class="moods-card">

@@ -6,9 +6,14 @@ class UserMoodsController < ApplicationController
   end
 
   # change create method and attach it to first button press
-  
+
   def create
-    @user_mood = UserMood.find(params[:id])
+    @user_mood = UserMood.new(strong_params)
+    if @user_mood.save
+      redirect_to user_moods_path()
+    else
+      render :home, status: :unprocessable_entity
+    end
   end
 
   def update
