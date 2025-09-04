@@ -64,13 +64,11 @@ class TasksController < ApplicationController
     end
   end
 
-  def freeze
-    def freeze
-    @task = Task.find(params[:id])
-    @task.update(frozen: true)
-    redirect_to tasks_path, notice:
-  end
-  end
+  # def freeze
+    # @task = Task.find(params[:id])
+    # @task.update(frozen: true)
+    # redirect_to tasks_path,
+  # end
 
   private
 
