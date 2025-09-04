@@ -66,8 +66,7 @@ class TasksController < ApplicationController
 
   def ignore
     @task = current_user.task.find(params[:id])
-    if @task.update(completed: true)
-      current_user.add_xp(@task.xp || 0)
+    if @task.update(ignored: true)
       redirect_to tasks_path, notice: "You freezed the quest '#{@task.name}'!"
     else
       redirect_to tasks_path
