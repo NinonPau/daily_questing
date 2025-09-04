@@ -64,10 +64,14 @@ class TasksController < ApplicationController
     end
   end
 
-  # def freeze
-    # @task = Task.find(params[:id])
-    # @task.update(frozen: true)
-    # redirect_to tasks_path,
+  # def ignore
+    # @task = current_user.task.find(params[:id])
+  #   if @task.update(completed: true)
+  #     current_user.add_xp(@task.xp || 0)
+  #     redirect_to tasks_path, notice: "You completed the quest '#{@task.name}'!"
+  #   else
+  #     redirect_to tasks_path, alert: "Could not complete the quest."
+  #   end
   # end
 
   private
