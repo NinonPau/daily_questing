@@ -1,23 +1,31 @@
 # frozen_string_literal: true
 
 class ApplicationPolicy
-  
+  attr_reader :user, :record
+
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
+
   def index?
-    true
+    false
   end
 
   def show?
-    # user can see is own pages
-    record.user == user  # || user.friends.include?(record.user) --for friend feature
+    false
   end
 
   def create?
-    true # all user can create task
+    false
+  end
+
+  def new?
+    create?
   end
 
   def update?
-    # user can only modify is own task
-    record.user == user
+    false
   end
 
   def edit?
@@ -25,13 +33,21 @@ class ApplicationPolicy
   end
 
   def destroy?
-    record.user == user
+    false
   end
 
- # class Scope < Scope - tadd with friend feature?
-   # def resolve
+  class Scope
+    def initialize(user, scope)
+      @user = user
+      @scope = scope
+    end
 
-     # scope.where(user: [user])  + user.friends
-    #end
-  #end
+    def resolve
+      raise NoMethodError, "You must define #resolve in #{self.class}"
+    end
+
+    private
+
+    attr_reader :user, :scope
+  end
 end
