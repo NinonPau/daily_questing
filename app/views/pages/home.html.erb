@@ -19,11 +19,11 @@
   <div class="d-flex justify-content-center flex-wrap gap-3 my-4">
     <%= link_to "Add Special Quest", new_task_path, class: "btn btn-primary btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <%= link_to "View Quests", tasks_path, class: "btn btn-success btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-
-    <%= simple_form_for :user_mood, url: user_moods_path do |f| %>
-      <%= f.submit "Log Mood", class: "btn btn-warning btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <% if current_user.user_mood %>
+      <%= link_to "Update Mood", edit_user_mood_path(current_user.user_mood), class: "btn btn-warning btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;"  %>
+    <% else %>
+      <%= link_to "Log Mood", new_user_mood_path, class: "btn btn-warning btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;"  %>
     <% end %>
-
     <%= simple_form_for :task, url: random_tasks_path do |f| %>
       <%= f.submit "Random Quest", class: "btn btn-pink btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <% end %>
