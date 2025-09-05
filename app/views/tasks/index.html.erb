@@ -49,10 +49,12 @@
                     class: "btn btn-primary btn-sm", style: "min-width:120px;" %>
             <% else %>
               <%= button_to "Mark as Done", complete_task_path(quest), method: :patch,
-                    class: "btn btn-success btn-sm", style: "min-width:120px;" %>
+                    class: "btn btn-success btn-sm", style: "min-width:120px;",
+                    form: { style: "display:inline-block;" } %>
 
                 <%= button_to "Mark as Freeze", ignore_task_path(quest), method: :patch,
-                    class: "btn btn-warning btn-sm", style: "min-width:120px;" %>
+                    class: "btn btn-warning btn-sm", style: "min-width:120px;",
+                    form: { style: "display:inline-block;" } %>
 
             <% end %>
             <% end %>
