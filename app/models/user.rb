@@ -11,8 +11,4 @@ class User < ApplicationRecord
     update(total_xp: current_total + amount.to_f * self.user_mood.xp_bonus)
   end
 
-  def mood_type_or_default
-    user_mood&.mood_type || "Unknown"
-  end
-
 end
