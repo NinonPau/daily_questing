@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
 
   before_action :configure_permitted_parameters, if: :devise_controller?#step one to change automatique form of registration (+ username)
   before_action :reset_daily_tasks
-  
+
   protected
 
   def configure_permitted_parameters
