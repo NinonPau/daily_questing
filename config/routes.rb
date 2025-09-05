@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   devise_for :users
   root to: "pages#home"
 
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
+  
   resources :tasks, only: [:index, :new, :create, :edit, :update] do
     member do
       patch :complete, :ignore, :unignore
@@ -22,4 +23,20 @@ Rails.application.routes.draw do
       post :random
     end
   end
+  resources :friendships, only: [:index, :create, :update, :destroy] do
+    member do
+      patch :accept
+      patch :reject
+    end
+  end
+
+  resources :chat_rooms, only: [:index, :show, :create, :destroy] do
+    member do
+      post :create_message
+      post :invite
+    end
+  end
+  
+  rescources :chats, only: [:index, :create]
+  
 end
