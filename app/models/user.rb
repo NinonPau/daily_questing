@@ -16,9 +16,18 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one :user_mood
 
+   after_create :set_default_mood
+
   def add_xp(amount)
     current_total = total_xp || 0
-    update(total_xp: current_total + amount.to_f * self.user_mood.xp_bonus)
+    bonus = user_mood&.xp_bonus || 1.0 #
+    update(total_xp: current_total + amount.to_f * bonus)
+  end
+
+  private
+
+  def set_default_mood #
+    create_user_mood(xp_bonus: 1.0) unless user_mood.present?
   end
 
 end

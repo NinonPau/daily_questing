@@ -1,34 +1,35 @@
 class ChatRoomsController < ApplicationController
   before_action :authenticate_user!
 
+  # Create a new chat room
   def create
-    @chat_room = current_user.created_chat_rooms.build(chat_room_params)# new chat room
+    @chat_room = ChatRoom.new(chat_room_params) # no creator_id in schema
     if @chat_room.save
-      @chat_room.users << current_user # add current user to chat room
+      @chat_room.users << current_user # Add current user as the "creator"
       redirect_to chat_room_path(@chat_room)
     else
       render status: :unprocessable_entity
     end
   end
 
+  # List of chat rooms the current user is part of
   def index
-    # Liste of chat where the user is invited or create it
     @chat_rooms = ChatRoom.joins(:users).where(users: { id: current_user.id })
   end
 
+  # Show chat room with messages
   def show
-    # Display the messages of a specific chat
     @chat_room = ChatRoom.find(params[:id])
     @messages = @chat_room.chat_messages.order(created_at: :asc)
     @new_message = ChatMessage.new
   end
 
+  # Create a message in a chat room
   def create_message
     @chat_room = ChatRoom.find(params[:id])
-
     @message = ChatMessage.new(message_params)
     @message.chat_room = @chat_room
-    @message.sender = current_user
+    @message.user = current_user # matches your schema column "user_id"
 
     if @message.save
       redirect_to chat_room_path(@chat_room)
@@ -37,9 +38,10 @@ class ChatRoomsController < ApplicationController
     end
   end
 
+  # Destroy a chat room — only allow first user as "creator" to delete
   def destroy
     @chat_room = ChatRoom.find(params[:id])
-    if @chat_room.creator == current_user # only the creator can delete
+    if @chat_room.users.first == current_user
       @chat_room.destroy
       redirect_to chat_rooms_path, notice: "Chat deleted."
     else
@@ -47,20 +49,17 @@ class ChatRoomsController < ApplicationController
     end
   end
 
+  # Invite a user to a chat room — only allow first user as "creator"
   def invite
     @chat_room = ChatRoom.find(params[:id])
-    if @chat_room.creator == current_user #only the creator can invite
+    if @chat_room.users.first == current_user
       user_to_invite = User.find(params[:user_id])
       @chat_room.users << user_to_invite unless @chat_room.users.include?(user_to_invite)
-      #check if invitee is not already in chat room and add him
-      redirect_to chat_room_path(@chat_room), notice: "#{user_to_invite.username} guest."
-      flash[:notice] = "#{user_to_invite.username} have been invited."
+      redirect_to chat_room_path(@chat_room), notice: "#{user_to_invite.username} has been invited."
     else
-      redirect_to chat_room_path(@chat_room), alert: "Only the creator can delete the chat."
+      redirect_to chat_room_path(@chat_room), alert: "Only the creator can invite users."
     end
   end
-
-
 
   private
 
@@ -69,7 +68,6 @@ class ChatRoomsController < ApplicationController
   end
 
   def message_params
-  params.require(:chat_message).permit(:content)
+    params.require(:chat_message).permit(:content)
   end
-
 end

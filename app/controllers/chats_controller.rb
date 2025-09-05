@@ -7,7 +7,9 @@ class ChatsController < ApplicationController
   end
 
   def create
-    @message = ChatMessage.new(message_params)
+    @chat_room = ChatRoom.find(params[:chat_room_id])
+    @message = @chat_room.chat_messages.build(message_params)
+    @message.sender = current_user
     if @message.save
       redirect_to chats_path, notice: "Message sent!"
     else
