@@ -9,9 +9,9 @@ class ChatsController < ApplicationController
   def create
     @message = ChatMessage.new(message_params)
     if @message.save
-      redirect_to chats_path, notice: "Message envoyé !"
+      redirect_to chats_path, notice: "Message sent!"
     else
-      redirect_to chats_path, alert: "Message  pas envoyé !"
+      redirect_to chats_path, alert: "Message not sent!"
     end
   end
 
