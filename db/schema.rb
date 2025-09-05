@@ -15,11 +15,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_05_114435) do
   enable_extension "plpgsql"
 
   create_table "chat_messages", force: :cascade do |t|
-    t.bigint "sender_id"
     t.text "content"
+    t.bigint "user_id", null: false
+    t.bigint "chat_room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "chat_room_id", null: false
+    t.index ["user_id"], name: "index_chat_messages_on_user_id"
   end
 
   create_table "chat_room_users", force: :cascade do |t|
@@ -33,21 +34,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_05_114435) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "creator_id"
   end
 
   create_table "friendships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "friend_id", null: false
     t.string "status", default: "pending"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.bigint "sender_id"
-    t.bigint "recipient_id"
-    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,14 +82,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_05_114435) do
   end
 
   add_foreign_key "chat_messages", "chat_rooms"
-  add_foreign_key "chat_messages", "users", column: "sender_id"
+  add_foreign_key "chat_messages", "users"
   add_foreign_key "chat_room_users", "chat_rooms"
   add_foreign_key "chat_room_users", "users"
-  add_foreign_key "chat_rooms", "users", column: "creator_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
-  add_foreign_key "messages", "users", column: "recipient_id"
-  add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "tasks", "users"
   add_foreign_key "user_moods", "users"
 end
