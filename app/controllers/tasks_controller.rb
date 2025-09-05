@@ -15,7 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.new(task_params)
-    @task.date ||= Date.today unless @task.daily? # if its not daily quest they get the date of today
+    @task.date = Date.today # Automatically set today's date when created, even if daily, to make it appear in list
     if @task.save
       redirect_to new_task_path, notice: "Quest successfully created!"
     else
@@ -33,7 +33,8 @@ class TasksController < ApplicationController
       description: "Type of quest: #{activity["type"]} -
                     Number of participants recommended: #{activity["participants"]}
                     #{activity["link"] == "" ? "" : " - Link: #{activity["link"]}"}",
-      xp: 20)
+      xp: 20,
+      date: Date.today)
     if @task.save
       redirect_to tasks_path, notice: "Quest successfully created!"
     else
@@ -58,9 +59,27 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find(params[:id])
     if @task.update(completed: true)
       current_user.add_xp(@task.xp || 0)
-      redirect_to tasks_path, notice: "You completed the quest '#{@task.name}'!"
+      redirect_to tasks_path, notice: "Congratulations, You completed the quest '#{@task.name}'!"
     else
       redirect_to tasks_path, alert: "Could not complete the quest."
+    end
+  end
+
+  def ignore
+    @task = current_user.tasks.find(params[:id])
+    if @task.update(ignored: true)
+      redirect_to tasks_path, notice: "You freezed the quest '#{@task.name}'!"
+    else
+      redirect_to tasks_path
+    end
+  end
+
+  def unignore
+    @task = current_user.tasks.find(params[:id])
+    if @task.update(ignored: false)
+      redirect_to tasks_path, notice: "You unfreezed the quest '#{@task.name}'!"
+    else
+      redirect_to tasks_path
     end
   end
 
