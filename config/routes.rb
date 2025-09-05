@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :tasks, only: [:index, :new, :create, :edit, :update] do
     member do
-      patch :complete
+      patch :complete, :ignore, :unignore
     end
     collection do
       post :random
