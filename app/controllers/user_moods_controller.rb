@@ -22,18 +22,21 @@ class UserMoodsController < ApplicationController
   def update
     @user_mood = UserMood.find(params[:id])
     @user_mood.update(strong_params)
+    @user_mood.xp_bonus = set_xp_bonus
     @user_mood.save
     redirect_to root_path
   end
 
   private
 
-  # def xp_bonus
-  #   case mood.name
-  #   when "Amazing" then 0.25
-  #   when ""
-  #   end
-  # end
+  def set_xp_bonus
+    case @user_mood.mood_type
+    when "Amazing" then 1.25
+    when "Good" then 1.5
+    when "Ok'ish" then 2.0
+    when "Bad" then 3.0
+    end
+  end
 
   def strong_params
     params.require(:user_mood).permit(:mood_type, :xp_bonus, :date)

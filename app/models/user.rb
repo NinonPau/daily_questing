@@ -18,11 +18,7 @@ class User < ApplicationRecord
 
   def add_xp(amount)
     current_total = total_xp || 0
-    update(total_xp: current_total + amount.to_f)
-  end
-
-  def mood_type_or_default
-    user_mood&.mood_type || "Unknown"
+    update(total_xp: current_total + amount.to_f * self.user_mood.xp_bonus)
   end
 
 end
