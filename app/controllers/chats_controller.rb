@@ -9,7 +9,7 @@ class ChatsController < ApplicationController
   def create
     @message = ChatMessage.new(message_params)
     if @message.save
-      redirect_to chats_path, notice: "Message envoyé !"  
+      redirect_to chats_path, notice: "Message envoyé !"
     else
       redirect_to chats_path, alert: "Message  pas envoyé !"
     end
@@ -18,6 +18,6 @@ class ChatsController < ApplicationController
   private
 
   def message_params
-    params.require(:chat_message).permit(:author, :content)
+    params.require(:chat_message).permit(:content)
   end
 end

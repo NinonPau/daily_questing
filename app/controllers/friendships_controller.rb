@@ -4,8 +4,9 @@ before_action :authenticate_user!
   def index
     @friends = current_user.friends + current_user.inverse_friends
     # return all user you added as friend and have been accepted + return all  users who added you and you accepted
-    @pending_requests = current_user.inverse_friendships.where(status: "pending")
+    @pending_requests_received = current_user.inverse_friendships.where(status: "pending")
     # bring all the frendships in db and filtered if pending or not
+    @pending_requests_sent = current_user.friendships.where(status: "pending")
   end
 
   def create
@@ -32,11 +33,11 @@ before_action :authenticate_user!
 
   def update
     @friendship = Friendship.find(params[:id])
-    # dring the friendship record from the database with the ID provided in the URL
-    @friendship.update(status: params[:status])
-    # changed the staus of the invit done/reject(pending)
-    redirect_to friendships_path, notice: "Friend removed successfully."
-    # after delet go back to friend ship page ("missing template")
+    if @friendship.update(status: params[:status])
+      redirect_to friendships_path, notice: "Friend request updated."
+    else
+      redirect_to friendships_path, alert: "Something went wrong."
+    end
   end
 
   def destroy
