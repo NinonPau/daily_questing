@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<<div class="container mt-4">
 
   <!-- Chat Room Name -->
   <h1 class="text-primary mb-3 text-center"><%= @chat_room.name %></h1>
@@ -14,11 +14,11 @@
   <!-- Invite a Friend (if creator) -->
   <% if @chat_room.creator == current_user %>
     <div class="mb-4 text-center">
-      <%= form_with url: invite_chat_room_path(@chat_room), method: :post, html: { class: "d-inline-block" } do |f| %>
-        <!-- drop down menu friends/ hide friend that have been added -->
+      <%= form_with url: invite_chat_room_path(@chat_room), method: :post, local: true, html: { class: "d-inline-block" } do |f| %>
+        <%# Dropdown: only friends not already in the chat room %>
         <%= select_tag :user_id,
           options_from_collection_for_select(
-            current_user.friends.where.not(id: @chat_room.users.pluck(:id)),
+            (current_user.friends + current_user.inverse_friends).uniq.reject { |u| @chat_room.users.include?(u) },
             :id,
             :username
           ),
@@ -27,7 +27,9 @@
         %>
         <%= f.submit "Invite", class: "btn btn-warning ms-2" %>
       <% end %>
-      <% flash.each do |key, message| %> <div class="flash <%= key %>"> <%= message %> </div>
+
+      <% flash.each do |key, message| %>
+        <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> mt-2"><%= message %></div>
       <% end %>
     </div>
   <% end %>
@@ -52,11 +54,5 @@
     </div>
   <% end %>
 
-  <!-- Flash messages -->
-  <% flash.each do |key, message| %>
-    <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> text-center">
-      <%= message %>
-    </div>
-  <% end %>
-
 </div>
+

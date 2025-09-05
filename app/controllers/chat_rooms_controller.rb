@@ -12,8 +12,8 @@ class ChatRoomsController < ApplicationController
   end
 
   def index
-    # Liste de tous les chats ouverts
-    @chat_rooms = ChatRoom.all
+    # Liste of chat wher the user is invited or create it
+    @chat_rooms = ChatRoom.joins(:users).where(users: { id: current_user.id })
   end
 
   def show

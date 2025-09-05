@@ -7,6 +7,8 @@ before_action :authenticate_user!
     @pending_requests_received = current_user.inverse_friendships.where(status: "pending")
     # bring all the frendships in db and filtered if pending or not
     @pending_requests_sent = current_user.friendships.where(status: "pending")
+    @chat_room = ChatRoom.new
+    # empty instance permit to link the form for chat room 
   end
 
   def create
