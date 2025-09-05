@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  get 'chat_rooms/index'
-  get 'chat_rooms/show'
-  get 'chats/index'
-  get 'chats/create'
+  
   devise_for :users
   root to: "pages#home"
 
@@ -17,7 +14,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
+  
   resources :tasks, only: [:index, :new, :create, :edit, :update] do
     member do
       patch :complete, :ignore, :unignore
@@ -39,4 +36,7 @@ Rails.application.routes.draw do
       post :invite
     end
   end
+  
+  rescources :chats, only: [:index, :create]
+  
 end
