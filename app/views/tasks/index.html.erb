@@ -47,22 +47,15 @@
               <%= button_to "Mark as Done", complete_task_path(quest), method: :patch,
                   class: "btn btn-success btn-sm", style: "min-width:120px;" %>
 
-            <% unless quest.ignored %>
-              <%= button_to "Mark as Freeze", ignore_task_path(quest), method: :patch,
-                  class: "btn btn-warning btn-sm", style: "min-width:120px;" %>
-
-            <% if quest.ignore %>
+            <% if quest.ignored %>
                 <%= button_to "Unfreeze", unignore_task_path(quest), method: :patch,
                     class: "btn btn-primary btn-sm", style: "min-width:120px;" %>
             <% else %>
                 <%= button_to "Mark as Freeze", ignore_task_path(quest), method: :patch,
                     class: "btn btn-warning btn-sm", style: "min-width:120px;" %>
-            <%# <% unless quest.ignored %>
-              <%# <% button_to "Unfreeze", ignore_task_path(quest), method: :patch, %>
-                  <%# class: "btn btn-primary btn-sm", style: "min-width:120px;" %>
+
             <% end %>
             <% end %>
-            <%# <% end %>
           </div>
         </div>
       </div>
