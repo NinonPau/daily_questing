@@ -73,6 +73,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def unignore
+    @task = current_user.tasks.find(params[:id])
+    if @task.update(ignored: false)
+      redirect_to tasks_path, notice: "You unfreezed the quest '#{@task.name}'!"
+    else
+      redirect_to tasks_path
+    end
+  end
+
   private
 
   def task_params
