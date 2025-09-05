@@ -15,7 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.new(task_params)
-    @task.date ||= Date.today unless @task.daily? # if its not daily quest they get the date of today
+    @task.date = Date.today # Automatically set today's date when created, even if daily, to make it appear in list
     if @task.save
       redirect_to new_task_path, notice: "Quest successfully created!"
     else
@@ -33,7 +33,8 @@ class TasksController < ApplicationController
       description: "Type of quest: #{activity["type"]} -
                     Number of participants recommended: #{activity["participants"]}
                     #{activity["link"] == "" ? "" : " - Link: #{activity["link"]}"}",
-      xp: 20)
+      xp: 20,
+      date: Date.today)
     if @task.save
       redirect_to tasks_path, notice: "Quest successfully created!"
     else
