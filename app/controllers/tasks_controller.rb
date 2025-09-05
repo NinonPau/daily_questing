@@ -33,7 +33,8 @@ class TasksController < ApplicationController
       description: "Type of quest: #{activity["type"]} -
                     Number of participants recommended: #{activity["participants"]}
                     #{activity["link"] == "" ? "" : " - Link: #{activity["link"]}"}",
-      xp: 20)
+      xp: 20,
+      date: Date.today)
     if @task.save
       redirect_to tasks_path, notice: "Quest successfully created!"
     else
