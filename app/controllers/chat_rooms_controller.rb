@@ -12,12 +12,12 @@ class ChatRoomsController < ApplicationController
   end
 
   def index
-    # Liste of chat wher the user is invited or create it
+    # Liste of chat where the user is invited or create it
     @chat_rooms = ChatRoom.joins(:users).where(users: { id: current_user.id })
   end
 
   def show
-    # Affiche les messages d’un chat spécifique
+    # Display the messages of a specific chat
     @chat_room = ChatRoom.find(params[:id])
     @messages = @chat_room.chat_messages.order(created_at: :asc)
     @new_message = ChatMessage.new
