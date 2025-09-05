@@ -38,7 +38,7 @@
   <div id="messages" class="border border-primary rounded p-3 mb-4" style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa;">
     <% @messages.each do |message| %>
       <div class="mb-2">
-        <div class="fw-bold text-primary"><%= message.sender.username %></div>
+        <div class="fw-bold text-primary"><%= message.user.username %></div>
         <div class="p-2 bg-light border rounded"><%= message.content %></div>
         <small class="text-muted"><%= time_ago_in_words(message.created_at) %> ago</small>
       </div>
@@ -55,4 +55,3 @@
   <% end %>
 
 </div>
-

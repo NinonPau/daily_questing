@@ -4,6 +4,7 @@ class ChatRoomsController < ApplicationController
   # Create a new chat room
   def create
     @chat_room = ChatRoom.new(chat_room_params) # no creator_id in schema
+    @chat_room.creator = current_user
     if @chat_room.save
       @chat_room.users << current_user # Add current user as the "creator"
       redirect_to chat_room_path(@chat_room)
