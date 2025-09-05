@@ -15,6 +15,7 @@
   <% if @chat_room.creator == current_user %>
     <div class="mb-4 text-center">
       <%= form_with url: invite_chat_room_path(@chat_room), method: :post, html: { class: "d-inline-block" } do |f| %>
+        <!-- drop down menu friends/ hide friend that have been added -->
         <%= select_tag :user_id,
           options_from_collection_for_select(
             current_user.friends.where.not(id: @chat_room.users.pluck(:id)),

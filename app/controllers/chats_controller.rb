@@ -9,7 +9,7 @@ class ChatsController < ApplicationController
   def create
     @message = ChatMessage.new(message_params)
     if @message.save
-      redirect_to chats_path, notice: "Message envoyé !"  # redirige vers la page HTML
+      redirect_to chats_path, notice: "Message envoyé !"  
     else
       redirect_to chats_path, alert: "Message  pas envoyé !"
     end

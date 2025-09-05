@@ -2,12 +2,12 @@ class ChatRoomsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @chat_room = current_user.created_chat_rooms.build(chat_room_params)
+    @chat_room = current_user.created_chat_rooms.build(chat_room_params)# new chat room
     if @chat_room.save
-      @chat_room.users << current_user
+      @chat_room.users << current_user # add current user to chat room
       redirect_to chat_room_path(@chat_room)
     else
-      render :new
+      render status: :unprocessable_entity
     end
   end
 
@@ -39,7 +39,7 @@ class ChatRoomsController < ApplicationController
 
   def destroy
     @chat_room = ChatRoom.find(params[:id])
-    if @chat_room.creator == current_user
+    if @chat_room.creator == current_user # only the creator can delete
       @chat_room.destroy
       redirect_to chat_rooms_path, notice: "Chat supprimé."
     else
@@ -49,9 +49,10 @@ class ChatRoomsController < ApplicationController
 
   def invite
     @chat_room = ChatRoom.find(params[:id])
-    if @chat_room.creator == current_user
+    if @chat_room.creator == current_user #only the creator can invite
       user_to_invite = User.find(params[:user_id])
       @chat_room.users << user_to_invite unless @chat_room.users.include?(user_to_invite)
+      #check if invitee is not already in chat room and add him
       redirect_to chat_room_path(@chat_room), notice: "#{user_to_invite.username} invité."
       flash[:notice] = "#{user_to_invite.username} a bien été invité dans le chat."
     else
