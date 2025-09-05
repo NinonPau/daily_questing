@@ -41,9 +41,9 @@ class ChatRoomsController < ApplicationController
     @chat_room = ChatRoom.find(params[:id])
     if @chat_room.creator == current_user # only the creator can delete
       @chat_room.destroy
-      redirect_to chat_rooms_path, notice: "Chat supprimé."
+      redirect_to chat_rooms_path, notice: "Chat deleted."
     else
-      redirect_to chat_rooms_path, alert: "Vous n'avez pas le droit de supprimer ce chat."
+      redirect_to chat_rooms_path, alert: "Only the creator can delete the chat."
     end
   end
 
@@ -53,10 +53,10 @@ class ChatRoomsController < ApplicationController
       user_to_invite = User.find(params[:user_id])
       @chat_room.users << user_to_invite unless @chat_room.users.include?(user_to_invite)
       #check if invitee is not already in chat room and add him
-      redirect_to chat_room_path(@chat_room), notice: "#{user_to_invite.username} invité."
-      flash[:notice] = "#{user_to_invite.username} a bien été invité dans le chat."
+      redirect_to chat_room_path(@chat_room), notice: "#{user_to_invite.username} guest."
+      flash[:notice] = "#{user_to_invite.username} have been invited."
     else
-      redirect_to chat_room_path(@chat_room), alert: "Seul le créateur peut inviter."
+      redirect_to chat_room_path(@chat_room), alert: "Only the creator can delete the chat."
     end
   end
 
