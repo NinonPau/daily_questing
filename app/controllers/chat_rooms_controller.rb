@@ -39,10 +39,10 @@ class ChatRoomsController < ApplicationController
     end
   end
 
-  # Destroy a chat room — only allow first user as "creator" to delete
+  # Destroy a chat room
   def destroy
     @chat_room = ChatRoom.find(params[:id])
-    if @chat_room.users.first == current_user
+    if @chat_room.users.creator == current_user
       @chat_room.destroy
       redirect_to chat_rooms_path, notice: "Chat deleted."
     else
@@ -53,7 +53,7 @@ class ChatRoomsController < ApplicationController
   # Invite a user to a chat room — only allow first user as "creator"
   def invite
     @chat_room = ChatRoom.find(params[:id])
-    if @chat_room.users.first == current_user
+    if @chat_room.creator == current_user
       user_to_invite = User.find(params[:user_id])
       @chat_room.users << user_to_invite unless @chat_room.users.include?(user_to_invite)
       redirect_to chat_room_path(@chat_room), notice: "#{user_to_invite.username} has been invited."
