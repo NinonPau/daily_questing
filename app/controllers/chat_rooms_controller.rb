@@ -42,7 +42,7 @@ class ChatRoomsController < ApplicationController
   # Destroy a chat room
   def destroy
     @chat_room = ChatRoom.find(params[:id])
-    if @chat_room.users.creator == current_user
+    if @chat_room.creator == current_user
       @chat_room.destroy
       redirect_to chat_rooms_path, notice: "Chat deleted."
     else
