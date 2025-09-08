@@ -7,5 +7,7 @@ class Friendship < ApplicationRecord
   validates :user_id, presence: true
   #  friendship belong to user
   validates :friend_id, uniqueness: true
-  
+  validates :friend_id, presence: true
+  validates :user_id, presence: true
+  validates :friend_id, uniqueness: { scope: :user_id, message: "is already your friend" }
 end

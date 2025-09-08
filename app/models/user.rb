@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :tasks
+  has_many :partner_tasks, class_name: "Task", foreign_key: "partner_id"
   # current user accept many frineds that actualy accept my invitation
   has_many :friendships
   has_many :friends, -> { where(friendships: { status: "accepted" }) }, through: :friendships # way to do condition insinde a has_many
@@ -16,7 +17,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_one :user_mood
 
-   after_create :set_default_mood
+  after_create :set_default_mood
+  
+  def invited_tasks
+    Task.where(partner_id: id)
+  end
 
   def add_xp(amount)
     current_total = total_xp || 0

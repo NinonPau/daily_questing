@@ -1,0 +1,49 @@
+<%# Partial: _ask_for_help.html.erb %>
+<%# Expects local variable: task %>
+
+<%# --- Flash Notice --- %>
+<% if flash[:notice] %>
+  <div class="alert alert-success mt-2">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<%# --- Participants --- %>
+<% if task.duo %>
+  <p>
+    Participants: <%= task.user.username %>
+    <% if task.partner.present? %>
+      , <%= task.partner.username %>
+    <% end %>
+  </p>
+<% end %>
+
+<%# --- Invite Friend Form (Creator Only) --- %>
+<% if task.user == current_user %>
+  <% available_friends = current_user.friends.reject { |f| f == task.partner } %>
+  <% if available_friends.any? %>
+    <div class="mt-2">
+      <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
+        <div class="mb-2">
+          <%= select_tag :friend_id,
+                options_from_collection_for_select(available_friends, :id, :username),
+                include_blank: "Choose a friend",
+                class: "form-select" %>
+        </div>
+        <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted">No friends available to invite.</p>
+  <% end %>
+<% end %>
+
+<%# --- Accept Invitation Button (Invited Partner) --- %>
+<% if task.partner == current_user && !task.duo %>
+  <div class="mt-2">
+    <%= button_to "Accept Invitation", accept_invitation_task_path(task),
+                  method: :patch,
+                  class: "btn btn-success btn-sm" %>
+  </div>
+<% end %>
+

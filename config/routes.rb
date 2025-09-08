@@ -39,4 +39,8 @@ Rails.application.routes.draw do
 
   resources :chats, only: [:index, :create]
 
+  resources :tasks do
+    post :invite_friend, on: :member
+  end
+
 end
