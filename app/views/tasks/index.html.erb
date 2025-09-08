@@ -48,7 +48,7 @@
     <% if @tasks.any? || @partner_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
       <% (@tasks + @partner_tasks).each do |task| %>
-        <% invitation = task.duo && task.partner_id == current_user.id && !task.completed %>
+        <% invitation = task.partner_id == current_user.id && !task.completed %>
 
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm"
@@ -57,20 +57,16 @@
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
 
-              <% if invitation %>
-                <!-- handled above -->
-              <% else %>
-                <% if task.partner.present? %>
-                  <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
-                <% end %>
+              <% if task.partner.present? && !invitation %>
+                <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
+              <% end %>
 
-                <% if task.completed %>
-                  <span class="badge bg-success">Completed</span>
-                <% elsif task.ignored %>
-                  <span class="badge bg-primary text-dark">Freezed</span>
-                <% else %>
-                  <span class="badge bg-warning text-dark">Pending</span>
-                <% end %>
+              <% if task.completed %>
+                <span class="badge bg-success">Completed</span>
+              <% elsif task.ignored %>
+                <span class="badge bg-primary text-dark">Freezed</span>
+              <% else %>
+                <span class="badge bg-warning text-dark">Pending</span>
               <% end %>
             </div>
 
@@ -83,7 +79,6 @@
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
 
-              <%# --- Participants & Ask for Help --- %>
               <% unless task.completed %>
                 <p>Participants: <%= task.user.username %>
                   <% if task.partner.present? %>, <%= task.partner.username %> <% end %>
@@ -93,14 +88,14 @@
                   <% available_friends = current_user.friends.reject { |f| f == task.partner } %>
                   <% if available_friends.any? %>
                     <div class="mt-2">
-                      <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
+                      <%= form_with url: invite_friend_task_path(task), method: :post, local: true do %>
                         <div class="mb-2">
                           <%= select_tag :friend_id,
                                 options_from_collection_for_select(available_friends, :id, :username),
                                 include_blank: "Choose a friend",
                                 class: "form-select" %>
                         </div>
-                        <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
+                        <%= submit_tag "Send Invite", class: "btn btn-primary btn-sm" %>
                       <% end %>
                     </div>
                   <% else %>
@@ -141,6 +136,7 @@
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
+
 <% else %>
   <%= render "public_home" %>
 <% end %>

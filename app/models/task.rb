@@ -1,6 +1,8 @@
 class Task < ApplicationRecord
   belongs_to :user
-  belongs_to :partner, class_name: "User", optional: true
+  has_many :task_participants, dependent: :destroy
+  has_many :participants, through: :task_participants, source: :user
+
   after_update :give_xp_to_partner
 
   def today? # to check the date
@@ -33,9 +35,9 @@ class Task < ApplicationRecord
   private
 
   def give_xp_to_partner
-    if completed && duo && partner.present?
-      new_total = (partner.total_xp || 0) + xp
-      partner.update(total_xp: new_total)
+    if completed
+      task_participants.where(status: "accepted").each do |tp|
+        tp.user.add_xp(xp)
     end
   end
 

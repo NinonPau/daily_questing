@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :tasks
-  has_many :partner_tasks, class_name: "Task", foreign_key: "partner_id"
+  has_many :task_participants, dependent: :destroy
+  has_many :joined_tasks, through: :task_participants, source: :task
   # current user accept many frineds that actualy accept my invitation
   has_many :friendships
   has_many :friends, -> { where(friendships: { status: "accepted" }) }, through: :friendships # way to do condition insinde a has_many
@@ -25,7 +26,7 @@ class User < ApplicationRecord
 
   def add_xp(amount)
     current_total = total_xp || 0
-    bonus = user_mood&.xp_bonus || 1.0 
+    bonus = user_mood&.xp_bonus || 1.0
     update(total_xp: current_total + amount.to_f * bonus)
   end
 
