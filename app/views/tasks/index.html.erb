@@ -7,7 +7,7 @@
   </div>
 
   <!-- list of today's tasks only -->
-  
+
   <div class="quests-container mx-auto renatacut-grid " style="max-width: 700px; padding: 0 20px;">
 
     <!-- Pending Invitations -->
@@ -48,7 +48,6 @@
 
     <!-- Your Created Quests + Accepted Partner Quests -->
     <% if @tasks.any? || @partner_tasks.any? %>
-      <h4 class="mb-3">Your Quests</h4>
       <% (@tasks + @partner_tasks).each do |task| %>
         <% invitation = task.duo && task.partner_id == current_user.id && !task.completed %>
 

@@ -24,4 +24,11 @@
   gap: 10px;
 }
 
-// frozen card
+// for mobile-phones
+@media(max-width: 576px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+
