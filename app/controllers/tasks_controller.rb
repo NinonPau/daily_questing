@@ -6,17 +6,26 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :complete, :ignore, :unignore, :invite_friend, :accept_invitation, :decline_invitation]
 
   def index
-    # Tasks created by the current user
+    # Tasks created by the current user for today
     @tasks = current_user.tasks.where(date: Date.today)
-
+    # Pending invitations for the current user
+    @pending_invitations = current_user.pending_invitations || []
     # Find all TaskParticipant records where current_user is a participant
     participant_records = TaskParticipant.where(user_id: current_user.id)
-
-    # Collect the tasks the user is participating in (excluding ones they created)
+    # Collect the tasks the user is participating in, excluding the ones they created
+    @partner_tasks = []
+    participant_records.each do |participant_record|
+      task = participant_record.task
+      if task.user_id != current_user.id
+        @partner_tasks << task
+      end
+    end
+    # Collect the tasks for which the user is participating, including for reference
     @participating_tasks = []
-    participant_records.each do |task_participant|
-      if task_participant.task.user_id != current_user.id
-        @participating_tasks << task_participant.task
+    participant_records.each do |participant_record|
+      task = participant_record.task
+      if task.user_id != current_user.id
+        @participating_tasks << task
       end
     end
   end
