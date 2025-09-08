@@ -24,13 +24,13 @@
             <% end %>
 
              <!-- NEW PART FROM Lucille-->
-  <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
+  <div class="quests-container mx-auto renatacut-grid " style="max-width: 700px; padding: 0 20px;">
 
     <!-- Pending Invitations -->
     <% if @pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% @pending_invitations.each do |task| %>
-        <div class="mb-4 renatacut-grid" id="task_<%= task.id %>">
+        <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm renata-card" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
@@ -69,7 +69,7 @@
         <% invitation = task.duo && task.partner_id == current_user.id && !task.completed %>
 
         <div class="mb-4" id="task_<%= task.id %>">
-          <div class="card shadow-sm"
+          <div class="card shadow-sm renata-card"
                style="border-radius:15px;  background-color: <%= invitation ? '#f0f8ff' : 'transparent' %>;
             background-color: <%= invitation ? '#f0f8ff' : 'transparent' %>;
               <%= 'background-image: url("https://media.istockphoto.com/id/94344269/photo/blue-ice-framing-blank-pale-blue-background.jpg?s=612x612&w=0&k=20&c=bbxu4-98Qqi3Q4bH0SwpUdvgeBY-Her6TdcC5fdu76c="); background-size: cover; background-position: center;' if task.ignored %>">
