@@ -14,9 +14,9 @@ User.create!(username: "Carlo", email: "carlo@carlo.com", password: "password", 
 # renata.user_mood.mood_type = "Unset"
 puts "Created first Users: #{User.all}"
 
-puts "Creating UserMoods"
+# puts "Creating UserMoods"
 # UserMood.create!(user_id: 1, mood_type: "Bad", xp_bonus: 3)
-puts "Created first Users UserMood: #{UserMood.all}."
+# puts "Created first Users UserMood: #{UserMood.all}."
 
 puts "Creating Tasks"
 Task.create!(user_id: 1, name: "Shop groceries", description: "Get to Supermarket, don't forget Water!", daily: false, completed: false, xp: 10, date: Date.today )
