@@ -1,10 +1,6 @@
 class UserMoodsController < ApplicationController
   before_action :authenticate_user!
 
-  def new
-    @user_mood = UserMood.new
-  end
-
   def create
     @user_mood = UserMood.new(strong_params)
     @user_mood.user = current_user
