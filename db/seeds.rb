@@ -1,69 +1,52 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-require 'faker'
-# Clean before reseed
+# require 'faker'
+
+puts "Cleaning..."
 UserMood.destroy_all
-puts "all after destroy"
-puts UserMood.all
 Task.destroy_all
 User.delete_all
 
+puts "Creating Users"
+renata = User.create!(username: "Renata", email: "Renata@Renata.com", password: "renata", total_xp: 20)
+# renata.user_mood.mood_type = "Unset"
+puts "Created first User: #{User.all}"
 
-users = 10.times.map do
-  User.create!(
-    email: Faker::Internet.unique.email,
-    password: "password",
-    username: Faker::Internet.username,
-    total_xp: rand(0..200),
-  )
-end
+puts "Creating UserMoods"
+# UserMood.create!(user_id: 1, mood_type: "Bad", xp_bonus: 3)
+puts "Created first Users UserMood: #{UserMood.all}."
 
-UserMood.all.each do |user_mood|
-  user_mood.mood_type = ["Amazing", "Good", "Ok'ish", "Bad"].sample
-  puts user_mood.mood_type
-end
-
-UserMood.all.each do |user_mood|
-  puts user_mood.mood_type
-end
+puts "Creating Tasks"
+Task.create!(user_id: 1, name: "Shop groceries", description: "Get to Supermarket, don't forget Water!", daily: false, completed: false, xp: 10 )
+puts "Created first Users Task: #{Task.all}."
 
 
-puts "all after user creation"
-puts UserMood.all
+puts "Finished seeding with #{User.count} Users, #{UserMood.count} Usermoods and #{Task.count} Tasks."
 
-tasks = 15.times.map do
-  Task.create!(
-    name: Faker::Verb.base.capitalize + " " + Faker::Name.unique.name,
-    description: Faker::Lorem.sentence(word_count: 8),
-    daily: Faker::Boolean.boolean,
-    completed:Faker::Boolean.boolean,
-    duo: Faker::Boolean.boolean,
-    xp: rand(10..100),
-    user: User.all.sample()
-  )
-end
-
-# puts "1 all"
-# puts UserMood.all
-# puts "creating UserMood"
-
-# users.each do |user|
-#     user_mood = UserMood.create!(
-#       user_id: user.id,
-#       mood_type: "Bad",
-#       xp_bonus: 1
-#     )
-#   puts user.user_mood
+# users = 10.times.map do
+#   User.create!(
+#     email: Faker::Internet.unique.email,
+#     password: "password",
+#     username: Faker::Internet.username,
+#     total_xp: rand(0..200),
+#   )
 # end
 
+# UserMood.all.each do |user_mood|
+#   user_mood.mood_type = ["Amazing", "Good", "Ok'ish", "Bad"].sample
+#   puts user_mood.mood_type
+# end
 
-# puts "all"
-# puts UserMood.all
-# puts "Seed finished #{User.count} users, #{Task.count} tasks and #{UserMood.count} user_moods."
+# UserMood.all.each do |user_mood|
+#   puts user_mood.mood_type
+# end
+
+# tasks = 15.times.map do
+#   Task.create!(
+#     name: Faker::Verb.base.capitalize + " " + Faker::Name.unique.name,
+#     description: Faker::Lorem.sentence(word_count: 8),
+#     daily: Faker::Boolean.boolean,
+#     completed:Faker::Boolean.boolean,
+#     duo: Faker::Boolean.boolean,
+#     xp: rand(10..100),
+#     user: User.all.sample()
+#   )
+# end
