@@ -19,7 +19,7 @@ users = 10.times.map do
     email: Faker::Internet.unique.email,
     password: "password",
     username: Faker::Internet.username,
-    total_xp: rand(0..5000)
+    total_xp: rand(0..200)
   )
 end
 
@@ -29,6 +29,7 @@ tasks = 15.times.map do
     name: Faker::Verb.base.capitalize + " " + Faker::Name.unique.name,
     description: Faker::Lorem.sentence(word_count: 8),
     daily: Faker::Boolean.boolean,
+    completed:Faker::Boolean.boolean,
     duo: Faker::Boolean.boolean,
     xp: rand(10..100),
     user: User.all.sample()
@@ -37,10 +38,8 @@ end
 
 users.each do |user|
     UserMood.create!(
-      user: user,
-      mood_type: %w[happy sad focused tired motivated].sample,
-      xp_bonus: rand(0.5..50),
-
+      mood_type: %w[Amazing Good Ok'ish Bad].sample,
+      xp_bonus: 1
     )
 end
 
