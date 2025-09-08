@@ -15,7 +15,7 @@ puts "Creating UserMoods"
 puts "Created first Users UserMood: #{UserMood.all}."
 
 puts "Creating Tasks"
-Task.create!(user_id: 1, name: "Shop groceries", description: "Get to Supermarket, don't forget Water!", daily: false, completed: false, xp: 10 )
+Task.create!(user_id: 1, name: "Shop groceries", description: "Get to Supermarket, don't forget Water!", daily: false, completed: false, xp: 10, date: Date.today )
 puts "Created first Users Task: #{Task.all}."
 
 
