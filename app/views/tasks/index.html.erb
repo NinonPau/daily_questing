@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
   <h3 class="mb-4 text-center" style="font-size:1.8rem; color:#2c3e50;">Your Quests</h3>
 
-  <!-- go back to home page button -->
+  <!-- Back button -->
   <div class="mb-3 back-link">
     <%= link_to "Back", root_path, class: "btn btn-secondary" %>
   </div>
@@ -22,7 +22,43 @@
             <% else  %>
               <span class="badge bg-warning text-dark" style="font-size:0.9rem;">Pending</span>
             <% end %>
+  <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
+
+    <!-- Pending Invitations -->
+    <% if @pending_invitations.any? %>
+      <h4 class="mb-3">Invitations in Waiting</h4>
+      <% @pending_invitations.each do |task| %>
+        <div class="mb-4" id="task_<%= task.id %>">
+          <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
+            <div class="card-header d-flex justify-content-between align-items-center"
+                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+              <span><%= task.name %></span>
+              <span class="badge text-white" style="background-color:#9b59b6;">Invitation</span>
+            </div>
+
+            <div class="card-body text-center">
+              <p class="card-text"><%= task.description %></p>
+              <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
+              <% if task.daily? %>
+                <p><em>Daily Quest</em></p>
+              <% else %>
+                <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
+              <% end %>
+              <p>Creator: <%= task.user.username %></p>
+            </div>
+
+            <div class="card-footer text-center">
+              <%= button_to "Accept", accept_invitation_task_path(task),
+                    method: :patch,
+                    class: "btn btn-success btn-sm me-2" %>
+              <%= button_to "Decline", decline_invitation_task_path(task),
+                    method: :patch,
+                    class: "btn btn-danger btn-sm" %>
+            </div>
           </div>
+        </div>
+      <% end %>
+    <% end %>
 
           <!-- background-img-->
           <%if quest.ignored %>
@@ -43,26 +79,96 @@
               ✏️
             <% end %>
           </div>
+    <!-- Your Created Quests + Accepted Partner Quests -->
+    <% if @tasks.any? || @partner_tasks.any? %>
+      <h4 class="mb-3">Your Quests</h4>
+      <% (@tasks + @partner_tasks).each do |task| %>
+        <% invitation = task.duo && task.partner_id == current_user.id && !task.completed %>
 
-          <div class="card-footer text-center" style="border-radius:0 0 15px 15px;">
-            <% unless quest.completed %>
-            <% if quest.ignored %>
-              <%= button_to "Unfreeze", unignore_task_path(quest), method: :patch,
-                    class: "btn btn-primary btn-sm", style: "min-width:120px;" %>
-            <% else %>
-              <%= button_to "Mark as Done", complete_task_path(quest), method: :patch,
-                    class: "btn btn-success btn-sm", style: "min-width:120px;",
-                    form: { style: "display:inline-block;" } %>
+        <div class="mb-4" id="task_<%= task.id %>">
+          <div class="card shadow-sm"
+               style="border-radius:15px; background-color: <%= invitation ? '#f0f8ff' : (task.ignored ? 'grey' : '#f9f9f9') %>;">
+            <div class="card-header d-flex justify-content-between align-items-center"
+                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+              <span><%= task.name %></span>
 
-                <%= button_to "Mark as Freeze", ignore_task_path(quest), method: :patch,
-                    class: "btn btn-warning btn-sm", style: "min-width:120px;",
-                    form: { style: "display:inline-block;" } %>
+              <% if invitation %>
+                <!-- handled above -->
+              <% else %>
+                <% if task.partner.present? %>
+                  <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
+                <% end %>
 
-            <% end %>
+                <% if task.completed %>
+                  <span class="badge bg-success">Completed</span>
+                <% elsif task.ignored %>
+                  <span class="badge bg-primary text-dark">Freezed</span>
+                <% else %>
+                  <span class="badge bg-warning text-dark">Pending</span>
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="card-body text-center">
+              <p class="card-text"><%= task.description %></p>
+              <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
+              <% if task.daily? %>
+                <p><em>Daily Quest</em></p>
+              <% else %>
+                <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
+              <% end %>
+
+              <%# --- Participants & Ask for Help --- %>
+              <% unless task.completed %>
+                <p>Participants: <%= task.user.username %>
+                  <% if task.partner.present? %>, <%= task.partner.username %> <% end %>
+                </p>
+
+                <% if task.user == current_user %>
+                  <% available_friends = current_user.friends.reject { |f| f == task.partner } %>
+                  <% if available_friends.any? %>
+                    <div class="mt-2">
+                      <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
+                        <div class="mb-2">
+                          <%= select_tag :friend_id,
+                                options_from_collection_for_select(available_friends, :id, :username),
+                                include_blank: "Choose a friend",
+                                class: "form-select" %>
+                        </div>
+                        <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <p class="text-muted">No friends available to invite.</p>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="task-item" style="display: flex; justify-content: flex-end;">
+              <% unless task.completed %>
+                <%= link_to edit_task_path(task), class: "edit_button fs-2" do %> ✏️ <% end %>
+              <% end %>
+            </div>
+
+            <% unless invitation %>
+              <div class="card-footer text-center">
+                <% unless task.completed %>
+                  <% if task.ignored %>
+                    <%= button_to "Unfreeze", unignore_task_path(task), method: :patch,
+                          class: "btn btn-primary btn-sm" %>
+                  <% else %>
+                    <%= button_to "Mark as Done", complete_task_path(task), method: :patch,
+                          class: "btn btn-success btn-sm me-2" %>
+                    <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch,
+                          class: "btn btn-warning btn-sm" %>
+                  <% end %>
+                <% end %>
+              </div>
             <% end %>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 
@@ -70,25 +176,6 @@
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
-
-  <!-- Congratulation POPUP -->
-  <% if flash[:notice] %>
-    <div class="modal fade show" style="display:block;" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center p-4 shadow rounded">
-          <p><%= flash[:notice] %></p>
-          <div class="mt-3 d-flex justify-content-around">
-            <%# <%= link_to "Home Page", root_path, class: "btn btn-primary", style: "min-width:120px;" %>
-            <%= link_to "My Quests", tasks_path, class: "btn btn-success", style: "min-width:120px;" %>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal backdrop -->
-    <div class="modal-backdrop fade show"></div>
-  <% end %>
-
 <% else %>
   <%= render "public_home" %>
 <% end %>

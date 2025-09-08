@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
-  resources :user_moods, only: [:update, :create, :new, :edit]
+  resources :user_moods, only: [:update, :create, :edit]
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -15,14 +15,18 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  resources :tasks, only: [:index, :new, :create, :edit, :update] do
+  resources :tasks do
     member do
-      patch :complete, :ignore, :unignore
+      patch :complete, :ignore, :unignore, :accept_invitation, :decline_invitation
     end
+    post :invite_friend, on: :member
+    patch :accept_invitation, on: :member
+    patch :decline_invitation, on: :member
     collection do
       post :random
     end
   end
+
   resources :friendships, only: [:index, :create, :update, :destroy] do
     member do
       patch :accept
