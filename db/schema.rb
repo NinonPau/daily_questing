@@ -51,13 +51,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_08_124136) do
     t.string "name"
     t.text "description"
     t.boolean "daily"
-    t.boolean "completed"
+    t.boolean "completed", default: false
     t.float "xp"
     t.boolean "duo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
     t.boolean "ignored"
+    t.bigint "partner_id"
   end
 
   create_table "user_moods", force: :cascade do |t|
@@ -91,5 +92,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_08_124136) do
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "tasks", "users"
+  add_foreign_key "tasks", "users", column: "partner_id"
   add_foreign_key "user_moods", "users"
 end

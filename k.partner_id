@@ -1,0 +1,54 @@
+=> 
+[[32m#<Task:0x00007785f683c4a0[0m
+  id: [34m[1m3[0m,
+  user_id: [34m[1m1[0m,
+  name:
+   [31m[1m"[0m[31mGo to a music festival with some friends[0m[31m[1m"[0m,
+  description:
+   [31m[1m"[0m[31mType: social - Participants: 4 [0m[31m[1m"[0m,
+  daily: [36m[1mnil[0m,
+  completed: [36m[1mtrue[0m,
+  xp: [35m[1m20.0[0m,
+  duo: [36m[1mtrue[0m,
+  created_at:
+   Mon, 08 Sep 2025 10:29:01.942038000 UTC +00:00,
+  updated_at:
+   Mon, 08 Sep 2025 11:20:05.893011000 UTC +00:00,
+  date: Mon, 08 Sep 2025,
+  ignored: [36m[1mnil[0m,
+  partner_id: [34m[1m2[0m[32m>[0m,
+ [32m#<Task:0x00007785f4070520[0m
+  id: [34m[1m5[0m,
+  user_id: [34m[1m1[0m,
+  name:
+   [31m[1m"[0m[31mLook at your finances and find one way to save money[0m[31m[1m"[0m,
+  description:
+   [31m[1m"[0m[31mType: busywork - Participants: 1 [0m[31m[1m"[0m,
+  daily: [36m[1mnil[0m,
+  completed: [36m[1mnil[0m,
+  xp: [35m[1m20.0[0m,
+  duo: [36m[1mtrue[0m,
+  created_at:
+   Mon, 08 Sep 2025 11:20:14.397178000 UTC +00:00,
+  updated_at:
+   Mon, 08 Sep 2025 11:20:26.462073000 UTC +00:00,
+  date: Mon, 08 Sep 2025,
+  ignored: [36m[1mnil[0m,
+  partner_id: [34m[1m2[0m[32m>[0m,
+ [32m#<Task:0x00007785f40703e0[0m
+  id: [34m[1m1[0m,
+  user_id: [34m[1m1[0m,
+  name: [31m[1m"[0m[31mLearn origami[0m[31m[1m"[0m,
+  description:
+   [31m[1m"[0m[31mType: education - Participants: 1 [0m[31m[1m"[0m,
+  daily: [36m[1mnil[0m,
+  completed: [36m[1mnil[0m,
+  xp: [35m[1m20.0[0m,
+  duo: [36m[1mtrue[0m,
+  created_at:
+   Mon, 08 Sep 2025 09:35:49.084036000 UTC +00:00,
+  updated_at:
+   Mon, 08 Sep 2025 12:02:47.343134000 UTC +00:00,
+  date: Mon, 08 Sep 2025,
+  ignored: [36m[1mnil[0m,
+  partner_id: [34m[1m2[0m[32m>[0m]
