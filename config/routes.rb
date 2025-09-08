@@ -1,46 +1,137 @@
-Rails.application.routes.draw do
+<% if user_signed_in? %>
+  <h3 class="mb-4 text-center" style="font-size:1.8rem; color:#2c3e50;">Your Quests</h3>
 
-  devise_for :users
-  root to: "pages#home"
+  <!-- Back button -->
+  <div class="mb-3 back-link">
+    <%= link_to "Back", root_path, class: "btn btn-secondary" %>
+  </div>
 
-  resources :user_moods, only: [:update, :create, :edit]
+  <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
 
+    <!-- Pending Invitations -->
+    <% if current_user.pending_invitations.any? %>
+      <h4 class="mb-3">Invitations in Waiting</h4>
+      <% current_user.pending_invitations.each do |task| %>
+        <div class="mb-4" id="task_<%= task.id %>">
+          <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
+            <div class="card-header d-flex justify-content-between align-items-center"
+                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+              <span><%= task.name %></span>
+              <span class="badge text-white" style="background-color:#9b59b6;">Invitation</span>
+            </div>
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+            <div class="card-body text-center">
+              <p class="card-text"><%= task.description %></p>
+              <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
+              <% if task.daily? %>
+                <p><em>Daily Quest</em></p>
+              <% else %>
+                <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
+              <% end %>
+              <p>Creator: <%= task.user.username %></p>
+            </div>
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+            <div class="card-footer text-center">
+              <%= button_to "Accept", accept_invitation_task_path(task),
+                    method: :patch,
+                    class: "btn btn-success btn-sm me-2" %>
+              <%= button_to "Decline", decline_invitation_task_path(task),
+                    method: :patch,
+                    class: "btn btn-danger btn-sm" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+    <!-- Created Quests & Partner Quests -->
+    <% all_tasks = @tasks + @participating_tasks %>
+    <% if all_tasks.any? %>
+      <h4 class="mb-3">Your Quests</h4>
+      <% all_tasks.each do |task| %>
+        <% invitation = task.participants.exists?(id: current_user.id) && task.user_id != current_user.id && !task.completed %>
+        <div class="mb-4" id="task_<%= task.id %>">
+          <div class="card shadow-sm"
+               style="border-radius:15px; background-color: <%= invitation ? '#f0f8ff' : (task.participants.any? ? '#d1ecf1' : '#f9f9f9') %>;">
+            <div class="card-header d-flex justify-content-between align-items-center"
+                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+              <span><%= task.name %></span>
 
-  resources :tasks do
-    member do
-      patch :complete, :ignore, :unignore, :accept_invitation, :decline_invitation
-    end
-    post :invite_friend, on: :member
-    patch :accept_invitation, on: :member
-    patch :decline_invitation, on: :member
-    collection do
-      post :random
-    end
-  end
+              <% if task.participants.any? %>
+                <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
+              <% end %>
 
-  resources :friendships, only: [:index, :create, :update, :destroy] do
-    member do
-      patch :accept
-      patch :reject
-    end
-  end
+              <% if task.completed %>
+                <span class="badge bg-success">Completed</span>
+              <% elsif task.ignored %>
+                <span class="badge bg-primary text-dark">Freezed</span>
+              <% else %>
+                <span class="badge bg-warning text-dark">Pending</span>
+              <% end %>
+            </div>
 
-  resources :chat_rooms, only: [:index, :show, :create, :destroy] do
-    member do
-      post :create_message
-      post :invite
-    end
-  end
+            <div class="card-body text-center">
+              <p class="card-text"><%= task.description %></p>
+              <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
+              <% if task.daily? %>
+                <p><em>Daily Quest</em></p>
+              <% else %>
+                <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
+              <% end %>
 
-  resources :chats, only: [:index, :create]
+              <!-- Participants -->
+              <% if task.participants.any? %>
+                <p>Participants: <%= task.participants.map(&:username).join(", ") %></p>
+              <% else %>
+                <p>Creator: <%= task.user.username %></p>
+              <% end %>
 
-end
+              <!-- Invite friends (only for creator) -->
+              <% if task.user == current_user && !task.completed %>
+                <% available_friends = current_user.friends.reject { |f| task.participants.include?(f) } %>
+                <% if available_friends.any? %>
+                  <div class="mt-2">
+                    <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
+                      <div class="mb-2">
+                        <%= select_tag :friend_id,
+                              options_from_collection_for_select(available_friends, :id, :username),
+                              include_blank: "Choose a friend",
+                              class: "form-select" %>
+                      </div>
+                      <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <p class="text-muted">No friends available to invite.</p>
+                <% end %>
+              <% end %>
+            </div>
+
+            <!-- Task actions -->
+            <div class="card-footer text-center">
+              <% unless task.completed %>
+                <% if task.ignored %>
+                  <%= button_to "Unfreeze", unignore_task_path(task), method: :patch,
+                        class: "btn btn-primary btn-sm" %>
+                <% else %>
+                  <%= button_to "Mark as Done", complete_task_path(task), method: :patch,
+                        class: "btn btn-success btn-sm me-2" %>
+                  <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch,
+                        class: "btn btn-warning btn-sm" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Add new quest button -->
+  <div class="mt-4 text-center">
+    <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
+  </div>
+<% else %>
+  <%= render "public_home" %>
+<% end %>
+
