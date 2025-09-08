@@ -1,0 +1,53 @@
+<h1 class="text-center mb-4"> <%= h1 %> </h1>
+
+<%= form_with model: @task, local: true do |f| %>
+
+  <!-- errors in red background -->
+  <% if @task.errors.any? %>
+    <div class="alert alert-danger">
+      <h5><%= pluralize(@task.errors.count, "error") %> prevented this quest from being saved:</h5>
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- name input -->
+  <div class="mb-4 border p-3 rounded">
+    <h5>1. Name of the Quest</h5>
+    <%= f.label :name, nil, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control", placeholder: "Enter your quest name" %>
+  </div>
+
+  <!-- description + daily checkbox -->
+  <div class="mb-4 border p-3 rounded">
+    <h5>2. Describe Your Quest</h5>
+    <%= f.label :description, nil, class: "form-label" %>
+    <%= f.text_area :description, class: "form-control", placeholder: "Tell the tale of your quest" %>
+
+    <div class="form-check mt-2">
+      <%= f.check_box :daily, class: "form-check-input" %>
+      <%= f.label :daily, "Daily Quest", class: "form-check-label" %>
+    </div>
+  </div>
+
+  <!-- XP dropdown -->
+  <div class="mb-4 border p-3 rounded">
+    <h5>3. How Epic is Your Quest?</h5>
+    <%= f.label :xp, nil, class: "form-label" %>
+    <%= f.select :xp, options_for_select([
+      ["Stroll -- +10 XP", 10],
+      ["Expedition -- +50 XP", 50],
+      ["Ultimate Trial -- +100 XP", 100]
+    ]), { prompt: "Select your Challenge" }, class: "form-select" %>
+  </div>
+
+  <!-- submit & back button -->
+  <div class="buttons d-flex justify-content-center align-items-center">
+    <%= link_to "Go back", tasks_path, class: "btn btn-primary me-4 back-link" %>
+    <%= f.submit submit, class: "btn btn-primary" %>
+  </div>
+
+<% end %>
