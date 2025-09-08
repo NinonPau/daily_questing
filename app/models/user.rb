@@ -18,20 +18,20 @@ class User < ApplicationRecord
   has_one :user_mood
 
   after_create :set_default_mood
-  
+
   def invited_tasks
     Task.where(partner_id: id)
   end
 
   def add_xp(amount)
     current_total = total_xp || 0
-    bonus = user_mood&.xp_bonus || 1.0 #
+    bonus = user_mood&.xp_bonus || 1.0 
     update(total_xp: current_total + amount.to_f * bonus)
   end
 
   private
 
-  def set_default_mood #
+  def set_default_mood
     create_user_mood(xp_bonus: 1.0) unless user_mood.present?
   end
 

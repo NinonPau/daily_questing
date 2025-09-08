@@ -3,11 +3,24 @@ require "open-uri"
 
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_task, only: [:edit, :update, :complete, :ignore, :unignore, :invite_friend, :accept_invitation]
+  before_action :set_task, only: [:edit, :update, :complete, :ignore, :unignore, :invite_friend, :accept_invitation, :decline_invitation]
 
   def index
-    @tasks = current_user.tasks.where(date: Date.today) # taches créées par l'utilisateur
-    @invited_tasks = current_user.partner_tasks.where(date: Date.today) # taches où l'utilisateur est invité
+  # Tasks created by the current user
+    @tasks = current_user.tasks.where(date: Date.today)
+
+    # Pending invitations = tasks where current_user is invited but has not accepted yet
+    @pending_invitations = current_user.partner_tasks.where(
+      date: Date.today,
+      duo: true,
+      completed: false
+    )
+
+    # Partner quests already accepted (duo flipped to false after acceptance)
+    @partner_tasks = current_user.partner_tasks.where(
+      date: Date.today,
+      duo: false
+    )
   end
 
   def new
@@ -46,7 +59,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice:"Your task was successfully updated"
+      redirect_to tasks_path, notice: "Your task was successfully updated"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -87,15 +100,24 @@ class TasksController < ApplicationController
     end
   end
 
-  # Acceptation d'une invitation
+  # Accept invitation
   def accept_invitation
-    @task = Task.find(params[:id])
-    if @task.partner == current_user && !@task.duo
-      if @task.update(duo: true)
-        redirect_to tasks_path, notice: "You have accepted the invitation for '#{@task.name}'!"
-      else
-        redirect_to tasks_path, alert: "Could not accept the invitation."
-      end
+    if @task.partner_id == current_user.id
+      @task.update(duo: false) # hack: mark as accepted
+      redirect_to tasks_path, notice: "Quest accepted!"
+    else
+      redirect_to tasks_path, alert: "You can't accept this quest."
+    end
+  end
+
+
+  # Decline invitation
+  def decline_invitation
+    if @task.partner_id == current_user.id
+      @task.update(partner_id: nil, duo: false) # reset partner & duo flag
+      redirect_to tasks_path, notice: "Quest declined!"
+    else
+      redirect_to tasks_path, alert: "You can't decline this quest."
     end
   end
 
@@ -108,5 +130,4 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find(params[:id])
   end
-
 end
