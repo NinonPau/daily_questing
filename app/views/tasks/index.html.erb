@@ -49,7 +49,7 @@
     <% if all_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
       <% all_tasks.each do |task| %>
-        <% invitation = task.duo && task.partner_id == current_user.id && !task.completed %>
+        <% invitation = task.participants.exists?(id: current_user.id) && task.user_id != current_user.id && !task.completed %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm"
                style="border-radius:15px; background-color: <%= invitation ? '#f0f8ff' : (task.participants.any? ? '#d1ecf1' : '#f9f9f9') %>;">
