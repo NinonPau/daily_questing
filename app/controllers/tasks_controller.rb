@@ -9,7 +9,7 @@ class TasksController < ApplicationController
     # Tasks created by the current user for today
     @tasks = current_user.tasks.where(date: Date.today)
     # Pending invitations for the current user
-    @pending_invitations = current_user.pending_invitations || []
+    @pending_invitations = Array(current_user.pending_invitations)
     # Find all TaskParticipant records where current_user is a participant
     participant_records = TaskParticipant.where(user_id: current_user.id)
     # Collect the tasks the user is participating in, excluding the ones they created
