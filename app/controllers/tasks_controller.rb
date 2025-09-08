@@ -12,14 +12,7 @@ class TasksController < ApplicationController
     @pending_invitations = Array(current_user.pending_invitations)
     # Find all TaskParticipant records where current_user is a participant
     participant_records = TaskParticipant.where(user_id: current_user.id)
-    # Collect the tasks the user is participating in, excluding the ones they created
-    @partner_tasks = []
-    participant_records.each do |participant_record|
-      task = participant_record.task
-      if task.user_id != current_user.id
-        @partner_tasks << task
-      end
-    end
+
     # Collect the tasks for which the user is participating, including for reference
     @participating_tasks = []
     participant_records.each do |participant_record|
@@ -99,7 +92,7 @@ class TasksController < ApplicationController
 
 
   def invite_friend
-    friend = User.find(params[:friend_id])
+    friend = User.find(id: params[:friend_id])
     tp = @task.task_participants.find_or_initialize_by(user: friend)
     tp.status = "pending"
     if tp.save

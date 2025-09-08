@@ -12,7 +12,6 @@
     <% if @pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% @pending_invitations.each do |task| %>
-        <% participant = task.task_participants.find_by(user: current_user, status: "pending") %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -29,7 +28,7 @@
               <% else %>
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
-              <p>Creator: <%= participant.creator.username %></p>
+              <p>Creator: <%= task.user.username %></p>
             </div>
 
             <div class="card-footer text-center">
@@ -43,26 +42,20 @@
           </div>
         </div>
       <% end %>
+    <% else %>
+      <p>No pending invitations.</p>
     <% end %>
 
-    <!-- Your Created Quests + Accepted Partner Quests -->
-    <% if @tasks.any? || @partner_tasks.any? %>
+    <!-- Your Created Quests -->
+    <% if @tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
-      <% (@tasks + @partner_tasks).each do |task| %>
-        <% participant = task.task_participants.find_by(user: current_user) %>
-        <% invitation = participant&.status == "pending" %>
-
+      <% @tasks.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm"
-               style="border-radius:15px; background-color: <%= invitation ? '#f0f8ff' : (task.ignored ? 'grey' : '#f9f9f9') %>;">
+               style="border-radius:15px; background-color: <%= task.ignored ? 'grey' : '#f9f9f9' %>;">
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
-
-              <% if task.task_participants.where(status: "accepted").where.not(user: current_user).any? %>
-                <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
-              <% end %>
-
               <% if task.completed %>
                 <span class="badge bg-success">Completed</span>
               <% elsif task.ignored %>
@@ -81,28 +74,24 @@
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
 
+              <!-- Participants & Invite Friend -->
               <% unless task.completed %>
-                <p>Participants:
-                  <%= task.user.username %>
-                  <% task.task_participants.where(status: "accepted").where.not(user: current_user).each do |p| %>
-                    , <%= p.user.username %>
-                  <% end %>
+                <p>Participants: <%= task.user.username %>
+                  <% if task.partner.present? %>, <%= task.partner.username %> <% end %>
                 </p>
 
                 <% if task.user == current_user %>
-                  <% available_friends = current_user.friends.reject do |f|
-                        task.task_participants.map(&:user).include?(f)
-                      end %>
+                  <% available_friends = current_user.friends.reject { |f| f == task.partner } %>
                   <% if available_friends.any? %>
                     <div class="mt-2">
-                      <%= form_with url: invite_friend_task_path(task), method: :post, local: true do %>
+                      <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
                         <div class="mb-2">
                           <%= select_tag :friend_id,
                                 options_from_collection_for_select(available_friends, :id, :username),
                                 include_blank: "Choose a friend",
                                 class: "form-select" %>
                         </div>
-                        <%= submit_tag "Send Invite", class: "btn btn-primary btn-sm" %>
+                        <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
                       <% end %>
                     </div>
                   <% else %>
@@ -118,25 +107,27 @@
               <% end %>
             </div>
 
-            <% unless invitation %>
-              <div class="card-footer text-center">
-                <% unless task.completed %>
-                  <% if task.ignored %>
-                    <%= button_to "Unfreeze", unignore_task_path(task), method: :patch,
-                          class: "btn btn-primary btn-sm" %>
-                  <% else %>
-                    <%= button_to "Mark as Done", complete_task_path(task), method: :patch,
-                          class: "btn btn-success btn-sm me-2" %>
-                    <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch,
-                          class: "btn btn-warning btn-sm" %>
-                  <% end %>
+            <div class="card-footer text-center">
+              <% unless task.completed %>
+                <% if task.ignored %>
+                  <%= button_to "Unfreeze", unignore_task_path(task), method: :patch,
+                        class: "btn btn-primary btn-sm" %>
+                <% else %>
+                  <%= button_to "Mark as Done", complete_task_path(task), method: :patch,
+                        class: "btn btn-success btn-sm me-2" %>
+                  <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch,
+                        class: "btn btn-warning btn-sm" %>
                 <% end %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
+
           </div>
         </div>
       <% end %>
+    <% else %>
+      <p>You have no tasks yet.</p>
     <% end %>
+
   </div>
 
   <!-- Add new quest button -->
