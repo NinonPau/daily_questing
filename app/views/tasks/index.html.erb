@@ -1,7 +1,6 @@
 <% if user_signed_in? %>
   <h3 class="mb-4 text-center" style="font-size:1.8rem; color:#2c3e50;">Your Quests</h3>
 
-  <!-- Back button -->
   <div class="mb-3 back-link">
     <%= link_to "Back", root_path, class: "btn btn-secondary" %>
   </div>
@@ -9,9 +8,9 @@
   <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
 
     <!-- Pending Invitations -->
-    <% if current_user.pending_invitations.any? %>
+    <% if @pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
-      <% current_user.pending_invitations.each do |task| %>
+      <% @pending_invitations.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -42,26 +41,35 @@
           </div>
         </div>
       <% end %>
-    <% else %>
-      <p>No pending invitations.</p>
     <% end %>
 
-    <!-- Your Created Quests -->
-    <% if @tasks.any? %>
+    <!-- Your Created Quests + Partner Quests -->
+    <% if @tasks.any? || @partner_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
-      <% @tasks.each do |task| %>
+      <% (@tasks + @partner_tasks).each do |task| %>
+        <% invitation = task.duo && task.partner_id == current_user.id && !task.completed %>
+
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm"
-               style="border-radius:15px; background-color: <%= task.ignored ? 'grey' : '#f9f9f9' %>;">
+               style="border-radius:15px; background-color: <%= invitation ? '#f0f8ff' : (task.ignored ? 'grey' : '#f9f9f9') %>;">
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
-              <% if task.completed %>
-                <span class="badge bg-success">Completed</span>
-              <% elsif task.ignored %>
-                <span class="badge bg-primary text-dark">Freezed</span>
+
+              <% if invitation %>
+                <span class="badge text-white" style="background-color:#9b59b6;">Invitation</span>
               <% else %>
-                <span class="badge bg-warning text-dark">Pending</span>
+                <% if task.partner.present? %>
+                  <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
+                <% end %>
+
+                <% if task.completed %>
+                  <span class="badge bg-success">Completed</span>
+                <% elsif task.ignored %>
+                  <span class="badge bg-primary text-dark">Freezed</span>
+                <% else %>
+                  <span class="badge bg-warning text-dark">Pending</span>
+                <% end %>
               <% end %>
             </div>
 
@@ -74,17 +82,14 @@
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
 
-              <!-- Participants & Invite Friend -->
+              <%# Participants & Invite Friend %>
               <% unless task.completed %>
-                <p>Participants:
-                  <%= task.user.username %>
-                  <% task.task_participants.each do |tp| %>
-                    <% if tp.user != task.user %>, <%= tp.user.username %> <% end %>
-                  <% end %>
+                <p>Participants: <%= task.user.username %>
+                  <% if task.partner.present? %>, <%= task.partner.username %> <% end %>
                 </p>
 
                 <% if task.user == current_user %>
-                  <% available_friends = current_user.friends.reject { |f| task.task_participants.map(&:user).include?(f) } %>
+                  <% available_friends = current_user.friends.reject { |f| [task.partner, task.user].include?(f) } %>
                   <% if available_friends.any? %>
                     <div class="mt-2">
                       <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
@@ -110,34 +115,30 @@
               <% end %>
             </div>
 
-            <div class="card-footer text-center">
-              <% unless task.completed %>
-                <% if task.ignored %>
-                  <%= button_to "Unfreeze", unignore_task_path(task), method: :patch,
-                        class: "btn btn-primary btn-sm" %>
-                <% else %>
-                  <%= button_to "Mark as Done", complete_task_path(task), method: :patch,
-                        class: "btn btn-success btn-sm me-2" %>
-                  <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch,
-                        class: "btn btn-warning btn-sm" %>
+            <% unless invitation %>
+              <div class="card-footer text-center">
+                <% unless task.completed %>
+                  <% if task.ignored %>
+                    <%= button_to "Unfreeze", unignore_task_path(task), method: :patch,
+                          class: "btn btn-primary btn-sm" %>
+                  <% else %>
+                    <%= button_to "Mark as Done", complete_task_path(task), method: :patch,
+                          class: "btn btn-success btn-sm me-2" %>
+                    <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch,
+                          class: "btn btn-warning btn-sm" %>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </div>
-
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>
-    <% else %>
-      <p>You have no tasks yet.</p>
     <% end %>
-
   </div>
 
-  <!-- Add new quest button -->
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
-
 <% else %>
   <%= render "public_home" %>
 <% end %>
