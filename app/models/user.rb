@@ -8,6 +8,8 @@ class User < ApplicationRecord
   # i am on many friends list if they accept my invitation
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id"
   has_many :inverse_friends, -> { where(friendships: { status: "accepted" }) }, through: :inverse_friendships, source: :user
+  # Invitations en attente que j'ai envoyée
+  has_many :received_pending_invitations, through: :received_pending_friendships, source: :user
   # allow current_user.friends> friend i accepted / current_user.inverse_friends > the one that add me
   has_many :chat_messages, foreign_key: :sender_id, dependent: :destroy
   has_many :chat_rooms, through: :chat_messages
@@ -28,6 +30,10 @@ class User < ApplicationRecord
     current_total = total_xp || 0
     bonus = user_mood&.xp_bonus || 1.0
     update(total_xp: current_total + amount.to_f * bonus)
+  end
+
+  def pending_invitations
+    task_participants.where(status: "pending").map(&:task)
   end
 
   private

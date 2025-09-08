@@ -9,9 +9,9 @@
   <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
 
     <!-- Pending Invitations -->
-    <% if @pending_invitations.any? %>
+    <% if current_user.pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
-      <% @pending_invitations.each do |task| %>
+      <% current_user.pending_invitations.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
