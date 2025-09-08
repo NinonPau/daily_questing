@@ -12,6 +12,7 @@
     <% if @pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% @pending_invitations.each do |task| %>
+        <% participant = task.task_participants.find_by(user: current_user, status: "pending") %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -28,7 +29,7 @@
               <% else %>
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
-              <p>Creator: <%= task.user.username %></p>
+              <p>Creator: <%= participant.creator.username %></p>
             </div>
 
             <div class="card-footer text-center">
@@ -48,7 +49,8 @@
     <% if @tasks.any? || @partner_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
       <% (@tasks + @partner_tasks).each do |task| %>
-        <% invitation = task.partner_id == current_user.id && !task.completed %>
+        <% participant = task.task_participants.find_by(user: current_user) %>
+        <% invitation = participant&.status == "pending" %>
 
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm"
@@ -57,7 +59,7 @@
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
 
-              <% if task.partner.present? && !invitation %>
+              <% if task.task_participants.where(status: "accepted").where.not(user: current_user).any? %>
                 <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
               <% end %>
 
@@ -80,12 +82,17 @@
               <% end %>
 
               <% unless task.completed %>
-                <p>Participants: <%= task.user.username %>
-                  <% if task.partner.present? %>, <%= task.partner.username %> <% end %>
+                <p>Participants:
+                  <%= task.user.username %>
+                  <% task.task_participants.where(status: "accepted").where.not(user: current_user).each do |p| %>
+                    , <%= p.user.username %>
+                  <% end %>
                 </p>
 
                 <% if task.user == current_user %>
-                  <% available_friends = current_user.friends.reject { |f| f == task.partner } %>
+                  <% available_friends = current_user.friends.reject do |f|
+                        task.task_participants.map(&:user).include?(f)
+                      end %>
                   <% if available_friends.any? %>
                     <div class="mt-2">
                       <%= form_with url: invite_friend_task_path(task), method: :post, local: true do %>
@@ -140,3 +147,4 @@
 <% else %>
   <%= render "public_home" %>
 <% end %>
+

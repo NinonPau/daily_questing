@@ -27,7 +27,7 @@ class Task < ApplicationRecord
   end
 
   def invitation_accepted_by?(user)
-    duo && partner == user
+    task_participants.exists?(user: user, status: "accepted")
   end
 
 
@@ -35,10 +35,19 @@ class Task < ApplicationRecord
   private
 
   def give_xp_to_partner
-    if completed
-      task_participants.where(status: "accepted").each do |tp|
-        tp.user.add_xp(xp)
+  # Only give XP if the task is completed
+  if completed
+    # Loop through all participants who accepted this task
+    task_participants.where(status: "accepted").each do |tp|
+      # Safely get the user associated with this participant
+      user = tp.user
+      next unless user.present?
+
+      # Add the XP from this task to the user's total_xp
+      new_total = (user.total_xp || 0) + xp
+      user.update(total_xp: new_total)
     end
   end
+end
 
 end
