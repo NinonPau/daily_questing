@@ -9,8 +9,10 @@
 #   end
 require 'faker'
 # Clean before reseed
-UserMood.delete_all
-Task.delete_all
+UserMood.destroy_all
+puts "all after destroy"
+puts UserMood.all
+Task.destroy_all
 User.delete_all
 
 
@@ -19,10 +21,22 @@ users = 10.times.map do
     email: Faker::Internet.unique.email,
     password: "password",
     username: Faker::Internet.username,
-    total_xp: rand(0..200)
+    total_xp: rand(0..200),
   )
 end
 
+UserMood.all.each do |user_mood|
+  user_mood.mood_type = ["Amazing", "Good", "Ok'ish", "Bad"].sample
+  puts user_mood.mood_type
+end
+
+UserMood.all.each do |user_mood|
+  puts user_mood.mood_type
+end
+
+
+puts "all after user creation"
+puts UserMood.all
 
 tasks = 15.times.map do
   Task.create!(
@@ -36,11 +50,20 @@ tasks = 15.times.map do
   )
 end
 
-users.each do |user|
-    UserMood.create!(
-      mood_type: %w[Amazing Good Ok'ish Bad].sample,
-      xp_bonus: 1
-    )
-end
+# puts "1 all"
+# puts UserMood.all
+# puts "creating UserMood"
 
-puts "Seed finished #{User.count} users, #{Task.count} tasks and #{UserMood.count} user_moods."
+# users.each do |user|
+#     user_mood = UserMood.create!(
+#       user_id: user.id,
+#       mood_type: "Bad",
+#       xp_bonus: 1
+#     )
+#   puts user.user_mood
+# end
+
+
+# puts "all"
+# puts UserMood.all
+# puts "Seed finished #{User.count} users, #{Task.count} tasks and #{UserMood.count} user_moods."
