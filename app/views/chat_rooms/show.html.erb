@@ -1,0 +1,57 @@
+<<div class="container mt-4">
+
+  <!-- Chat Room Name -->
+  <h1 class="text-primary mb-3 text-center"><%= @chat_room.name %></h1>
+
+  <!-- Participants -->
+  <div class="mb-3 text-center">
+    <strong>Participants:</strong>
+    <% @chat_room.users.each do |user| %>
+      <span class="badge bg-info text-dark mx-1"><%= user.username %></span>
+    <% end %>
+  </div>
+
+  <!-- Invite a Friend (if creator) -->
+  <% if @chat_room.creator == current_user %>
+    <div class="mb-4 text-center">
+      <%= form_with url: invite_chat_room_path(@chat_room), method: :post, local: true, html: { class: "d-inline-block" } do |f| %>
+        <%# Dropdown: only friends not already in the chat room %>
+        <%= select_tag :user_id,
+          options_from_collection_for_select(
+            (current_user.friends + current_user.inverse_friends).uniq.reject { |u| @chat_room.users.include?(u) },
+            :id,
+            :username
+          ),
+          prompt: "Select a friend",
+          class: "form-select d-inline-block w-auto"
+        %>
+        <%= f.submit "Invite", class: "btn btn-warning ms-2" %>
+      <% end %>
+
+      <% flash.each do |key, message| %>
+        <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> mt-2"><%= message %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Messages -->
+  <div id="messages" class="border border-primary rounded p-3 mb-4" style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+    <% @messages.each do |message| %>
+      <div class="mb-2">
+        <div class="fw-bold text-primary"><%= message.user.username %></div>
+        <div class="p-2 bg-light border rounded"><%= message.content %></div>
+        <small class="text-muted"><%= time_ago_in_words(message.created_at) %> ago</small>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Send a Message -->
+  <h2 class="h5 mb-2 text-center">Send a Message</h2>
+  <%= form_with model: @new_message, url: create_message_chat_room_path(@chat_room), local: true, html: { class: "mb-4" } do |f| %>
+    <%= f.text_area :content, class: "form-control mb-2", placeholder: "Type your message..." %>
+    <div class="text-center">
+      <%= f.submit "Send", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+</div>

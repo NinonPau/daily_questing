@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4" style="border-radius: 15px;">
   <div class="container d-flex justify-content-between align-items-center">
 
-    
+
     <div style="width:40px;"></div>
 
     <!-- Logo / App Name centered -->
@@ -17,7 +17,11 @@
           <div class="d-flex gap-2">
             <%= link_to "Quests", tasks_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
             <%= link_to "Add Quest", new_task_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
-            <%= link_to "Mood", "#", class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;" %>
+            <% if current_user.user_mood %>
+              <%= link_to "Update Mood", edit_user_mood_path(current_user.user_mood), class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;"  %>
+            <% else %>
+              <%= link_to "Log Mood", new_user_mood_path, class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;"  %>
+            <% end %>
             <%= button_to "Log Out",
               destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm", style: "border-radius:12px;" %>
           </div>
