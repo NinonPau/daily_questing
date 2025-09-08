@@ -7,21 +7,23 @@
   </div>
 
   <!-- list of today's tasks only -->
-  <div class="quests-container mx-auto renatacut-grid" style="max-width: 700px; padding: 0 20px;">
+  <%# <div class="quests-container mx-auto renatacut-grid" style="max-width: 700px; padding: 0 20px;">
     <% current_user.tasks.where(date: Date.today).each do |quest| %>
     <!--only the task of the day are display -->
-      <div class="mb-4">
-        <div class="card shadow-sm renata-card" style="border-radius:15px; background-color: <%= quest.ignored ? 'grey' : '#f9f9f9' %>;">
-          <div class="card-header d-flex justify-content-between align-items-center"
+      <%# <div class="mb-4">
+        <%# <div class="card shadow-sm " style="border-radius:15px; background-color: <%= quest.ignored ? 'grey' : '#f9f9f9' %>
+          <%# <div class="card-header d-flex justify-content-between align-items-center"
                style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
-            <span><%= quest.name %></span>
-            <% if quest.completed %>
-              <span class="badge bg-success" style="font-size:0.9rem;">Completed</span>
+            <span><%= quest.name</span>
+            <%# <% if quest.completed %>
+              <%# <span class="badge bg-success" style="font-size:0.9rem;">Completed</span>
             <% elsif quest.ignored%>
-              <span class="badge bg-primary text-dark" style="font-size:0.9rem;">Freezed</span>
+              <%# <span class="badge bg-primary text-dark" style="font-size:0.9rem;">Freezed</span>
             <% else  %>
-              <span class="badge bg-warning text-dark" style="font-size:0.9rem;">Pending</span>
+              <%# <span class="badge bg-warning text-dark" style="font-size:0.9rem;">Pending</span>
             <% end %>
+
+             <!-- NEW PART FROM Lucille-->
   <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
 
     <!-- Pending Invitations -->
@@ -29,7 +31,7 @@
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% @pending_invitations.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
-          <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
+          <div class="card shadow-sm renata-card" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
@@ -61,24 +63,24 @@
     <% end %>
 
           <!-- background-img-->
-          <%if quest.ignored %>
-          <div class="card-body text-center" style="line-height:1.5; font-size:1rem; background-image: url('https://media.istockphoto.com/id/495628225/cs/fotografie/ledov%C3%BD-r%C3%A1m.jpg?s=2048x2048&w=is&k=20&c=UT3HK2jAfs5tb8uJyGsJKyCREfNc5_qCYMqgMQdzScw='); ">
-          <% elsif %>
-          <div class="card-body text-center" style="line-height:1.5; font-size:1rem; ">
+          <%# <% if quest.ignored %>
+          <%# <div class="card-body text-center" style="line-height:1.5; font-size:1rem; background-image: url('https://media.istockphoto.com/id/495628225/cs/fotografie/ledov%C3%BD-r%C3%A1m.jpg?s=2048x2048&w=is&k=20&c=UT3HK2jAfs5tb8uJyGsJKyCREfNc5_qCYMqgMQdzScw='); ">
+          <% else %>
+          <%# <div class="card-body text-center" style="line-height:1.5; font-size:1rem; ">
           <% end %>
-            <p class="card-text"><%= quest.description %></p>
-            <p>XP Reward: <strong><%= quest.xp || 0 %> XP</strong></p>
-            <% if quest.daily? %>
-              <p><em>Daily Quest</em></p>
+            <%# <p class="card-text"><%= quest.description</p> %>
+            <%# <p>XP Reward: <strong><%= quest.xp || 0 XP</strong></p> %>
+            <%# <% if quest.daily? %>
+              <%# <p><em>Daily Quest</em></p>
             <% else %>
-              <p><em>For <%= quest.date.strftime("%d %b %Y") %></em></p>
-            <% end %>
-          </div>
+              <%# <p><em>For <%= quest.date.strftime("%d %b %Y")</em></p> %>
+            <%# <% end %>
+          <%# </div>
           <div class="task-item" style="display: flex; justify-content: flex-end; align-items: center;">
             <%= link_to edit_task_path(quest), class: "edit_button fs-2" do %>
-              ✏️
+              <%# ✏️
             <% end %>
-          </div>
+          <%# </div> %>
     <!-- Your Created Quests + Accepted Partner Quests -->
     <% if @tasks.any? || @partner_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
@@ -87,7 +89,9 @@
 
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm"
-               style="border-radius:15px; background-color: <%= invitation ? '#f0f8ff' : (task.ignored ? 'grey' : '#f9f9f9') %>;">
+               style="border-radius:15px;  background-color: <%= invitation ? '#f0f8ff' : 'transparent' %>;
+            background-color: <%= invitation ? '#f0f8ff' : 'transparent' %>;
+              <%= 'background-image: url("https://media.istockphoto.com/id/94344269/photo/blue-ice-framing-blank-pale-blue-background.jpg?s=612x612&w=0&k=20&c=bbxu4-98Qqi3Q4bH0SwpUdvgeBY-Her6TdcC5fdu76c="); background-size: cover; background-position: center;' if task.ignored %>">
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
@@ -176,6 +180,6 @@
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
-<% else %>
-  <%= render "public_home" %>
-<% end %>
+    <% else %>
+      <%= render "public_home" %>
+    <% end %>
