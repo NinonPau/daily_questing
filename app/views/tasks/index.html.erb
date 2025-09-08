@@ -30,7 +30,7 @@
     <% if @pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% @pending_invitations.each do |task| %>
-        <div class="mb-4" id="task_<%= task.id %>">
+        <div class="mb-4 renatacut-grid" id="task_<%= task.id %>">
           <div class="card shadow-sm renata-card" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
@@ -62,25 +62,6 @@
       <% end %>
     <% end %>
 
-          <!-- background-img-->
-          <%# <% if quest.ignored %>
-          <%# <div class="card-body text-center" style="line-height:1.5; font-size:1rem; background-image: url('https://media.istockphoto.com/id/495628225/cs/fotografie/ledov%C3%BD-r%C3%A1m.jpg?s=2048x2048&w=is&k=20&c=UT3HK2jAfs5tb8uJyGsJKyCREfNc5_qCYMqgMQdzScw='); ">
-          <% else %>
-          <%# <div class="card-body text-center" style="line-height:1.5; font-size:1rem; ">
-          <% end %>
-            <%# <p class="card-text"><%= quest.description</p> %>
-            <%# <p>XP Reward: <strong><%= quest.xp || 0 XP</strong></p> %>
-            <%# <% if quest.daily? %>
-              <%# <p><em>Daily Quest</em></p>
-            <% else %>
-              <%# <p><em>For <%= quest.date.strftime("%d %b %Y")</em></p> %>
-            <%# <% end %>
-          <%# </div>
-          <div class="task-item" style="display: flex; justify-content: flex-end; align-items: center;">
-            <%= link_to edit_task_path(quest), class: "edit_button fs-2" do %>
-              <%# ✏️
-            <% end %>
-          <%# </div> %>
     <!-- Your Created Quests + Accepted Partner Quests -->
     <% if @tasks.any? || @partner_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
