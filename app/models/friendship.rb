@@ -6,6 +6,7 @@ class Friendship < ApplicationRecord
   validates :friend_id, presence: true
   validates :user_id, presence: true
   #  friendship belong to user
-  validates :friend_id, uniqueness: true
-  
+  validates :friend_id, uniqueness: { scope: :user_id }
+  # if no scop uniqueness will be taken as just one ID by user for friend
+
 end
