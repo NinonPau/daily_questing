@@ -12,7 +12,7 @@
 
   <body>
     <%= render "shared/navbar" %>
-    <%= render "shared/heroheader" %>
+    <%= render "shared/heroheader" if user_signed_in? %>
 <!-- <%= render "shared/flashes" %> comment it out to avoid doble -->
     <%= yield %>
   </body>
