@@ -1,6 +1,7 @@
 <% if user_signed_in? %>
   <h3 class="mb-4 text-center" style="font-size:1.8rem; color:#2c3e50;">Your Quests</h3>
 
+  <!-- Back button -->
   <div class="mb-3 back-link">
     <%= link_to "Back", root_path, class: "btn btn-secondary" %>
   </div>
@@ -57,7 +58,7 @@
               <span><%= task.name %></span>
 
               <% if invitation %>
-                <!-- Invitation handled above -->
+                <!-- handled above -->
               <% else %>
                 <% if task.partner.present? %>
                   <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
@@ -82,13 +83,12 @@
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
 
-              <%# --- Participants --- %>
+              <%# --- Participants & Ask for Help --- %>
               <% unless task.completed %>
                 <p>Participants: <%= task.user.username %>
                   <% if task.partner.present? %>, <%= task.partner.username %> <% end %>
                 </p>
 
-                <%# --- Invite Friend Form (Creator Only) --- %>
                 <% if task.user == current_user %>
                   <% available_friends = current_user.friends.reject { |f| f == task.partner } %>
                   <% if available_friends.any? %>
@@ -111,7 +111,7 @@
             </div>
 
             <div class="task-item" style="display: flex; justify-content: flex-end;">
-              <% unless invitation %>
+              <% unless task.completed %>
                 <%= link_to edit_task_path(task), class: "edit_button fs-2" do %> ✏️ <% end %>
               <% end %>
             </div>
@@ -135,9 +135,9 @@
         </div>
       <% end %>
     <% end %>
-
   </div>
 
+  <!-- Add new quest button -->
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
