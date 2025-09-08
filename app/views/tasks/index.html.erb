@@ -76,12 +76,15 @@
 
               <!-- Participants & Invite Friend -->
               <% unless task.completed %>
-                <p>Participants: <%= task.user.username %>
-                  <% if task.partner.present? %>, <%= task.partner.username %> <% end %>
+                <p>Participants:
+                  <%= task.user.username %>
+                  <% task.task_participants.each do |tp| %>
+                    <% if tp.user != task.user %>, <%= tp.user.username %> <% end %>
+                  <% end %>
                 </p>
 
                 <% if task.user == current_user %>
-                  <% available_friends = current_user.friends.reject { |f| f == task.partner } %>
+                  <% available_friends = current_user.friends.reject { |f| task.task_participants.map(&:user).include?(f) } %>
                   <% if available_friends.any? %>
                     <div class="mt-2">
                       <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
