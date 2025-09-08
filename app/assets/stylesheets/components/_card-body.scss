@@ -12,12 +12,16 @@
 // }
 
 .renata-card{
-  width:200px;
-  height: 300px;
-  height: 300px;
+  // width:
+  height: 100%;
+  margin: 10px;
+
  }
 
-// frozen card
- .renata{
-
+.renatacut-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
+
+// frozen card
