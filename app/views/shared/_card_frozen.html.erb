@@ -1,0 +1,57 @@
+<!--Card template -->
+          <div class="card shadow-sm renata-card"
+               style="border-radius:15px;  background-color: '#f0f8ff';
+              <%= 'background-image: url("https://image.lexica.art/full_webp/67b84271-161e-4c2a-ac51-4898424ec2ba"); background-size: cover; background-position: center;' if @task.ignored %>">
+
+            <!--Card header -->
+            <div class="card-header d-flex justify-content-between align-items-center"
+                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+              <!--Task name -->
+              <span><%= task.name %></span>
+              <!--Number of participants -->
+              <% accepted_participants = task.task_participants.where(status: "accepted") %>
+              <% if accepted_participants.count > 1 %>
+                <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
+              <% end %>
+              <!--Badge- completed, frozen, pending -->
+              <span class="badge bg-primary text-dark">Frozen</span>
+              </div>
+
+          <!--Card body -->
+
+            <!--task description, reward, frequency-->
+            <div class="card-body text-center">
+              <p class="card-text"><%= task.description %></p>
+              <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
+              <% if task.daily? %>
+                <p><em>Daily Quest</em></p>
+              <% else %>
+                <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
+              <% end %>
+
+              <!--List of participants and name of tasks creator -->
+              <% visible_participants = task.task_participants.where.not(status: "declined") %>
+              <% if visible_participants.any? %>
+                <p>
+                  Participants:
+                  <% visible_participants.each do |tp| %>
+                    <% css_class = case tp.status
+                      when "pending" then "text-warning fw-bold"
+                      when "accepted" then "text-primary fw-bold"
+                      else ""
+                    end %>
+                    <span class="<%= css_class %>"><%= tp.user.username %></span><%= "," unless tp == visible_participants.last %>
+                  <% end %>
+                </p>
+              <% else %>
+                <p>Creator: <%= task.user.username %></p>
+              <% end %>
+
+            </div>
+
+            <!--Card footer -->
+            <div class="card-footer text-center">
+              <%= button_to "Unfreeze", unignore_task_path(task), method: :patch, class: "btn btn-primary btn-sm" %>
+            </div>
+
+          </div>
