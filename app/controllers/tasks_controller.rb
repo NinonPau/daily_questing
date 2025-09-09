@@ -6,21 +6,14 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :update, :complete, :ignore, :unignore, :invite_friend, :accept_invitation, :decline_invitation]
 
   def index
-  # Tasks created by the current user
+    # Tasks created by the current user for today
     @tasks = current_user.tasks.where(date: Date.today)
 
-    # Pending invitations = tasks where current_user is invited but has not accepted yet
-    @pending_invitations = current_user.partner_tasks.where(
-      date: Date.today,
-      duo: true,
-      completed: false
-    )
+    # Tasks where current_user is a participant (accepted or pending)
+    participant_records = current_user.task_participants.where(status: ["pending", "accepted"])
 
-    # Partner quests already accepted (duo flipped to false after acceptance)
-    @partner_tasks = current_user.partner_tasks.where(
-      date: Date.today,
-      duo: false
-    )
+    # Collect tasks for which the user is participating, including their own tasks
+    @participating_tasks = participant_records.map(&:task)
   end
 
   def new
@@ -31,6 +24,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.new(task_params)
     @task.date = Date.today
     if @task.save
+      @task.add_creator_as_participant
       redirect_to new_task_path, notice: "Quest successfully created!"
     else
       render :new, status: :unprocessable_entity
@@ -66,12 +60,20 @@ class TasksController < ApplicationController
   end
 
   def complete
-    if @task.update(completed: true)
-      current_user.add_xp(@task.xp || 0)
-      redirect_to tasks_path, notice: "Congratulations, You completed the quest '#{@task.name}'!"
-    else
-      redirect_to tasks_path, alert: "Could not complete the quest."
+    @task = Task.find(params[:id])
+
+    # Mark the task as completed
+    @task.update(completed: true)
+
+    # Ensure creator is included as a participant
+    @task.add_creator_as_participant
+
+    # Give XP to all accepted participants
+    @task.task_participants.where(status: "accepted").each do |tp|
+      tp.user.add_xp(@task.xp.to_i)
     end
+
+    redirect_to tasks_path, notice: "Quest completed!"
   end
 
   def ignore
@@ -90,20 +92,22 @@ class TasksController < ApplicationController
     end
   end
 
-  # Invitation d'un ami
+
   def invite_friend
     friend = User.find(params[:friend_id])
-    if @task.update(partner: friend, duo: true)
-      redirect_to tasks_path, notice: "#{friend.username} has been invited to help!"
+    tp = @task.task_participants.find_or_initialize_by(user: friend)
+    tp.status = "pending"
+    if tp.save
+      redirect_to tasks_path, notice: "#{friend.username} has been invited!"
     else
       redirect_to tasks_path, alert: "Could not invite #{friend.username}."
     end
   end
 
-  # Accept invitation
+
   def accept_invitation
-    if @task.partner_id == current_user.id
-      @task.update(duo: false) # hack: mark as accepted
+    tp = @task.task_participants.find_by(user: current_user)
+    if tp&.update(status: "accepted")
       redirect_to tasks_path, notice: "Quest accepted!"
     else
       redirect_to tasks_path, alert: "You can't accept this quest."
@@ -111,10 +115,11 @@ class TasksController < ApplicationController
   end
 
 
-  # Decline invitation
+
   def decline_invitation
-    if @task.partner_id == current_user.id
-      @task.update(partner_id: nil, duo: false) # reset partner & duo flag
+    task = Task.find(params[:id])
+    tp = @task.task_participants.find_by(user: current_user)
+    if tp&.update(status: "declined")
       redirect_to tasks_path, notice: "Quest declined!"
     else
       redirect_to tasks_path, alert: "You can't decline this quest."
