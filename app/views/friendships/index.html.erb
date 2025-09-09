@@ -34,21 +34,6 @@
     <p class="text-muted mb-4">No pending requests received.</p>
   <% end %>
 
-  <!-- Pending friend requests sent -->
-  <h2 class="h5 text-secondary mb-2">Pending Requests Sent</h2>
-  <% if @pending_requests_sent.any? %>
-    <ul class="list-group mb-4">
-      <% @pending_requests_sent.each do |friendship| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <span><%= friendship.friend.username %></span>
-          <span class="text-muted">Pending...</span>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p class="text-muted mb-4">No pending requests sent.</p>
-  <% end %>
-
   <!-- Friends list -->
   <hr>
   <h2 class="h5 text-secondary mb-2">Friends</h2>

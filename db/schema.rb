@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_08_124136) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_08_213019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_08_124136) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "task_participants", force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "user_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_task_participants_on_task_id"
+    t.index ["user_id"], name: "index_task_participants_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name"
@@ -53,12 +63,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_08_124136) do
     t.boolean "daily"
     t.boolean "completed", default: false
     t.float "xp"
-    t.boolean "duo"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
     t.boolean "ignored"
-    t.bigint "partner_id"
   end
 
   create_table "user_moods", force: :cascade do |t|
@@ -91,7 +99,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_08_124136) do
   add_foreign_key "chat_rooms", "users", column: "creator_id"
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "task_participants", "tasks"
+  add_foreign_key "task_participants", "users"
   add_foreign_key "tasks", "users"
-  add_foreign_key "tasks", "users", column: "partner_id"
   add_foreign_key "user_moods", "users"
 end
