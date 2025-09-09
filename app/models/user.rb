@@ -36,6 +36,31 @@ class User < ApplicationRecord
     update(total_xp: current_total + amount.to_f * bonus)
   end
 
+ def current_level
+  case total_xp
+    when 0..250
+     1
+    when 251..800
+     2
+    when 801..2000
+      3
+    when 2001..4600
+      4
+    when 4601..10000
+      5
+    when 10001..22000
+      6
+    when 22001..48000
+      7
+    when 48001..104000
+      8
+    when 104001..224000
+      9
+    when 224001..480000
+      10
+  end
+ end
+
   def pending_invitations
     task_participants.where(status: "pending").map(&:task)
   end
