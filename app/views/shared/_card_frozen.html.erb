@@ -21,7 +21,7 @@
             <!--task description, reward, frequency-->
             <div class="card-body text-center d-flex flex-column align-items-center justify-content-center">
               <!--Task name -->
-              <h4 class="task-title fs-1"><%= task.name %></h4>
+              <h4 class="task-title"><%= task.name %></h4>
               <p class="card-text"><%= task.description %></p>
               <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
               <% if task.daily? %>
