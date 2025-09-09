@@ -9,11 +9,13 @@
   <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
 
     <!-- Pending Invitations -->
-    <% if current_user.pending_invitations.any? %>
+    <% pending_invitations = current_user.pending_invitations.reject do |task|
+         task.task_participants.find_by(user: current_user)&.status == "declined"
+       end %>
+
+    <% if pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
-      <% current_user.pending_invitations.each do |task| %>
-        <% tp = task.task_participants.find_by(user: current_user) %>
-        <% next if tp&.status == "declined" %>
+      <% pending_invitations.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -40,11 +42,14 @@
       <% end %>
     <% end %>
 
-    <!-- Created & Partner Quests -->
-    <% all_tasks = (@tasks + @participating_tasks).uniq.sort_by(&:created_at).reverse %>
-    <% if all_tasks.any? %>
+    <!-- Created & Accepted Quests -->
+    <% visible_tasks = (@tasks + @participating_tasks).uniq.select do |task|
+         task.user == current_user || task.task_participants.exists?(user: current_user, status: "accepted")
+       end.sort_by(&:created_at).reverse %>
+
+    <% if visible_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
-      <% all_tasks.each do |task| %>
+      <% visible_tasks.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f9f9f9;">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -74,7 +79,6 @@
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
 
-              <!-- Participants with status color -->
               <% visible_participants = task.task_participants.where.not(status: "declined") %>
               <% if visible_participants.any? %>
                 <p>
@@ -92,7 +96,6 @@
                 <p>Creator: <%= task.user.username %></p>
               <% end %>
 
-              <!-- Invite friends (only creator) - collapsible -->
               <% if task.user == current_user && !task.completed %>
                 <div class="mt-2">
                   <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#inviteForm_<%= task.id %>">
@@ -118,7 +121,6 @@
               <% end %>
             </div>
 
-            <!-- Task actions -->
             <div class="card-footer text-center">
               <% unless task.completed %>
                 <% if task.ignored %>
@@ -135,7 +137,6 @@
     <% end %>
   </div>
 
-  <!-- Add new quest button -->
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
