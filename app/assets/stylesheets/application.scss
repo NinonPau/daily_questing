@@ -14,12 +14,13 @@
 
 
 // Global
-.background {
+html {
+  height: 100%;
 }
 
 body {
-  height: 100%;
-  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   &.pages.home {
     background-image: url(https://img.freepik.com/free-vector/pixel-art-mystical-background_52683-87349.jpg);
@@ -37,7 +38,7 @@ body {
       background-image: url(https://wallpapercave.com/wp/wp15699498.png);
     }
     &.edit {
-      background-image: url(https://wallpapercave.com/wp/wp15699498.png); // change img mirror
+      background-image: url(https://wallpapercave.com/wp/wp15699498.png); // change img
     }
   }
 
