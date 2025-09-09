@@ -2,7 +2,7 @@ class Task < ApplicationRecord
   belongs_to :user
   has_many :task_participants, dependent: :destroy
   has_many :participants, through: :task_participants, source: :user
-
+  after_create :add_creator_as_participant
 
 
   def today? # to check the date

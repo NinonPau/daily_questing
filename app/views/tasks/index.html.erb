@@ -12,7 +12,8 @@
     <% if current_user.pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% current_user.pending_invitations.each do |task| %>
-        <% next if task.task_participants.find_by(user: current_user)&.status == "declined" %>
+        <% tp = task.task_participants.find_by(user: current_user) %>
+        <% next if tp&.status == "declined" %>
         <div class="mb-4" id="task_<%= task.id %>">
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f0f8ff;">
             <div class="card-header d-flex justify-content-between align-items-center"
@@ -40,14 +41,12 @@
     <% end %>
 
     <!-- Created & Partner Quests -->
-    <% all_tasks = @tasks + @participating_tasks %>
+    <% all_tasks = (@tasks + @participating_tasks).uniq %>
     <% if all_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
       <% all_tasks.each do |task| %>
-        <% invitation = task.participants.exists?(id: current_user.id) && task.user_id != current_user.id && !task.completed %>
         <div class="mb-4" id="task_<%= task.id %>">
-          <div class="card shadow-sm"
-               style="border-radius:15px; background-color: <%= invitation ? '#f0f8ff' : (task.participants.any? ? '#d1ecf1' : '#f9f9f9') %>;">
+          <div class="card shadow-sm" style="border-radius:15px; background-color: #f9f9f9;">
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
@@ -73,17 +72,17 @@
               <% end %>
 
               <!-- Participants with status color -->
-              <% if task.task_participants.any? %>
+              <% accepted_participants = task.task_participants.where.not(status: "declined") %>
+              <% if accepted_participants.any? %>
                 <p>
                   Participants:
-                  <% task.task_participants.each do |tp| %>
+                  <% accepted_participants.each do |tp| %>
                     <% css_class = case tp.status
                       when "pending" then "text-warning fw-bold"   # yellow
                       when "accepted" then "text-primary fw-bold"  # blue
-                      when "declined" then "text-danger fw-bold"   # red
-                      else ""
+                      else ""                                     # fallback
                     end %>
-                    <span class="<%= css_class %>"><%= tp.user.username %></span><%= "," unless tp == task.task_participants.last %>
+                    <span class="<%= css_class %>"><%= tp.user.username %></span><%= "," unless tp == accepted_participants.last %>
                   <% end %>
                 </p>
               <% else %>
@@ -135,3 +134,4 @@
 <% else %>
   <%= render "public_home" %>
 <% end %>
+

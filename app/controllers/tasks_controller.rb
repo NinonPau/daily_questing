@@ -8,17 +8,12 @@ class TasksController < ApplicationController
   def index
     # Tasks created by the current user for today
     @tasks = current_user.tasks.where(date: Date.today)
-    # Find all TaskParticipant records where current_user is a participant
-    participant_records = TaskParticipant.where(user_id: current_user.id)
 
-    # Collect the tasks for which the user is participating, excluding their own tasks
-    @participating_tasks = []
-    participant_records.each do |participant_record|
-      task = participant_record.task
-      if task.user_id != current_user.id
-        @participating_tasks << task
-      end
-    end
+    # Tasks where current_user is a participant (accepted or pending)
+    participant_records = current_user.task_participants.where(status: ["pending", "accepted"])
+
+    # Collect tasks for which the user is participating, including their own tasks
+    @participating_tasks = participant_records.map(&:task)
   end
 
   def new
@@ -29,6 +24,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.new(task_params)
     @task.date = Date.today
     if @task.save
+      @task.add_creator_as_participant
       redirect_to new_task_path, notice: "Quest successfully created!"
     else
       render :new, status: :unprocessable_entity
@@ -64,19 +60,21 @@ class TasksController < ApplicationController
   end
 
   def complete
-  if @task.update(completed: true)
-    xp = @task.xp.to_i
-    @task.user.add_xp(xp)
+    @task = Task.find(params[:id])
+
+    # Mark the task as completed
+    @task.update(completed: true)
+
+    # Ensure creator is included as a participant
+    @task.add_creator_as_participant
+
+    # Give XP to all accepted participants
     @task.task_participants.where(status: "accepted").each do |tp|
-      tp.user.add_xp(xp)
+      tp.user.add_xp(@task.xp.to_i)
     end
 
-    redirect_to tasks_path, notice: "Quest '#{@task.name}' completed! Everyone got #{xp} XP."
-  else
-    redirect_to tasks_path, alert: "Could not complete the quest."
+    redirect_to tasks_path, notice: "Quest completed!"
   end
-end
-
 
   def ignore
     if @task.update(ignored: true)

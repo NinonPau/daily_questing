@@ -22,6 +22,10 @@ class User < ApplicationRecord
 
   after_create :set_default_mood
 
+  def add_creator_as_participant
+    task_participants.find_or_create_by(user: user, status: "accepted")
+  end
+
   def invited_tasks
     Task.where(partner_id: id)
   end
