@@ -80,8 +80,19 @@
               <% end %>
 
               <!-- Participants -->
-              <% if task.participants.any? %>
-                <p>Participants: <%= task.participants.map(&:username).join(", ") %></p>
+              <% if task.task_participants.any? %>
+                <p>
+                  Participants:
+                  <% task.task_participants.each do |tp| %>
+                    <% css_class = case tp.status
+                      when "pending" then "text-danger fw-bold"  # red
+                      when "declined" then "text-muted"          # gray
+                      else ""                                    # accepted = normal
+                    end %>
+                    <span class="<%= css_class %>"><%= tp.user.username %></span><%=
+                      "," unless tp == task.task_participants.last %>
+                  <% end %>
+                </p>
               <% else %>
                 <p>Creator: <%= task.user.username %></p>
               <% end %>
@@ -137,5 +148,3 @@
 <% else %>
   <%= render "public_home" %>
 <% end %>
-
-

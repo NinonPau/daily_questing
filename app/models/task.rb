@@ -30,7 +30,9 @@ class Task < ApplicationRecord
     task_participants.exists?(user: user, status: "accepted")
   end
 
-
+  def add_creator_as_participant
+    task_participants.find_or_create_by(user: user, status: "accepted")
+  end
 
   private
 
