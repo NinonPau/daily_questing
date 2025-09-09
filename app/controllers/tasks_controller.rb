@@ -64,20 +64,19 @@ class TasksController < ApplicationController
   end
 
   def complete
-    if @task.update(completed: true)
-       # All accepted participants, including the creator if they are in the list
-      participants = @task.task_participants.where(status: "accepted").map(&:user)
-
-      # Add XP to each participant, including creator
-      participants.each do |participant|
-        participant.add_xp(@task.xp || 0)
-      end
-
-      redirect_to tasks_path, notice: "Congratulations, Quest '#{@task.name}' completed!"
-    else
-      redirect_to tasks_path, alert: "Could not complete the quest."
+  if @task.update(completed: true)
+    xp = @task.xp.to_i
+    @task.user.add_xp(xp)
+    @task.task_participants.where(status: "accepted").each do |tp|
+      tp.user.add_xp(xp)
     end
+
+    redirect_to tasks_path, notice: "Quest '#{@task.name}' completed! Everyone got #{xp} XP."
+  else
+    redirect_to tasks_path, alert: "Could not complete the quest."
   end
+end
+
 
   def ignore
     if @task.update(ignored: true)
@@ -120,6 +119,7 @@ class TasksController < ApplicationController
 
 
   def decline_invitation
+    task = Task.find(params[:id])
     tp = @task.task_participants.find_by(user: current_user)
     if tp&.update(status: "declined")
       redirect_to tasks_path, notice: "Quest declined!"

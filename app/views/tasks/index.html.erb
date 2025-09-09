@@ -19,7 +19,6 @@
               <span><%= task.name %></span>
               <span class="badge text-white" style="background-color:#9b59b6;">Invitation</span>
             </div>
-
             <div class="card-body text-center">
               <p class="card-text"><%= task.description %></p>
               <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
@@ -30,21 +29,16 @@
               <% end %>
               <p>Creator: <%= task.user.username %></p>
             </div>
-
             <div class="card-footer text-center">
-              <%= button_to "Accept", accept_invitation_task_path(task),
-                    method: :patch,
-                    class: "btn btn-success btn-sm me-2" %>
-              <%= button_to "Decline", decline_invitation_task_path(task),
-                    method: :patch,
-                    class: "btn btn-danger btn-sm" %>
+              <%= button_to "Accept", accept_invitation_task_path(task), method: :patch, class: "btn btn-success btn-sm me-2" %>
+              <%= button_to "Decline", decline_invitation_task_path(task), method: :patch, class: "btn btn-danger btn-sm" %>
             </div>
           </div>
         </div>
       <% end %>
     <% end %>
 
-    <!-- Created Quests & Partner Quests -->
+    <!-- Created & Partner Quests -->
     <% all_tasks = @tasks + @participating_tasks %>
     <% if all_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
@@ -56,11 +50,9 @@
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
-
               <% if task.participants.any? %>
                 <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
               <% end %>
-
               <% if task.completed %>
                 <span class="badge bg-success">Completed</span>
               <% elsif task.ignored %>
@@ -79,38 +71,34 @@
                 <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
               <% end %>
 
-              <!-- Participants -->
+              <!-- Participants with status color -->
               <% if task.task_participants.any? %>
                 <p>
                   Participants:
                   <% task.task_participants.each do |tp| %>
                     <% css_class = case tp.status
-                      when "pending" then "text-danger fw-bold"  # red
-                      when "declined" then "text-muted"          # gray
-                      else ""                                    # accepted = normal
+                      when "pending" then "text-danger fw-bold"   # red
+                      when "declined" then "text-muted"           # gray
+                      else ""                                     # accepted
                     end %>
-                    <span class="<%= css_class %>"><%= tp.user.username %></span><%=
-                      "," unless tp == task.task_participants.last %>
+                    <span class="<%= css_class %>"><%= tp.user.username %></span><%= "," unless tp == task.task_participants.last %>
                   <% end %>
                 </p>
               <% else %>
                 <p>Creator: <%= task.user.username %></p>
               <% end %>
 
-              <!-- Invite friends (only for creator) -->
+              <!-- Invite friends (only creator) -->
               <% if task.user == current_user && !task.completed %>
                 <% all_friends = current_user.friends + current_user.inverse_friends %>
                 <% invited_user_ids = task.task_participants.pluck(:user_id) %>
                 <% available_friends = all_friends.reject { |f| invited_user_ids.include?(f.id) } %>
-
                 <% if available_friends.any? %>
                   <div class="mt-2">
                     <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
                       <div class="mb-2">
-                        <%= select_tag :friend_id,
-                              options_from_collection_for_select(available_friends, :id, :username),
-                              include_blank: "Choose a friend",
-                              class: "form-select" %>
+                        <%= select_tag :friend_id, options_from_collection_for_select(available_friends, :id, :username),
+                              include_blank: "Choose a friend", class: "form-select" %>
                       </div>
                       <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
                     <% end %>
@@ -125,13 +113,10 @@
             <div class="card-footer text-center">
               <% unless task.completed %>
                 <% if task.ignored %>
-                  <%= button_to "Unfreeze", unignore_task_path(task), method: :patch,
-                        class: "btn btn-primary btn-sm" %>
+                  <%= button_to "Unfreeze", unignore_task_path(task), method: :patch, class: "btn btn-primary btn-sm" %>
                 <% else %>
-                  <%= button_to "Mark as Done", complete_task_path(task), method: :patch,
-                        class: "btn btn-success btn-sm me-2" %>
-                  <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch,
-                        class: "btn btn-warning btn-sm" %>
+                  <%= button_to "Mark as Done", complete_task_path(task), method: :patch, class: "btn btn-success btn-sm me-2" %>
+                  <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch, class: "btn btn-warning btn-sm" %>
                 <% end %>
               <% end %>
             </div>
