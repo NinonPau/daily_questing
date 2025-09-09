@@ -22,3 +22,8 @@ h2 {
   text-shadow: 0 0 2px #FFDDAA;
   margin-top: 4px;
 }
+.chat-font {
+  font-family: 'Press Start 2P', cursive;
+  color: $primary-color;
+  text-shadow: 0 0 2px $secondary-color;
+}
