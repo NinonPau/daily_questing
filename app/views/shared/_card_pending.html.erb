@@ -78,8 +78,8 @@
 
             <!--Card footer -->
             <div class="card-footer text-center" style="background-color:#F7A000;">
-              <%= button_to "Mark as Done", complete_task_path(task), method: :patch, class: "btn btn-success btn-sm me-2" %>
-              <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch, class: "btn btn-warning btn-sm" %>
+              <%= button_to "Mark as Done", complete_task_path(task), method: :patch, class: "btn btn-success btn-sm me-2", form: {class: "d-inline"} %>
+              <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch, class: "btn btn-warning btn-sm", form: {class: "d-inline"} %>
             </div>
 
           </div>
