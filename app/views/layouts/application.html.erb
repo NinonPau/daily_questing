@@ -13,7 +13,7 @@
 
   </head>
 
-  <body>
+  <body class="<%= params[:controller] %> <%= params[:action] %>">
     <%= render "shared/navbar" %>
     <%= render "shared/heroheader" if user_signed_in? %>
 <!-- <%= render "shared/flashes" %> comment it out to avoid doble -->
