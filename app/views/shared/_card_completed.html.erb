@@ -6,8 +6,7 @@
             <!--Card header -->
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
-              <!--Task name -->
-              <span><%= task.name %></span>
+
               <!--Number of participants -->
               <% accepted_participants = task.task_participants.where(status: "accepted") %>
               <% if accepted_participants.count > 1 %>
@@ -21,6 +20,8 @@
 
             <!--task description, reward, frequency-->
             <div class="card-body text-center">
+              <!--Task name -->
+              <span><%= task.name %></span>
               <p class="card-text"><%= task.description %></p>
               <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
               <% if task.daily? %>
