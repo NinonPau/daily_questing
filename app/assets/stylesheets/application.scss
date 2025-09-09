@@ -11,3 +11,19 @@
 @import "components/index";
 @import "pages/index";
 @import "moods/index";
+
+
+// Global
+.background {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  &.pages.home {
+    background-image: url(https://img.freepik.com/free-vector/pixel-art-mystical-background_52683-87349.jpg);
+  }
+  &.user_moods.edit {
+    background-image: url(https://img.freepik.com/free-vector/pixel-clouds-set-night-game-background_107791-34646.jpg);
+  }
+}
