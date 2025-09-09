@@ -65,11 +65,11 @@
         <div class="mb-4" id="task_<%= task.id %>">
 
           <% if task.completed %>
-            <%= render 'shared/card_completed', object: @task %>
+            <%= render 'shared/card_completed', task: task %>
           <% elsif task.ignored %>
-            <%= render 'shared/card_frozen', object: @task %>
+            <%= render 'shared/card_frozen', task: task %>
           <% else %>
-            <%= render partial 'shared/card_pending', object: @task %>
+            <%= render 'shared/card_pending', task: task %>
           <% end %>
 
         </div>
