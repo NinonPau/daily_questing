@@ -1,0 +1,118 @@
+.chat-room-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 100px; /* laisse de la place pour la barre fixe */
+}
+
+.messages-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px); /* espace pour header + barre d'envoi */
+  padding: 0 5px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  margin-bottom: 6px;
+
+  .message-user {
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-shadow: 0 0 2px #FFA25C;
+  }
+
+  .message-content {
+    padding: 6px 10px;
+    border-radius: 5px;
+    background-color: rgba(120, 90, 150, 0.85);
+    color: #F5E6C8;
+    border: 2px solid transparent;
+  }
+
+  .message-time {
+    font-size: 9px;
+    margin-top: 2px;
+    color: #FFDDAA;
+  }
+
+  &.my-message {
+    align-self: flex-end;
+    text-align: right;
+
+    .message-user,
+    .message-time {
+      text-align: right;
+    }
+
+    .message-content {
+      border-color: rgba(255, 140, 70, 0.85);
+    }
+  }
+
+  &.other-message {
+    align-self: flex-start;
+    text-align: left;
+
+    .message-user,
+    .message-time {
+      text-align: left;
+    }
+
+    .message-content {
+      border-color: rgba(140, 100, 160, 0.85);
+    }
+  }
+}
+
+.chat-input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  padding: 10px;
+  background-color: rgba(100, 70, 120, 0.85);
+  border-top: 2px solid #8B5E3C;
+  z-index: 1000;
+
+  .input-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  .message-input {
+    flex: 1; /* prend tout l'espace disponible */
+    resize: none;
+    padding: 6px;
+    border-radius: 5px;
+    border: 2px solid #8B5E3C;
+    background-color: rgba(120, 90, 150, 0.85);
+    color: #F5E6C8;
+  }
+
+  .send-btn {
+    flex-shrink: 0; 
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: rgba(120, 90, 150, 0.85);
+    border: 2px solid #8B5E3C;
+    color: #F5E6C8;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &:hover {
+      background-color: #FF6F3C;
+      color: #1B1B2F;
+      box-shadow: 0 0 10px #FFA25C;
+    }
+  }
+}

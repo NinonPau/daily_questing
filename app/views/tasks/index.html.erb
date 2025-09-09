@@ -77,10 +77,10 @@
     <% end %>
   </div>
 
-  <!--New quest button-->
+  <!-- Add new quest button -->
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
   </div>
-    <% else %>
-      <%= render "public_home" %>
-    <% end %>
+<% else %>
+  <%= render "public_home" %>
+<% end %>
