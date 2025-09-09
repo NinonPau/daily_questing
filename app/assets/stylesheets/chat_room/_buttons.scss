@@ -1,6 +1,6 @@
 .btn, .send-btn, .invite-btn {
   background-color: $panel-bg;
-  border: 2px solid $border-color;
+  border: 2px solid $dark-bg;
   color: $text-color;
   font-size: 11px;
   padding: 6px;
@@ -21,4 +21,9 @@
   font-size: 8px;
   padding: 6px 6px;
   min-width: 60px;
+}
+
+.btn-icons {
+  font-size: 11px;
+  vertical-align: 1.5px;
 }
