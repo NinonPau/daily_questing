@@ -4,7 +4,7 @@
               <%= 'background-image: url("https://image.lexica.art/full_webp/67b84271-161e-4c2a-ac51-4898424ec2ba"); background-size: cover; background-position: center;' if task.ignored %>">
 
             <!--Card header -->
-            <div class="card-header d-flex justify-content-between align-items-center"
+            <div class="card-header d-flex justify-content-center align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
 
               <!--Number of participants -->
@@ -21,7 +21,7 @@
             <!--task description, reward, frequency-->
             <div class="card-body text-center">
               <!--Task name -->
-              <span><%= task.name %></span>
+              <h4 class="fw-bold fs-3"><%= task.name %></h4>
               <p class="card-text"><%= task.description %></p>
               <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
               <% if task.daily? %>
