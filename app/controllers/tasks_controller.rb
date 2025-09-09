@@ -65,8 +65,15 @@ class TasksController < ApplicationController
 
   def complete
     if @task.update(completed: true)
+      # Give XP to the user completing the task
       current_user.add_xp(@task.xp || 0)
-      redirect_to tasks_path, notice: "Congratulations, You completed the quest '#{@task.name}'!"
+
+      # Give XP to all accepted participants
+      @task.task_participants.where(status: "accepted").each do |tp|
+        tp.user.add_xp(@task.xp || 0)
+      end
+
+      redirect_to tasks_path, notice: "Congratulations, Quest '#{@task.name}' completed!"
     else
       redirect_to tasks_path, alert: "Could not complete the quest."
     end
