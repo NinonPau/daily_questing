@@ -22,32 +22,6 @@
             <div class="card-body text-center d-flex flex-column align-items-center justify-content-center">
               <!--Task name -->
               <h4 class="task-title"><%= task.name %></h4>
-              <p class="card-text"><%= task.description %></p>
-              <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
-              <% if task.daily? %>
-                <p><em>Daily Quest</em></p>
-              <% else %>
-                <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
-              <% end %>
-
-              <!--List of participants and name of tasks creator -->
-              <% visible_participants = task.task_participants.where.not(status: "declined") %>
-              <% if visible_participants.any? %>
-                <p>
-                  Participants:
-                  <% visible_participants.each do |tp| %>
-                    <% css_class = case tp.status
-                      when "pending" then "text-warning fw-bold"
-                      when "accepted" then "text-primary fw-bold"
-                      else ""
-                    end %>
-                    <span class="<%= css_class %>"><%= tp.user.username %></span><%= "," unless tp == visible_participants.last %>
-                  <% end %>
-                </p>
-              <% else %>
-                <p>Creator: <%= task.user.username %></p>
-              <% end %>
-
             </div>
 
             <!--Card footer -->
