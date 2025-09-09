@@ -61,6 +61,12 @@ class User < ApplicationRecord
   end
  end
 
+ def xp_progress_percent
+  # define start and endpoint of a level
+  # define progress: xp minus current endpoint of level
+  # divide them and multiply by 100 AND (.clamp(0,100)
+ end
+
   def pending_invitations
     task_participants.where(status: "pending").map(&:task)
   end

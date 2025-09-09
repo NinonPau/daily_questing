@@ -3,6 +3,9 @@
     <h2 style="font-size: 2rem; font-weight: bold;"><%= current_user.username %></h2>
     <p style="font-size: 1.2rem; margin: 0.5rem 0;">XP: <strong><%= current_user.total_xp || 0 %></strong> Level: <strong><%= current_user.current_level || 0 %></strong></p>
 
+    <div class="xp-bar">
+      <div class="xp-fill" style="width:" >
+
     <div class="level-icon">
       <% if current_user.current_level == 1 %>
        <i class="fa-solid fa-ghost fa-3x"></i>
