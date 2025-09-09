@@ -1,7 +1,9 @@
 class Task < ApplicationRecord
   belongs_to :user
-  belongs_to :partner, class_name: "User", optional: true
-  after_update :give_xp_to_partner
+  has_many :task_participants, dependent: :destroy
+  has_many :participants, through: :task_participants, source: :user
+  after_create :add_creator_as_participant
+
 
   def today? # to check the date
       date == Date.today
@@ -25,18 +27,10 @@ class Task < ApplicationRecord
   end
 
   def invitation_accepted_by?(user)
-    duo && partner == user
+    task_participants.exists?(user: user, status: "accepted")
   end
 
-
-
-  private
-
-  def give_xp_to_partner
-    if completed && duo && partner.present?
-      new_total = (partner.total_xp || 0) + xp
-      partner.update(total_xp: new_total)
-    end
+  def add_creator_as_participant
+    task_participants.find_or_create_by(user: user, status: "accepted")
   end
-
 end
