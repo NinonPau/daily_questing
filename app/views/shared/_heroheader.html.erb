@@ -14,27 +14,27 @@
       </div>
     </div>
 
-    <div class="level-icon">
+    <div class="level-icon <%= current_user.user_mood&.mood_type&.parameterize %>">
       <% if current_user.current_level == 1 %>
-       <i class="fa-solid fa-ghost fa-3x"></i>
+        <i class="fa-solid fa-ghost fa-3x"></i>
       <% elsif current_user.current_level == 2 %>
-       <i class="fa-solid fa-hat-wizard fa-3x"></i>
+        <i class="fa-solid fa-hat-wizard fa-3x"></i>
       <% elsif current_user.current_level == 3 %>
-       <i class="fa-light fa-chess-queen fa-3x"></i>
+        <i class="fa-light fa-chess-queen fa-3x"></i>
       <% elsif current_user.current_level == 4 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
+        <i class="fa-solid fa-dragon fa-3x"></i>
       <% elsif current_user.current_level == 5 %>
-       <i class="fa-brands fa-d-and-d fa-3x"></i>
+        <i class="fa-brands fa-d-and-d fa-3x"></i>
       <% elsif current_user.current_level == 6 %>
-       <i class="fa-thin fa-skull-crossbones fa-3x"></i>
+        <i class="fa-thin fa-skull-crossbones fa-3x"></i>
       <% elsif current_user.current_level == 7 %>
-       <i class="fa-solid fa-skull-crossbones fa-3x"></i>
+        <i class="fa-solid fa-skull-crossbones fa-3x"></i>
       <% elsif current_user.current_level == 8 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
+        <i class="fa-solid fa-dragon fa-3x"></i>
       <% elsif current_user.current_level == 9 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
+        <i class="fa-solid fa-dragon fa-3x"></i>
       <% elsif current_user.current_level == 10 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
+        <i class="fa-solid fa-dragon fa-3x"></i>
       <% end %>
     </div>
 

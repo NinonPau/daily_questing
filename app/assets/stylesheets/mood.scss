@@ -1,0 +1,48 @@
+/* --- Mood: Amazing --- */
+/* Vert fluo + pulsation lente pour un effet positif */
+.level-icon.amazing i {
+  color: #39ff14; /* vert néon */
+  text-shadow: 0 0 10px #39ff14, 0 0 20px #00cc66, 0 0 40px #39ff14;
+  animation: pulse 2s infinite;
+}
+
+/* --- Mood: Good --- */
+/* Cyan lumineux avec glow électrique */
+.level-icon.good i {
+  color: #00e5ff; /* cyan néon */
+  text-shadow: 0 0 8px #00e5ff, 0 0 16px #0099cc, 0 0 32px #00e5ff;
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+/* --- Mood: Ok'ish --- */
+/* Jaune/orange instable avec petit shake */
+.level-icon.ok-ish i {
+  color: #ffcc00; /* jaune pixel */
+  text-shadow: 0 0 6px #ffcc00, 0 0 12px #ff9900;
+  animation: shake 0.4s infinite;
+}
+
+/* --- Mood: Bad --- */
+/* Rouge sang + vibration agressive */
+.level-icon.bad i {
+  color: #ff0033; /* rouge néon */
+  text-shadow: 0 0 12px #ff0033, 0 0 24px #990000, 0 0 48px #ff0033;
+  animation: shake 0.25s infinite, pulse 1s infinite alternate;
+}
+
+/* --- Animations --- */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #00e5ff, 0 0 10px #0099cc; }
+  to   { text-shadow: 0 0 20px #00e5ff, 0 0 40px #00ccff; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
