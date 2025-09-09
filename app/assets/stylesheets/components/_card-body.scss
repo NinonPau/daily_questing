@@ -3,6 +3,13 @@
   height: 500px;
   background-color: rgba(255, 255, 255, 0.6);
  }
+
  .card-body{
   background-color: rgba(255, 255, 255, 0.6);
+ }
+
+ .task-title{
+  color:#7E569D;
+   -webkit-text-stroke: 1px black;
+  font-weight: bold;
  }
