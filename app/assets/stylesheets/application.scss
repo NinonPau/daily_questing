@@ -11,6 +11,16 @@
 @import "components/index";
 @import "pages/index";
 @import "moods/index";
+
+
+@import 'chat_room/base';
+@import 'chat_room/colors';
+@import 'chat_room/buttons';
+@import 'chat_room/forms';
+@import 'chat_room/panels';
+@import 'chat_room/chat-messages';
+@import 'chat_room/responsive';
+@import 'chat_room/typography';
 @import "components/heroheader";
 
 // Global

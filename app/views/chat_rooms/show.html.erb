@@ -1,57 +1,63 @@
-<<div class="container mt-4">
+<div class="chat-room-container">
 
   <!-- Chat Room Name -->
-  <h1 class="text-primary mb-3 text-center"><%= @chat_room.name %></h1>
+  <h1 class="chat-room-title chat-font"><%= @chat_room.name %></h1>
 
   <!-- Participants -->
-  <div class="mb-3 text-center">
-    <strong>Participants:</strong>
+  <div class="participants mb-3">
+    <span class="participants-label">Adventurers Present:</span>
     <% @chat_room.users.each do |user| %>
-      <span class="badge bg-info text-dark mx-1"><%= user.username %></span>
+      <span class="participant-badge"><%= user.username %></span>
     <% end %>
   </div>
 
-  <!-- Invite a Friend (if creator) -->
+  <!-- Invite a Friend (if creator) - collapsible -->
   <% if @chat_room.creator == current_user %>
-    <div class="mb-4 text-center">
-      <%= form_with url: invite_chat_room_path(@chat_room), method: :post, local: true, html: { class: "d-inline-block" } do |f| %>
-        <%# Dropdown: only friends not already in the chat room %>
-        <%= select_tag :user_id,
-          options_from_collection_for_select(
-            (current_user.friends + current_user.inverse_friends).uniq.reject { |u| @chat_room.users.include?(u) },
-            :id,
-            :username
-          ),
-          prompt: "Select a friend",
-          class: "form-select d-inline-block w-auto"
-        %>
-        <%= f.submit "Invite", class: "btn btn-warning ms-2" %>
-      <% end %>
-
-      <% flash.each do |key, message| %>
-        <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> mt-2"><%= message %></div>
-      <% end %>
+    <p>
+      <a class="btn btn-secondary" data-bs-toggle="collapse" href="#inviteCollapse" role="button" aria-expanded="false" aria-controls="inviteCollapse">
+        Summon an Adventurer
+      </a>
+    </p>
+    <div class="collapse" id="inviteCollapse">
+      <div class="card card-body mb-3">
+        <%= form_with url: invite_chat_room_path(@chat_room), method: :post, local: true, html: { class: "invite-form" } do |f| %>
+          <div class="mb-2">
+            <%= select_tag :user_id,
+              options_from_collection_for_select(
+                (current_user.friends + current_user.inverse_friends).uniq.reject { |u| @chat_room.users.include?(u) },
+                :id,
+                :username
+              ),
+              prompt: "Select a friend",
+              class: "form-select"
+            %>
+          </div>
+          <%= f.submit "Summon", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 
-  <!-- Messages -->
-  <div id="messages" class="border border-primary rounded p-3 mb-4" style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa;">
+  <!-- Messages Panel (scrollable) -->
+  <div id="messages" class="messages-panel mb-5">
     <% @messages.each do |message| %>
-      <div class="mb-2">
-        <div class="fw-bold text-primary"><%= message.user.username %></div>
-        <div class="p-2 bg-light border rounded"><%= message.content %></div>
-        <small class="text-muted"><%= time_ago_in_words(message.created_at) %> ago</small>
+      <% is_current_user = message.user == current_user %>
+      <div class="message <%= is_current_user ? 'my-message' : 'other-message' %>">
+        <div class="message-user"><%= message.user.username %></div>
+        <div class="message-content"><%= message.content %></div>
+        <small class="message-time"><%= time_ago_in_words(message.created_at) %> ago</small>
       </div>
     <% end %>
   </div>
 
-  <!-- Send a Message -->
-  <h2 class="h5 mb-2 text-center">Send a Message</h2>
-  <%= form_with model: @new_message, url: create_message_chat_room_path(@chat_room), local: true, html: { class: "mb-4" } do |f| %>
-    <%= f.text_area :content, class: "form-control mb-2", placeholder: "Type your message..." %>
-    <div class="text-center">
-      <%= f.submit "Send", class: "btn btn-primary" %>
+</div>
+
+<!-- Fixed chat input bar at the bottom -->
+<div class="chat-input-bar">
+  <%= form_with model: @new_message, url: create_message_chat_room_path(@chat_room), local: true, html: { class: "send-message-form" } do |f| %>
+    <div class="input-row d-flex">
+      <%= f.text_area :content, class: "message-input flex-grow-1", placeholder: "Type your tale..." %>
+      <%= f.submit "Cast", class: "send-btn ms-2" %>
     </div>
   <% end %>
-
 </div>

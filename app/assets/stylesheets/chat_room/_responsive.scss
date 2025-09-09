@@ -1,0 +1,70 @@
+@media (max-width: 400px) {
+  .chat-room-page, .chat-room-container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  h2, .form-label {
+    font-size: 11px;
+  }
+
+  .btn, .send-btn, .invite-btn {
+    font-size: 10px;
+    padding: 4px;
+  }
+}
+.dropdown-menu {
+  background-color: rgba(120, 90, 150, 0.85); // panel-bg
+  border: 2px solid #8B5E3C; // border color
+}
+
+.dropdown-item {
+  color: #F5E6C8; // text color
+}
+
+.dropdown-item:hover {
+  background-color: #FF6F3C; // hover color
+  color: #1B1B2F;
+}
+/* Dark RPG style for the collapsible invite form */
+#inviteCollapse .card {
+  background-color: rgba(120, 90, 150, 0.85); // same as your panel-bg
+  border: 2px solid #8B5E3C;
+}
+
+#inviteCollapse .form-select {
+  background-color: rgba(100, 70, 120, 0.85); // darker for input
+  color: #F5E6C8; // text color
+  border: 2px solid #8B5E3C;
+}
+
+#inviteCollapse .form-select option {
+  background-color: rgba(120, 90, 150, 0.85); // keep options dark
+  color: #F5E6C8;
+}
+
+#inviteCollapse .btn-primary {
+  background-color: rgba(120, 90, 150, 0.85);
+  border: 2px solid #8B5E3C;
+  color: #F5E6C8;
+}
+
+#inviteCollapse .btn-primary:hover {
+  background-color: #FF6F3C;
+  color: #1B1B2F;
+  box-shadow: 0 0 10px #FFA25C;
+}
+.create-chat-panel .form-control {
+  background-color: rgba(100, 70, 120, 0.85); // dark panel color
+  color: #F5E6C8;                             // text color
+  border: 2px solid #8B5E3C;
+  border-radius: 5px;
+}
+
+.create-chat-panel .form-control::placeholder {
+  color: #F5E6C8; // match text color for placeholder
+  opacity: 0.7;
+}
