@@ -23,7 +23,7 @@
     <% if all_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
       <% all_tasks.each do |task| %>
-        <%= render "task_card", task: task %>
+        <%= render "task_card", task: task, bg_color: "#f9f9f9" %>
       <% end %>
     <% end %>
   </div>
@@ -31,8 +31,4 @@
   <!-- Add new quest button -->
   <div class="mt-4 text-center">
     <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
-  </div>
-<% else %>
-  <%= render "public_home" %>
-<% end %>
 
