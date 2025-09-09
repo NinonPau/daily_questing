@@ -1,8 +1,9 @@
 .footer-container {
+  display: flex;
   position: fixed;
   bottom: 0;
   border-top: solid 0.5px rgba(100, 70, 120, 0.85);
   height: 8%;
   width: 100%;
-  background-image: linear-gradient(rgba(120, 90, 150, 0.85));
+  background-image: linear-gradient(rgba(120, 90, 150, 0.25));
 }

@@ -2,21 +2,21 @@
   <!-- Dashboard Actions -->
   <div class="d-flex justify-content-center flex-wrap gap-3 my-4">
     <% if current_user.user_mood %>
-      <%= link_to raw('<i class="fa-solid fa-cloud-sun home-btn-icons"></i> Update Mood'), edit_user_mood_path(current_user.user_mood), class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;"  %>
+      <%= link_to raw('<i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood'), edit_user_mood_path(current_user.user_mood), class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;"  %>
     <% else %>
       <%= link_to "Log Mood", new_user_mood_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;"  %>
     <% end %>
-    <%= link_to raw('<i class="fa-solid fa-scroll home-btn-icons"></i> View Quests'), tasks_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-    <%= link_to raw('<i class="fa-solid fa-feather home-btn-icons"></i> Add Quest'), new_task_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to raw('<i class="fa-solid fa-scroll home-btn-icon"></i> View Quests'), tasks_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to raw('<i class="fa-solid fa-feather home-btn-icon"></i> Add Quest'), new_task_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <%= simple_form_for :task, url: random_tasks_path do |f| %>
       <%= f.submit 'Add Random Quest', class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; width: 100%;" %>
     <% end %> <!-- Ask teacher about icon in submit, knowing that raw() is being escaped -->
 
     <!-- New Friendship Button -->
-    <%= link_to raw('<i class="fa-solid fa-handshake-angle home-btn-icons"></i> Find Questers'), friendships_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to raw('<i class="fa-solid fa-handshake-angle home-btn-icon"></i> Find Questers'), friendships_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
 
     <!-- new button Chat -->
-    <%= link_to raw('<i class="fa-solid fa-fire home-btn-icons"></i> Go to Hearth'), chat_rooms_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+    <%= link_to raw('<i class="fa-solid fa-fire home-btn-icon"></i> Go to Hearth'), chat_rooms_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
   </div>
 
 
