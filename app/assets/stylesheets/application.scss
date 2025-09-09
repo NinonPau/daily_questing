@@ -15,15 +15,42 @@
 
 // Global
 .background {
-  height: 100%;
-  position: relative;
 }
 
 body {
+  height: 100%;
+  position: relative;
+
   &.pages.home {
     background-image: url(https://img.freepik.com/free-vector/pixel-art-mystical-background_52683-87349.jpg);
   }
+
   &.user_moods.edit {
     background-image: url(https://img.freepik.com/free-vector/pixel-clouds-set-night-game-background_107791-34646.jpg);
+  }
+
+  &.tasks {
+    &.index {
+      background-image: url(https://wallpapercave.com/wp/wp15699437.png);
+    }
+    &.new {
+      background-image: url(https://wallpapercave.com/wp/wp15699498.png);
+    }
+    &.edit {
+      background-image: url(https://wallpapercave.com/wp/wp15699498.png); // change img mirror
+    }
+  }
+
+  &.friendships.index {
+    background-image: url(https://wallpapercave.com/wp/wp15762575.jpg);
+  }
+
+  &.chat_rooms {
+    &.index {
+      background-image: url(https://img.freepik.com/free-vector/pixel-art-vacation-background_52683-86708.jpg);
+    }
+    &.show {
+      background-image: url(https://wallpapercave.com/wp/wp15699498.png); // fire camp mirror
+    }
   }
 }
