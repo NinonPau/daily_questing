@@ -1,0 +1,17 @@
+.form-control, .message-input, .invite-select {
+  background-color: $panel-bg;
+  border: 2px solid $border-color;
+  color: $text-color;
+  text-shadow: 0 0 1px #FFDDAA;
+  border-radius: 5px;
+  font-size: 11px;
+  padding: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+}
+
+textarea.message-input {
+  resize: none;
+}
+

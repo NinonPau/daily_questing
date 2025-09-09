@@ -1,0 +1,28 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Press Start 2P';
+  color: #F5E6C8;
+  font-size: 12px;
+
+  background-image: url('/assets/pixel_forest_bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center center; 
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  cursor: pointer;
+}
