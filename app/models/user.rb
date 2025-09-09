@@ -62,10 +62,36 @@ class User < ApplicationRecord
  end
 
  def xp_progress_percent
-  # define start and endpoint of a level
-  # define progress: xp minus current endpoint of level
-  # divide them and multiply by 100 AND (.clamp(0,100)
+  levels = {
+    1 => 0..250,
+    2 => 251..800,
+    3 => 801..2000,
+    4 => 2001..4600,
+    5 => 4601..10000,
+    6 => 10001..22000,
+    7 => 22001..48000,
+    8 => 48001..104000,
+    9 => 104001..224000,
+    10 => 224001..480000
+  }
+  current_level_range = levels[current_level]
+  return { percent: 100, level: current_level} if current_level_range.nil?
+  min = current_level_range.begin
+  max = current_level_range.end
+  xp_into_level = total_xp - min
+  xp_required = max - min
+  percent = [(xp_into_level.to_f / xp_required) * 100, 100].min
+   {
+    percent: percent.round(2),
+    level: current_level,
+    xp: total_xp,
+    min: min,
+    max: max,
+    remaining: max - total_xp
+   }
  end
+
+
 
   def pending_invitations
     task_participants.where(status: "pending").map(&:task)
