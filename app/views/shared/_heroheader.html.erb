@@ -1,14 +1,43 @@
 <header class="text-center my-4">
-  <div class="card shadow-lg p-4" style="max-width: 600px; margin: 0 auto; border-radius: 18px; background: linear-gradient(135deg, #3498db, #8e44ad); color: white;">
-    <h2 style="font-size: 2rem; font-weight: bold;"><%= current_user.username %></h2>
-    <p style="font-size: 1.2rem; margin: 0.5rem 0;">XP: <strong><%= current_user.total_xp || 0 %></strong></p>
-    <p style="font-size: 1.1rem;"> Mood: <%= current_user.user_mood ? current_user.user_mood.mood_type : "Not logged" %></p>
-    <div class="mt-3">
-      <%= button_to "Log Out",
-            destroy_user_session_path,
-            method: :delete,
-            class: "btn btn-light btn-sm mx-2",
-            style: "border-radius: 12px;" %>
+  <div class="heroheader-box">
+    <h2><%= current_user.username %></h2>
+    <p>XP: <strong><%= current_user.total_xp || 0 %></strong> Level: <strong><%= current_user.current_level || 0 %></strong></p>
+
+
+
+    <div class="xp-remain">
+      Remaining: <%= current_user.xp_progress_percent[:remaining] %>
     </div>
+
+    <div class="xp-bar-container">
+      <div class="xp-fill" style="width: <%= current_user.xp_progress_percent[:percent] %>%;">
+      </div>
+    </div>
+
+    <div class="level-icon">
+      <% if current_user.current_level == 1 %>
+       <i class="fa-solid fa-ghost fa-3x"></i>
+      <% elsif current_user.current_level == 2 %>
+       <i class="fa-solid fa-hat-wizard fa-3x"></i>
+      <% elsif current_user.current_level == 3 %>
+       <i class="fa-light fa-chess-queen fa-3x"></i>
+      <% elsif current_user.current_level == 4 %>
+       <i class="fa-solid fa-dragon fa-3x"></i>
+      <% elsif current_user.current_level == 5 %>
+       <i class="fa-brands fa-d-and-d fa-3x"></i>
+      <% elsif current_user.current_level == 6 %>
+       <i class="fa-thin fa-skull-crossbones fa-3x"></i>
+      <% elsif current_user.current_level == 7 %>
+       <i class="fa-solid fa-skull-crossbones fa-3x"></i>
+      <% elsif current_user.current_level == 8 %>
+       <i class="fa-solid fa-dragon fa-3x"></i>
+      <% elsif current_user.current_level == 9 %>
+       <i class="fa-solid fa-dragon fa-3x"></i>
+      <% elsif current_user.current_level == 10 %>
+       <i class="fa-solid fa-dragon fa-3x"></i>
+      <% end %>
+    </div>
+
+    <p style="font-size: 1.1rem;"> Mood: <%= current_user.user_mood.mood_type %></p>
   </div>
 </header>
