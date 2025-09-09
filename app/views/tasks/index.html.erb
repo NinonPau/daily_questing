@@ -41,7 +41,7 @@
     <% end %>
 
     <!-- Created & Partner Quests -->
-    <% all_tasks = (@tasks + @participating_tasks).uniq %>
+    <% all_tasks = (@tasks + @participating_tasks).uniq.sort_by(&:created_at).reverse %>
     <% if all_tasks.any? %>
       <h4 class="mb-3">Your Quests</h4>
       <% all_tasks.each do |task| %>
@@ -50,9 +50,12 @@
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
-              <% if task.participants.any? %>
+
+              <% accepted_participants = task.task_participants.where(status: "accepted") %>
+              <% if accepted_participants.any? %>
                 <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
               <% end %>
+
               <% if task.completed %>
                 <span class="badge bg-success">Completed</span>
               <% elsif task.ignored %>
@@ -72,17 +75,17 @@
               <% end %>
 
               <!-- Participants with status color -->
-              <% accepted_participants = task.task_participants.where.not(status: "declined") %>
-              <% if accepted_participants.any? %>
+              <% visible_participants = task.task_participants.where.not(status: "declined") %>
+              <% if visible_participants.any? %>
                 <p>
                   Participants:
-                  <% accepted_participants.each do |tp| %>
+                  <% visible_participants.each do |tp| %>
                     <% css_class = case tp.status
                       when "pending" then "text-warning fw-bold"   # yellow
                       when "accepted" then "text-primary fw-bold"  # blue
                       else ""                                     # fallback
                     end %>
-                    <span class="<%= css_class %>"><%= tp.user.username %></span><%= "," unless tp == accepted_participants.last %>
+                    <span class="<%= css_class %>"><%= tp.user.username %></span><%= "," unless tp == visible_participants.last %>
                   <% end %>
                 </p>
               <% else %>
