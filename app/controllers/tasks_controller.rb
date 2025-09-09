@@ -90,7 +90,7 @@ class TasksController < ApplicationController
 
 
   def invite_friend
-    friend = User.find(id: params[:friend_id])
+    friend = User.find(params[:friend_id])
     tp = @task.task_participants.find_or_initialize_by(user: friend)
     tp.status = "pending"
     if tp.save

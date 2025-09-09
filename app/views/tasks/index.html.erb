@@ -88,24 +88,26 @@
 
               <!-- Invite friends (only for creator) -->
               <% if task.user == current_user && !task.completed %>
-                  <% all_friends = current_user.friends + current_user.inverse_friends %>
-                  <% available_friends = all_friends.reject { |f| task.participants.exists?(f.id) } %>
-                  <% if available_friends.any? %>
-                    <div class="mt-2">
-                      <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
-                        <div class="mb-2">
-                          <%= select_tag :friend_id,
-                                options_from_collection_for_select(available_friends, :id, :username),
-                                include_blank: "Choose a friend",
-                                class: "form-select" %>
-                        </div>
-                        <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
-                      <% end %>
-                    </div>
-                  <% else %>
-                    <p class="text-muted">No friends available to invite.</p>
-                  <% end %>
+                <% all_friends = current_user.friends + current_user.inverse_friends %>
+                <% invited_user_ids = task.task_participants.pluck(:user_id) %>
+                <% available_friends = all_friends.reject { |f| invited_user_ids.include?(f.id) } %>
+
+                <% if available_friends.any? %>
+                  <div class="mt-2">
+                    <%= form_with url: invite_friend_task_path(task), method: :post, local: true do |f| %>
+                      <div class="mb-2">
+                        <%= select_tag :friend_id,
+                              options_from_collection_for_select(available_friends, :id, :username),
+                              include_blank: "Choose a friend",
+                              class: "form-select" %>
+                      </div>
+                      <%= f.submit "Send Invite", class: "btn btn-primary btn-sm" %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <p class="text-muted">No friends available to invite.</p>
                 <% end %>
+              <% end %>
             </div>
 
             <!-- Task actions -->
@@ -135,3 +137,5 @@
 <% else %>
   <%= render "public_home" %>
 <% end %>
+
+
