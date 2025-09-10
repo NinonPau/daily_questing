@@ -10,3 +10,14 @@
 .navbar-lewagon .navbar-brand img {
   width: 40px;
 }
+
+.navbar {
+  background-image: linear-gradient(rgba(65, 49, 80, 0.9));
+  .navbar-title {
+    color: white;
+  }
+}
+
+#btn-logout {
+  font-size: 8px;
+}
