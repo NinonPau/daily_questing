@@ -1,7 +1,7 @@
 <div class="footer-container">
-  <% if user_signed_in? %>
-    <%= link_to raw('<i class="fa-solid fa-cloud-sun footer-btn-icon"></i>'), edit_user_mood_path(current_user.user_mood), class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
-  <% else %>
-    Start your Journey with Questify
-  <% end %>
+  <%= link_to raw('<i class="fa-solid fa-cloud-sun footer-btn-icon"></i>'), edit_user_mood_path(current_user.user_mood), class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
+  <%= link_to raw('<i class="fa-solid fa-scroll footer-btn-icon"></i>'), tasks_path, class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
+  <%= link_to raw('<i class="fa-solid fa-feather footer-btn-icon"></i>'), new_task_path, class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
+  <%= link_to raw('<i class="fa-solid fa-handshake-angle footer-btn-icon"></i>'), friendships_path, class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
+  <%= link_to raw('<i class="fa-solid fa-fire footer-btn-icon"></i>'), chat_rooms_path, class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
 </div>
