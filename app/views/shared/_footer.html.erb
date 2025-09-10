@@ -1,3 +1,7 @@
 <div class="footer-container">
-  <%= link_to raw('<i class="fa-solid fa-cloud-sun footer-btn-icon"></i>'), edit_user_mood_path(current_user.user_mood), class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
+  <% if user_signed_in? %>
+    <%= link_to raw('<i class="fa-solid fa-cloud-sun footer-btn-icon"></i>'), edit_user_mood_path(current_user.user_mood), class: "footer-btn shadow-sm", style: "border-radius: 15px;" %>
+  <% else %>
+    Start your Journey with Questify
+  <% end %>
 </div>
