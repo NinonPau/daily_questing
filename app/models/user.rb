@@ -55,19 +55,30 @@ class User < ApplicationRecord
     end
   end
 
-  def xp_progress_percent
-    levels = {
-      1 => 0..250,
-      2 => 251..800,
-      3 => 801..2000,
-      4 => 2001..4600,
-      5 => 4601..10000,
-      6 => 10001..22000,
-      7 => 22001..48000,
-      8 => 48001..104000,
-      9 => 104001..224000,
-      10 => 224001..480000
-    }
+ def xp_progress_percent
+  levels = {
+    1 => 0..250,
+    2 => 251..800,
+    3 => 801..2000,
+    4 => 2001..4600,
+    5 => 4601..10000,
+    6 => 10001..22000,
+    7 => 22001..48000,
+    8 => 48001..104000,
+    9 => 104001..224000,
+    10 => 224001..480000
+  }
+  current_level_range = levels[current_level]
+  min = current_level_range.begin
+  max = current_level_range.end
+  xp_into_level = total_xp - min
+  xp_required = max - min
+  percent = (xp_into_level.to_f / xp_required) * 100
+   {
+    percent: percent.round(2),
+    remaining: (max - total_xp).round(0)
+   }
+ end
 
     current_level_range = levels[current_level] || (0..0)
     min = current_level_range.begin
@@ -92,4 +103,3 @@ class User < ApplicationRecord
     create_user_mood(xp_bonus: 1.0) unless user_mood.present?
   end
 end
-
