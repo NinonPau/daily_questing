@@ -59,6 +59,8 @@
 }
 
 .heroheader-mood {
-  font-size: 12px;
-  margin: 5px 0;
+  display: flex;
+  font-size: 10px;
+  margin: 5px auto;
+  justify-content: space-evenly
 }
