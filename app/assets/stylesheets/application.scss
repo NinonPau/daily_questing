@@ -11,6 +11,7 @@
 @import "components/index";
 @import "pages/index";
 @import "moods/index";
+@import "components/footer";
 
 
 @import 'chat_room/base';
@@ -36,7 +37,8 @@ body {
   background-position: left bottom; // not working, background image is stuck to the top of the page
 
   &.pages.home {
-    background-image: linear-gradient(rgba(26, 16, 32, 0.6),rgba(49, 20, 61, 0.4)), url(https://img.freepik.com/free-vector/pixel-art-mystical-background_52683-87349.jpg);
+    background-image: linear-gradient(rgba(26, 16, 32, 0.6),rgba(49, 20, 61, 0.4)), url(https://img.freepik.com/free-photo/pixel-art-river-landscape-illustration_23-2151793209.jpg);
+    background-position: center;
   }
 
   &.user_moods.edit {
