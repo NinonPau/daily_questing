@@ -16,24 +16,33 @@
   margin: 8px;
   margin-bottom: 8px;
 }
-// amazing left, select middle, icon right side
-// display the xp bonus
-// make border disappear
-
+// amazing left, select middle, icon right side --check
+// display the xp bonus --
+// make border disappear -- check
 
 .mood-card {
+  display: flex;
   text-align: center;
+  justify-content: space-evenly;
   height: 80px;
-  border: 4px solid #8B5E3C;
-  border-radius: 6px;
-  padding: 4px;
-  width: 60%;
   box-sizing: border-box;
   margin-bottom: 6px;
 }
 
+.mood-icon {
+    padding: 10px;
 
+}
 
+.mood-content {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.mood-button {
+  padding: 10px;
+
+}
 
 .mood-card-hidden {
   padding-bottom: 4px;

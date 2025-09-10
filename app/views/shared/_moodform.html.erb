@@ -2,32 +2,48 @@
 
 <div class="mood-cards-container">
 
-  <div class="mood-card"><i class="fa-solid fa-face-smile-wink"></i> Amazing
+  <div class="mood-card">
+    <div class="mood-content">Amazing</div>
+    <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Amazing", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
+    </div>
+    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
   </div>
 
-  <div class="mood-card"><i class="fa-solid fa-face-smile-wink"></i> Good
+  <div class="mood-card">
+    <div class="mood-content">Good</div>
+    <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Good", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
+      </div>
+    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
   </div>
 
-  <div class="mood-card"><i class="fa-solid fa-face-smile-wink"></i> Ok'ish
+  <div class="mood-card">
+    <div class="mood-content">Ok'ish</div>
+    <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Ok'ish", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
+     </div>
+    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
   </div>
 
-    <div class="mood-card"><i class="fa-solid fa-face-smile-wink"></i> Bad
+  <div class="mood-card">
+    <div class="mood-content">Bad</div>
+    <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Bad", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
+     </div>
+    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
   </div>
 
 
