@@ -7,10 +7,6 @@
   flex-grow: 0;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
-}
-
 .navbar {
   background-image: linear-gradient(rgba(65, 49, 80, 0.9));
   .navbar-title {
@@ -20,4 +16,5 @@
 
 #btn-logout {
   font-size: 8px;
+  padding: 8px;
 }
