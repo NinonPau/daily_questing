@@ -15,12 +15,7 @@
 
     <!--Pending invitations -->
 
-    <!-- Defining pending_invitations variable -->
-    <%# <% pending_invitations = current_user.pending_invitations.reject do |task|
-         task.task_participants.find_by(user: current_user)&.status == "declined"
-       end %>
-
-    <%# List of pending invitation %>
+       <%# List of pending invitation %>
     <% if current_user.pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% current_user.pending_invitations.each do |task| %>
