@@ -16,14 +16,14 @@
     <!--Pending invitations -->
 
     <!-- Defining pending_invitations variable -->
-    <% pending_invitations = current_user.pending_invitations.reject do |task|
+    <%# <% pending_invitations = current_user.pending_invitations.reject do |task|
          task.task_participants.find_by(user: current_user)&.status == "declined"
        end %>
 
     <%# List of pending invitation %>
-    <% if pending_invitations.any? %>
+    <% if current_user.pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
-      <% pending_invitations.each do |task| %>
+      <% current_user.pending_invitations.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
           <%# card template %>
           <div class="card shadow-sm renata-card" style="border-radius:15px; background-color: #f0f8ff;">
@@ -59,7 +59,7 @@
          task.user == current_user || task.task_participants.exists?(user: current_user, status: "accepted")
        end.sort_by(&:created_at).reverse %>
 
-     <!-- List of Created & Accepted Quests -->
+      <!-- List of Created & Accepted Quests -->
     <% if visible_tasks.any? %>
       <% visible_tasks.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
