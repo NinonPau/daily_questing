@@ -58,6 +58,18 @@
     <% if visible_tasks.any? %>
       <% visible_tasks.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
+<<<<<<< HEAD
+=======
+          <div class="card shadow-sm" style="border-radius:15px; background-color: #f9f9f9; position: relative; overflow: visible;">
+
+            <% if task.completed %>
+              <div class="stamp-completed" aria-hidden="true">COMPLETED</div>
+            <% end %>
+
+            <div class="card-header d-flex justify-content-between align-items-center"
+                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+              <span><%= task.name %></span>
+>>>>>>> completed
 
           <% if task.completed %>
             <%= render 'shared/card_completed', task: task %>
