@@ -43,3 +43,12 @@
   color: rgba(255, 162, 92, 0.8);
   font-size: 10px;
 }
+
+.task-form-select {
+  font-family: 'Press Start 2P';
+  option:focus {
+    box-shadow: 0 0 10px 100px #000 inset;
+    color: rgba(120, 90, 150, 0.85);
+  }
+}
+// Ask teacher to style drop down
