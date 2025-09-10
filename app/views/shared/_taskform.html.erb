@@ -1,4 +1,4 @@
-<h1 class="text-center mb-4"> <%= h1 %> </h1>
+<h1 id="new-quest-h1" class="text-center mb-4"> <%= h1 %> </h1>
 
 <%= form_with model: @task, local: true do |f| %>
 
@@ -17,31 +17,31 @@
   <!-- name input -->
   <div class="mb-2 p-2 rounded">
     <!-- <h5>1. Name of the Quest</h5> -->
-     <%= f.label :name, nil, class: "form-label" %>
-    <%= f.text_field :name, class: "form-control", placeholder: "Announce the quest's name" %>
+     <%= f.label :name, nil, class: "task-form-label" %>
+    <%= f.text_field :name, class: "task-form-control", placeholder: "Announce the quest's name" %>
   </div>
 
   <!-- description + daily checkbox -->
   <div class="mb-2 p-2 rounded">
     <!-- <h5>2. Describe Your Quest</h5> -->
-    <%= f.label :description, nil, class: "form-label" %>
-    <%= f.text_area :description, class: "form-control", placeholder: "Tell the tale of your quest" %>
+    <%= f.label :description, nil, class: "task-form-label" %>
+    <%= f.text_area :description, class: "task-form-control", placeholder: "Tell the tale of your quest" %>
 
-    <div class="form-check mt-2">
-      <%= f.check_box :daily, class: "form-check-input" %>
-      <%= f.label :daily, "Daily Quest", class: "form-check-label" %>
+    <div class="task-form-check">
+      <%= f.check_box :daily, class: "task-form-check-input" %>
+      <%= f.label :daily, "Daily Quest", class: "task-form-check-label" %>
     </div>
   </div>
 
   <!-- XP dropdown -->
   <div class="mb-2 p-2 pb-3 rounded">
     <!-- <h5>3. How Epic is Your Quest?</h5> -->
-    <%= f.label :xp, nil, class: "form-label" %>
+    <%= f.label :xp, nil, class: "task-form-label" %>
     <%= f.select :xp, options_for_select([
       ["Stroll -- +10 XP", 10],
       ["Expedition -- +50 XP", 50],
       ["Ultimate Trial -- +100 XP", 100]
-    ]), { prompt: "How epic is your quest?" }, class: "form-select" %>
+    ]), { prompt: "How epic is your quest?" }, class: "task-form-select" %>
   </div>
 
   <!-- submit & back button -->
