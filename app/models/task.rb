@@ -4,7 +4,6 @@ class Task < ApplicationRecord
   has_many :participants, through: :task_participants, source: :user
   after_create :add_creator_as_participant
 
-
   def today? # to check the date
       date == Date.today
   end
