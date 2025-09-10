@@ -6,7 +6,7 @@
 
             <!--Card header -->
             <div class="card-header d-flex justify-content-center align-items-center"
-                 style="background-color:#F7A000; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+                 style="color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
 
               <!--Number of participants -->
               <% accepted_participants = task.task_participants.where(status: "accepted") %>
@@ -14,7 +14,7 @@
                 <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
               <% end %>
               <!--Badge- completed, frozen, pending -->
-              <span class="badge bg-warning text-dark">Pending</span>
+              <%# <span class="badge bg-warning text-dark">Pending</span> %>
 
             </div>
 
@@ -78,7 +78,7 @@
             </div>
 
             <!--Card footer -->
-            <div class="card-footer text-center" style="background-color:#F7A000;">
+            <div class="card-footer text-center">
               <%= button_to "Mark as Done", complete_task_path(task), method: :patch, class: "btn btn-success btn-sm me-2", form: {class: "d-inline"} %>
               <%= button_to "Mark as Freeze", ignore_task_path(task), method: :patch, class: "btn btn-warning btn-sm", form: {class: "d-inline"} %>
             </div>

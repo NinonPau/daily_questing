@@ -5,7 +5,7 @@
 
             <!--Card header -->
             <div class="card-header d-flex justify-content-center align-items-center"
-                 style="background-color:#0AFF92; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+                 style="color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
 
               <!--Number of participants -->
               <% accepted_participants = task.task_participants.where(status: "accepted") %>
@@ -13,7 +13,7 @@
                 <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
               <% end %>
               <!--Badge- completed, frozen, pending -->
-              <span class="badge bg-success">Completed</span>
+              <%# <span class="badge bg-success">Completed</span> %>
             </div>
 
           <!--Card body -->
@@ -52,7 +52,7 @@
             </div>
 
             <!--Card footer -->
-            <div class="card-footer text-center" style="background-color:#0AFF92;">
+            <div class="card-footer text-center">
             </div>
 
           </div>
