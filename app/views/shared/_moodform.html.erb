@@ -3,50 +3,48 @@
 <div class="mood-cards-container">
 
   <div class="mood-card">
-    <div class="mood-content">Amazing</div>
+    <div class="mood-content">Amazing   XP * 1,25 </div>
     <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Amazing", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
     </div>
-    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
+    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink fa-3x"></i></div>
   </div>
 
   <div class="mood-card">
-    <div class="mood-content">Good</div>
+    <div class="mood-content">Good     XP  * 1,5</div>
     <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Good", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
-      </div>
-    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
+    </div>
+    <div class="mood-icon"><i class="fa-solid fa-sun fa-3x"></i></div>
   </div>
 
   <div class="mood-card">
-    <div class="mood-content">Ok'ish</div>
+    <div class="mood-content">Ok'ish     XP * 2,0</div>
     <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Ok'ish", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
-     </div>
-    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
+    </div>
+    <div class="mood-icon"><i class="fa-solid fa-smog fa-3x"></i></div>
   </div>
 
   <div class="mood-card">
-    <div class="mood-content">Bad</div>
+    <div class="mood-content">Bad     XP * 3.0</div>
     <div class="mood-button">
     <%= simple_form_for @user_mood do |f| %>
       <%= f.hidden_field :mood_type, value: "Bad", class: "mood-card-hidden" %>
       <%= f.submit "Select", class: "btn btn-warning" %>
     <% end %>
-     </div>
-    <div class="mood-icon"><i class="fa-solid fa-face-smile-wink"></i></div>
+    </div>
+    <div class="mood-icon"><i class="fa-solid fa-cloud-bolt fa-3x"></i></div>
   </div>
-
-
 </div>
 
 <div class="mb-3 back-link">
