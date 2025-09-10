@@ -1,9 +1,12 @@
 <header class="text-center my-4">
+
   <div class="heroheader-box">
-    <h2><%= current_user.username %></h2>
-    <p>XP: <strong><%= current_user.total_xp || 0 %></strong> Level: <strong><%= current_user.current_level || 0 %></strong></p>
 
-
+    <div class="heroheader-user-row">
+      <div class="heroheader-username"><%= current_user.username %></div>
+      <div class="heroheader-exp">XP: <%= current_user.total_xp || 0 %></div>
+      <div class="heroheader-level"> Level: <%= current_user.current_level || 0 %></div>
+    </div>
 
     <div class="xp-remain">
       Remaining: <%= current_user.xp_progress_percent[:remaining] %>
@@ -39,5 +42,6 @@
     </div>
 
     <p style="font-size: 1.1rem;"> Mood: <%= current_user.user_mood.mood_type %></p>
+
   </div>
 </header>
