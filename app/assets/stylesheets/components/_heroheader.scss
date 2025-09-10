@@ -2,12 +2,34 @@
 .heroheader-box {
   max-width: 600px;
   margin: 0 auto;
-  border-radius: 18px;
+  border-radius: 10px;
   background: linear-gradient(135deg,#2C508C, #603FB2);
   color: white;
 }
 
+.heroheader-user-row {
+  display: flex;
+}
 
+.heroheader-username {
+  flex: 1;
+  align-items: flex-start;
+}
+
+.heroheader-level-and-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heroheader-level {
+  flex: 1;
+
+}
+
+.level-icon {
+  flex: 2;
+}
 
 .xp-bar-container {
   width: 100%;
