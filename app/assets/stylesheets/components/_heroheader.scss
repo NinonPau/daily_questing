@@ -2,23 +2,40 @@
 .heroheader-box {
   max-width: 600px;
   margin: 0 auto;
-  border-radius: 18px;
-  background: linear-gradient(135deg,#3498db, #8e44ad);
+  border-radius: 10px;
+  background: linear-gradient(135deg,#603FB2, #8839a0);
   color: white;
-
-
 }
 
+.heroheader-user-row {
+  display: flex;
+  justify-content: space-evenly;
+}
 
+.heroheader-username {
+  padding: 10px;
+  font-size: 16px;
+  color: #FFA25C;
+}
 
+.heroheader-level-and-icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.heroheader-level {
+  flex-wrap: nowrap;
+}
 
-
+.level-icon {
+  margin-left: 12px;
+}
 
 .xp-bar-container {
   width: 100%;
-  height: 30px;
-  background-color: #bbbbbb;
+  height: 24px;
+  background-color: #8E68E6;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 10px;
@@ -27,7 +44,17 @@
 
 .xp-fill {
   height: 100%;
-  background-color: #155c09;
+  background-color: #FF6F3C;;
   transition: width 0.5s ease;
   border-radius: 12px 0 0 12px;
+}
+
+.heroheader-exp-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.heroheader-mood {
+  font-size: 12px;
 }
