@@ -82,7 +82,7 @@ class User < ApplicationRecord
   percent = (xp_into_level.to_f / xp_required) * 100
    {
     percent: percent.round(2),
-    remaining: max - total_xp
+    remaining: (max - total_xp).round(0)
    }
  end
 

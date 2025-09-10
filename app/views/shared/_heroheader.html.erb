@@ -38,9 +38,9 @@
     </div>
 
     <div class="heroheader-exp-row">
-      <div class="heroheader-exp">XP: <%= current_user.total_xp || 0 %></div>
+      <div class="heroheader-exp">XP:<%= current_user.total_xp.round(0) || 0 %></div>
       <div class="exp-remain">
-       Remaining: <%= current_user.xp_progress_percent[:remaining] %>
+       Remaining:<%= current_user.xp_progress_percent[:remaining] %>
       </div>
     </div>
 
