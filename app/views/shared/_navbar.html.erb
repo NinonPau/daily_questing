@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4" style="border-radius: 15px;">
+<nav class="navbar navbar-expand-lg shadow-sm mb-4">
   <div class="container d-flex justify-content-between align-items-center">
 
 
     <div style="width:40px;"></div>
 
     <!-- Logo / App Name centered -->
-    <a class="navbar-brand fw-bold mx-auto text-center" href="<%= root_path %>" style="font-size: 1.5rem;">
+    <a class="navbar-title fw-bold mx-auto" href="<%= root_path %>" style="font-size: 1.5rem;">
       Questify
     </a>
 
@@ -13,7 +13,7 @@
     <% if user_signed_in? %>
       <div class="d-flex align-items-center gap-2">
         <!-- Collapsible buttons -->
-        <div class="collapse navbar-collapse justify-content-end" id="navbarButtons">
+        <!-- <div class="collapse navbar-collapse justify-content-end" id="navbarButtons">
           <div class="d-flex gap-2">
             <%= link_to "Quests", tasks_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
             <%= link_to "Add Quest", new_task_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
@@ -21,30 +21,30 @@
               <%= link_to "Update Mood", edit_user_mood_path(current_user.user_mood), class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;"  %>
             <% else %>
               <%= link_to "Log Mood", new_user_mood_path, class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;"  %>
-            <% end %>
+            <% end %> -->
             <%= button_to "Log Out",
-              destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm", style: "border-radius:12px;" %>
-          </div>
-        </div>
+              destroy_user_session_path, method: :delete, class: "btn btn-sm", id: "btn-logout", style: "border-radius:12px;" %>
+          <!-- </div>
+        </div> -->
 
         <!-- Avatar placeholder -->
-        <div style="width:40px; height:40px; background-color:#6c757d; border-radius:50%;
+        <!-- <div style="width:40px; height:40px; background-color:#6c757d; border-radius:50%;
                     text-align:center; line-height:40px; color:white; font-weight:bold;">
           <%= current_user.username.first.upcase %>
-        </div>
+        </div> -->
       </div>
     <% else %>
       <!-- Public buttons -->
-      <div class="d-flex gap-2">
+      <!-- <div class="d-flex gap-2">
         <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
         <%= link_to "Log In", new_user_session_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
-      </div>
+      </div> -->
     <% end %>
 
     <!-- Mobile toggle button for buttons only -->
-    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
-    </button>
+    </button> -->
 
   </div>
 </nav>

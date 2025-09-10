@@ -29,8 +29,9 @@
 }
 
 .footer-btn {
-  background-color: $panel-bg; // keep original
-  margin: 10px auto;
+  background-color: $panel-bg;
+  margin: auto;
+  border: 2px solid $dark-bg;
   align-items: center;
   width: 50px;
   height: 50px;
