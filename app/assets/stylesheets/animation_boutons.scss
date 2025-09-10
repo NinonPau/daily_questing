@@ -45,13 +45,13 @@
 
 /* ---------------- 2. Hologram Scan ---------------- */
 .btn.hologram {
-  border: 2px solid #0ff;
+  border: 2px solid rgb(189, 40, 139);
   background: rgba(0, 255, 255, 0.1);
-  color: #0ff;
+  color: rgb(58, 19, 150);
   font-weight: bold;
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset;
+  box-shadow: 0 0 10px rgba(170, 21, 125, 0.74), 0 0 20px rgb(0, 0, 0) inset;
 }
-.btn.hologram span { position: relative; text-shadow: 0 0 5px #0ff; }
+.btn.hologram span { position: relative; text-shadow: 0 0 5px rgb(139, 33, 134); }
 .scan-line {
   position: absolute;
   width: 100%;
