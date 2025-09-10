@@ -7,11 +7,6 @@
       <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood</span>
       <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood</span>
     <% end %>
-    <%= link_to raw('<i class="fa-solid fa-scroll home-btn-icon"></i> View Quests'), tasks_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-    <%= link_to raw('<i class="fa-solid fa-feather home-btn-icon"></i> Add A Quest'), new_task_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-
-    <!-- New Friendship Button -->
-    <%= link_to raw('<i class="fa-solid fa-handshake-angle home-btn-icon"></i> Find Questers'), friendships_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
   <% else %>
     <%= link_to new_user_mood_path, class: "btn btn-flip cascade-1" do %>
       <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Log Mood</span>

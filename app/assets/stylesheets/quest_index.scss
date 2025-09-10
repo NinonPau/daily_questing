@@ -1,4 +1,9 @@
 // Container for all quests
+$panel-bg: #1b1b2f;
+$dark-bg: #0d0d1a;
+$text-color: #ffffff;
+$secondary-color: #ff66cc;
+$hover-glow: 0 0 10px rgba(255,102,204,0.7);
 .quests-container {
   display: flex;
   flex-direction: row; // horizontal scroll

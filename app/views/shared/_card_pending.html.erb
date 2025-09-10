@@ -1,7 +1,7 @@
 <div class="renata-card pending-card text-white">
 
   <!-- Card body -->
-  <div class="card-body">
+  <div class="card-body d-flex flex-column align-items-center justify-content-start">
     <h4 class="task-title"><%= task.name %></h4>
     <p class="card-text"><%= task.description %></p>
     <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
@@ -58,5 +58,6 @@
       <% end %>
     </div>
   <% end %>
+
 </div>
 

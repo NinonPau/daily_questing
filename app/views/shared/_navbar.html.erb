@@ -9,9 +9,9 @@
       Questify
     </a>
 
-    <!-- Right side: avatar + buttons -->
+    <!-- Right side: avatar + buttons
     <% if user_signed_in? %>
-      <div class="d-flex align-items-center gap-2">
+      <div class="d-flex align-items-center gap-2">-->
         <!-- Collapsible buttons -->
         <!-- <div class="collapse navbar-collapse justify-content-end" id="navbarButtons">
           <div class="d-flex gap-2">
@@ -21,9 +21,9 @@
               <%= link_to "Update Mood", edit_user_mood_path(current_user.user_mood), class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;"  %>
             <% else %>
               <%= link_to "Log Mood", new_user_mood_path, class: "btn btn-outline-warning btn-sm", style: "border-radius:12px;"  %>
-            <% end %> -->
+            <% end %>
             <%= button_to "Log Out",
-              destroy_user_session_path, method: :delete, class: "btn btn-sm", id: "btn-logout", style: "border-radius:12px;" %>
+              destroy_user_session_path, method: :delete, class: "btn btn-sm", id: "btn-logout", style: "border-radius:12px;" %>-->
           <!-- </div>
         </div> -->
 
@@ -31,15 +31,15 @@
         <!-- <div style="width:40px; height:40px; background-color:#6c757d; border-radius:50%;
                     text-align:center; line-height:40px; color:white; font-weight:bold;">
           <%= current_user.username.first.upcase %>
-        </div> -->
+        </div>
       </div>
-    <% else %>
+    <% else %>-->
       <!-- Public buttons -->
       <!-- <div class="d-flex gap-2">
         <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-primary btn-sm", style: "border-radius:12px;" %>
         <%= link_to "Log In", new_user_session_path, class: "btn btn-outline-success btn-sm", style: "border-radius:12px;" %>
-      </div> -->
-    <% end %>
+      </div>
+      <% end %>-->
 
     <!-- Mobile toggle button for buttons only -->
     <!-- <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtons" aria-controls="navbarButtons" aria-expanded="false" aria-label="Toggle navigation">

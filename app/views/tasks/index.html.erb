@@ -1,22 +1,20 @@
 <% if user_signed_in? %>
+
   <!-- Page header -->
   <h3 class="mb-4 text-center page-title">Your Quests</h3>
 
-  <!-- Sticky Add / Random Quest buttons -->
+  <!-- Sticky Add/Random Quest buttons -->
   <div class="quest-actions sticky-actions">
     <%= link_to "Add Quest", new_task_path, class: "btn btn-new-quest" %>
-
-    <%= simple_form_for :task, url: random_tasks_path do |f| %>
-      <%= f.submit "Random Quest", class: "btn btn-random-quest" %>
-    <% end %>
+    <%= link_to "Random Quest", random_tasks_path, class: "btn btn-random-quest" %>
   </div>
 
-  <!-- Quest container -->
+  <!-- Quests container -->
   <div class="quests-container">
 
     <!-- Pending invitations -->
     <% if current_user.pending_invitations.any? %>
-      <h4 class="mb-3">Invitations in Waiting</h4>
+      <h4 class="mb-3 w-100 text-center">Invitations in Waiting</h4>
       <% current_user.pending_invitations.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
           <%= render 'shared/card_pending', task: task %>
@@ -24,7 +22,7 @@
       <% end %>
     <% end %>
 
-    <!-- Created & Accepted Quests -->
+    <!-- Created & Accepted Tasks -->
     <% visible_tasks = (@tasks + @participating_tasks).uniq.select do |task|
          task.user == current_user || task.task_participants.exists?(user: current_user, status: "accepted")
        end.sort_by(&:created_at).reverse %>
@@ -32,19 +30,7 @@
     <% if visible_tasks.any? %>
       <% visible_tasks.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
-
-          <div class="card shadow-sm" style="border-radius:15px; background-color: #f9f9f9; position: relative; overflow: visible;">
-
-            <% if task.completed %>
-              <div class="stamp-completed" aria-hidden="true">COMPLETED</div>
-            <% end %>
-
-            <div class="card-header d-flex justify-content-between align-items-center"
-                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
-              <span><%= task.name %></span>
-
           <% if task.completed? %>
-
             <%= render 'shared/card_completed', task: task %>
           <% elsif task.ignored? %>
             <%= render 'shared/card_frozen', task: task %>
@@ -53,8 +39,6 @@
           <% end %>
         </div>
       <% end %>
-    <% else %>
-      <p class="text-center text-muted">No quests found.</p>
     <% end %>
 
   </div> <!-- /quests-container -->
