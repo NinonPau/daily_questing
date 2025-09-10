@@ -1,0 +1,196 @@
+// Container for all quests
+.quests-container {
+  display: flex;
+  flex-direction: row; // horizontal scroll
+  overflow-x: auto;
+  gap: 1.5rem;
+  padding: 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  justify-content: flex-start;
+  margin-top: -1rem;
+}
+
+// Common card styles
+.renata-card {
+  flex: 0 0 85%; // slightly smaller for smartphone screens
+  min-width: 280px; // ensure it fits smaller devices
+  min-height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(255,255,255,0.6);
+  scroll-snap-align: center;
+
+  .card-body {
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1rem;
+    background-color: rgba(255,255,255,0.3);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    h4.task-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2rem;
+      color: #7E569D;
+      text-shadow: 1px 1px 2px black;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .pending-player { color: #f1c40f; font-weight: bold; }
+    .accepted-player { color: #3498db; font-weight: bold; }
+  }
+
+  .card-footer.actions-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    .btn.btn-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 1.2rem;
+      padding: 0.3rem;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+
+      i {
+        font-size: 1.2rem;
+      }
+
+      &:hover {
+        background-color: rgba(255,255,255,0.3);
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// Pending & Completed cards
+.pending-card, .completed-card {
+  background-image: url("https://pics.craiyon.com/2023-06-21/0855460af0e341feacee519f0d168140.webp");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+// Frozen card
+.frozen-card {
+  background-image: url('https://image.lexica.art/full_webp/67b84271-161e-4c2a-ac51-4898424ec2ba');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  min-height: 520px;
+  width: 85%;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .card-body {
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    h4.task-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2rem;
+      color: #7E569D;
+      text-shadow: 1px 1px 2px black;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .card-footer.actions-footer {
+    justify-content: flex-end;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    .btn.btn-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 1.2rem;
+      padding: 0.3rem;
+      border-radius: 50%;
+      background-color: rgba(166, 12, 180, 0.15);
+      border: 1px solid rgba(163, 91, 33, 0.3);
+      color: #a01088;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background-color: rgba(255,255,255,0.3);
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// Sticky Add/Random Quest buttons
+.sticky-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 2rem;
+  flex-direction: row;
+  background: transparent;
+  border: none;
+  padding: 0;
+
+  .btn {
+    background-color: $panel-bg;
+    border: 2px solid $dark-bg;
+    color: $text-color;
+    font-size: 11px;
+    padding: 6px 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $secondary-color;
+      color: #1B1B2F;
+      box-shadow: $hover-glow;
+    }
+  }
+}
+
+
+// Icon size for buttons
+.btn.btn-icon i {
+  font-size: 1.5rem;
+}

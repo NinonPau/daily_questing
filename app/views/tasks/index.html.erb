@@ -1,65 +1,38 @@
 <% if user_signed_in? %>
+  <!-- Page header -->
+  <h3 class="mb-4 text-center page-title">Your Quests</h3>
 
-  <!-- Header -->
-  <h3 class="mb-4 text-center" style="font-size:1.8rem; color:#2c3e50;">Your Quests</h3>
+  <!-- Sticky Add / Random Quest buttons -->
+  <div class="quest-actions sticky-actions">
+    <%= link_to "Add Quest", new_task_path, class: "btn btn-new-quest" %>
 
-  <!-- Back button -->
-  <div class="mb-3 back-link">
-    <%= link_to "Back", root_path, class: "btn btn-secondary" %>
+    <%= simple_form_for :task, url: random_tasks_path do |f| %>
+      <%= f.submit "Random Quest", class: "btn btn-random-quest" %>
+    <% end %>
   </div>
 
-  <!-- list of today's tasks only -->
+  <!-- Quest container -->
+  <div class="quests-container">
 
-  <!-- Task container -->
-  <div class="quests-container mx-auto" style="max-width: 700px; padding: 0 20px;">
-
-    <!--Pending invitations -->
-
-       <%# List of pending invitation %>
+    <!-- Pending invitations -->
     <% if current_user.pending_invitations.any? %>
       <h4 class="mb-3">Invitations in Waiting</h4>
       <% current_user.pending_invitations.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
-          <%# card template %>
-          <div class="card shadow-sm renata-card" style="border-radius:15px; background-color: #f0f8ff;">
-            <div class="card-header d-flex justify-content-between align-items-center"
-                 style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
-              <span><%= task.name %></span>
-              <span class="badge text-white" style="background-color:#9b59b6;">Invitation</span>
-            </div>
-            <div class="card-body text-center">
-              <p class="card-text"><%= task.description %></p>
-              <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
-              <% if task.daily? %>
-                <p><em>Daily Quest</em></p>
-              <% else %>
-                <p><em>For <%= task.date.strftime("%d %b %Y") %></em></p>
-              <% end %>
-              <p>Creator: <%= task.user.username %></p>
-            </div>
-            <div class="card-footer text-center">
-              <%= button_to "Accept", accept_invitation_task_path(task), method: :patch, class: "btn btn-success btn-sm me-2" %>
-              <%= button_to "Decline", decline_invitation_task_path(task), method: :patch, class: "btn btn-danger btn-sm" %>
-            </div>
-          </div>
-
+          <%= render 'shared/card_pending', task: task %>
         </div>
       <% end %>
     <% end %>
 
-  <!--Created & Accepted Quests -->
-
-    <!-- Defining the visible_task variable  -->
+    <!-- Created & Accepted Quests -->
     <% visible_tasks = (@tasks + @participating_tasks).uniq.select do |task|
          task.user == current_user || task.task_participants.exists?(user: current_user, status: "accepted")
        end.sort_by(&:created_at).reverse %>
 
-      <!-- List of Created & Accepted Quests -->
     <% if visible_tasks.any? %>
       <% visible_tasks.each do |task| %>
         <div class="mb-4" id="task_<%= task.id %>">
-<<<<<<< HEAD
-=======
+
           <div class="card shadow-sm" style="border-radius:15px; background-color: #f9f9f9; position: relative; overflow: visible;">
 
             <% if task.completed %>
@@ -69,25 +42,23 @@
             <div class="card-header d-flex justify-content-between align-items-center"
                  style="background-color:#3498db; color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
               <span><%= task.name %></span>
->>>>>>> completed
 
-          <% if task.completed %>
+          <% if task.completed? %>
+
             <%= render 'shared/card_completed', task: task %>
-          <% elsif task.ignored %>
+          <% elsif task.ignored? %>
             <%= render 'shared/card_frozen', task: task %>
           <% else %>
             <%= render 'shared/card_pending', task: task %>
           <% end %>
-
         </div>
       <% end %>
+    <% else %>
+      <p class="text-center text-muted">No quests found.</p>
     <% end %>
-  </div>
 
-  <!-- Add new quest button -->
-  <div class="mt-4 text-center">
-    <%= link_to "Add New Quest", new_task_path, class: "btn btn-primary btn-lg", style: "border-radius:12px;" %>
-  </div>
+  </div> <!-- /quests-container -->
+
 <% else %>
   <%= render "public_home" %>
 <% end %>

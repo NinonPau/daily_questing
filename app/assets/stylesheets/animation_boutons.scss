@@ -1,0 +1,219 @@
+/* ---------------- Base Button ---------------- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 220px;
+  height: 60px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 3px solid transparent;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  font-family: 'Press Start 2P', sans-serif;
+  margin: 10px 0;
+}
+
+/* ---------------- 1. Liquid Hover ---------------- */
+/* Base liquid button */
+.btn.liquid {
+  position: relative;
+  color: #fff;
+  font-weight: bold;
+  border: 2px solid #8e2de2;
+  background: none;
+  overflow: hidden;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.btn.liquid span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Desktop hover effect */
+@media (min-width: 769px) {
+  .btn.liquid::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #8e2de2, #4a00e0);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+    z-index: 0;
+  }
+
+  .btn.liquid:hover::before {
+    transform: scaleX(1);
+  }
+}
+
+/* Mobile cascade vertical fill */
+/* Mobile cascade bubble effect */
+@media (max-width: 768px) {
+  .btn.liquid {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border: none; /* remove inner frame */
+    overflow: hidden;
+    margin: 10px 0;
+  }
+
+  .btn.liquid::before {
+    content: "";
+    position: absolute;
+    bottom: -100%; /* start below */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, #ff66cc, #8e2de2);
+    border-radius: 50%; /* bubbly shape */
+    filter: blur(5px);
+    z-index: 0;
+    animation: bubbleFill 2s forwards;
+  }
+
+  /* Reverse cascade order */
+  .btn.liquid.cascade-4::before { animation-delay: 0s; }  /* Bad */
+  .btn.liquid.cascade-3::before { animation-delay: 0.5s; } /* Ok'ish */
+  .btn.liquid.cascade-2::before { animation-delay: 1s; }   /* Good */
+  .btn.liquid.cascade-1::before { animation-delay: 1.5s; } /* Amazing */
+
+  @keyframes bubbleFill {
+    0% {
+      bottom: -100%;
+      transform: scale(0.5);
+      opacity: 0.3;
+    }
+    50% {
+      bottom: 30%;
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+    100% {
+      bottom: 0%;
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .btn.liquid span {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+  }
+}
+
+
+
+/* ---------------- 2. Hologram Scan ---------------- */
+.btn.hologram {
+  border: 2px solid rgb(189, 40, 139);
+  background: rgba(74, 111, 235, 0.1);
+  color: rgb(58, 19, 150);
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(170, 21, 125, 0.74), 0 0 20px rgb(96, 48, 228) inset;
+}
+.btn.hologram span { position: relative; text-shadow: 0 0 5px rgb(139, 33, 134); }
+.scan-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgba(250, 3, 196, 0.8), transparent);
+  top: 0;
+  animation: scan 2s linear infinite;
+}
+@keyframes scan { 0%{top:-10%} 100%{top:110%;} }
+
+
+/* ---------------- 3D Flip Button Continuous Cascade ---------------- */
+/* Styles généraux pour desktop (hover flip) */
+.btn-flip {
+  perspective: 600px;
+  display: inline-block;
+  width: 220px;
+  height: 60px;
+  margin: 10px;
+  position: relative;
+}
+
+.btn-flip span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #4a00e0;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 2px solid #8e2de2;
+  backface-visibility: hidden;
+  transition: transform 0.8s ease-in-out, background 0.8s ease-in-out;
+}
+
+/* Flip au hover pour grand écran */
+@media (min-width: 769px) {
+  .btn-flip span:nth-child(1) { transform: rotateX(0deg); background: #8e2de2; }
+  .btn-flip span:nth-child(2) { transform: rotateX(90deg); background: #ff66cc; }
+  .btn-flip span:nth-child(3) { transform: rotateX(180deg); background: #8e2de2; }
+  .btn-flip span:nth-child(4) { transform: rotateX(270deg); background: #ff66cc; }
+
+  .btn-flip:hover span { transform: rotateX(360deg); }
+}
+
+/* Mobile : cascade color wave, texte centré, pas de frame */
+@media (max-width: 768px) {
+  .btn-flip {
+    display: block;
+    width: 100%; /* prend toute la largeur du container */
+    max-width: 220px;
+    height: 60px;
+    margin: 15px auto;
+    border: none; /* supprime la frame du bouton */
+    border-radius: 12px;
+    animation: colorWave 6s infinite;
+    text-align: center;
+    line-height: 60px; /* centre verticalement le texte */
+    color: #fff;
+    background: #8e2de2; /* couleur initiale */
+  }
+
+  .btn-flip span {
+    position: relative;
+    inset: auto;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: none; /* plus de background sur span */
+    border: none; /* supprime la bordure interne */
+    text-align: center;
+    line-height: 60px; /* texte centré verticalement */
+    color: inherit;
+  }
+
+  /* Cascade delays */
+  .btn-flip.cascade-1 { animation-delay: 0s; }
+  .btn-flip.cascade-2 { animation-delay: 1s; }
+  .btn-flip.cascade-3 { animation-delay: 2s; }
+  .btn-flip.cascade-4 { animation-delay: 3s; }
+  .btn-flip.cascade-5 { animation-delay: 4s; }
+
+  @keyframes colorWave {
+    0%, 100% { background: #8e2de2; }
+    50%      { background: #ff66cc; }
+  }
+}

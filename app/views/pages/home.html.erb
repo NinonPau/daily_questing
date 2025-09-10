@@ -1,21 +1,53 @@
 <% if user_signed_in? %>
-  <!-- Dashboard Actions -->
-  <div class="d-flex justify-content-center flex-wrap gap-3 my-4">
-    <% if current_user.user_mood %>
-      <%= link_to raw('<i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood'), edit_user_mood_path(current_user.user_mood), class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;"  %>
-    <% else %>
-      <%= link_to "Log Mood", new_user_mood_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;"  %>
+
+  <% if current_user.user_mood %>
+    <%= link_to edit_user_mood_path(current_user.user_mood), class: "btn btn-flip cascade-1" do %>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood</span>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood</span>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood</span>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Update Mood</span>
     <% end %>
     <%= link_to raw('<i class="fa-solid fa-scroll home-btn-icon"></i> View Quests'), tasks_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
     <%= link_to raw('<i class="fa-solid fa-feather home-btn-icon"></i> Add A Quest'), new_task_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-    
+
     <!-- New Friendship Button -->
     <%= link_to raw('<i class="fa-solid fa-handshake-angle home-btn-icon"></i> Find Questers'), friendships_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
+  <% else %>
+    <%= link_to new_user_mood_path, class: "btn btn-flip cascade-1" do %>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Log Mood</span>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Log Mood</span>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Log Mood</span>
+      <span><i class="fa-solid fa-cloud-sun home-btn-icon"></i> Log Mood</span>
+    <% end %>
+  <% end %>
 
-    <!-- new button Chat -->
-    <%= link_to raw('<i class="fa-solid fa-fire home-btn-icon"></i> Go to Hearth'), chat_rooms_path, class: "btn home-btn btn-lg shadow-sm", style: "border-radius: 15px; min-width: 180px;" %>
-  </div>
+  <%= link_to tasks_path, class: "btn btn-flip cascade-2" do %>
+    <span><i class="fa-solid fa-scroll home-btn-icon"></i> View Quests</span>
+    <span><i class="fa-solid fa-scroll home-btn-icon"></i> View Quests</span>
+    <span><i class="fa-solid fa-scroll home-btn-icon"></i> View Quests</span>
+    <span><i class="fa-solid fa-scroll home-btn-icon"></i> View Quests</span>
+  <% end %>
 
+  <%= link_to new_task_path, class: "btn btn-flip cascade-3" do %>
+    <span><i class="fa-solid fa-feather home-btn-icon"></i> Add A Quest</span>
+    <span><i class="fa-solid fa-feather home-btn-icon"></i> Add A Quest</span>
+    <span><i class="fa-solid fa-feather home-btn-icon"></i> Add A Quest</span>
+    <span><i class="fa-solid fa-feather home-btn-icon"></i> Add A Quest</span>
+  <% end %>
+
+  <%= link_to friendships_path, class: "btn btn-flip cascade-4" do %>
+    <span><i class="fa-solid fa-handshake-angle home-btn-icon"></i> Find Questers</span>
+    <span><i class="fa-solid fa-handshake-angle home-btn-icon"></i> Find Questers</span>
+    <span><i class="fa-solid fa-handshake-angle home-btn-icon"></i> Find Questers</span>
+    <span><i class="fa-solid fa-handshake-angle home-btn-icon"></i> Find Questers</span>
+  <% end %>
+
+  <%= link_to chat_rooms_path, class: "btn btn-flip cascade-5" do %>
+    <span><i class="fa-solid fa-fire home-btn-icon"></i> Go to Hearth</span>
+    <span><i class="fa-solid fa-fire home-btn-icon"></i> Go to Hearth</span>
+    <span><i class="fa-solid fa-fire home-btn-icon"></i> Go to Hearth</span>
+    <span><i class="fa-solid fa-fire home-btn-icon"></i> Go to Hearth</span>
+  <% end %>
 
 <% else %>
   <%= render "public_home" %>
