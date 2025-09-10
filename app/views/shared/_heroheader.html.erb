@@ -4,12 +4,30 @@
 
     <div class="heroheader-user-row">
       <div class="heroheader-username"><%= current_user.username %></div>
-      <div class="heroheader-exp">XP: <%= current_user.total_xp || 0 %></div>
       <div class="heroheader-level"> Level: <%= current_user.current_level || 0 %></div>
-    </div>
-
-    <div class="xp-remain">
-      Remaining: <%= current_user.xp_progress_percent[:remaining] %>
+      <div class="level-icon">
+        <% if current_user.current_level == 1 %>
+        <i class="fa-solid fa-ghost fa-3x"></i>
+        <% elsif current_user.current_level == 2 %>
+        <i class="fa-solid fa-hat-wizard fa-3x"></i>
+        <% elsif current_user.current_level == 3 %>
+        <i class="fa-light fa-chess-queen fa-3x"></i>
+        <% elsif current_user.current_level == 4 %>
+        <i class="fa-solid fa-dragon fa-3x"></i>
+        <% elsif current_user.current_level == 5 %>
+        <i class="fa-brands fa-d-and-d fa-3x"></i>
+        <% elsif current_user.current_level == 6 %>
+        <i class="fa-thin fa-skull-crossbones fa-3x"></i>
+        <% elsif current_user.current_level == 7 %>
+        <i class="fa-solid fa-skull-crossbones fa-3x"></i>
+        <% elsif current_user.current_level == 8 %>
+        <i class="fa-solid fa-dragon fa-3x"></i>
+        <% elsif current_user.current_level == 9 %>
+        <i class="fa-solid fa-dragon fa-3x"></i>
+        <% elsif current_user.current_level == 10 %>
+        <i class="fa-solid fa-dragon fa-3x"></i>
+        <% end %>
+      </div>
     </div>
 
     <div class="xp-bar-container">
@@ -17,31 +35,14 @@
       </div>
     </div>
 
-    <div class="level-icon">
-      <% if current_user.current_level == 1 %>
-       <i class="fa-solid fa-ghost fa-3x"></i>
-      <% elsif current_user.current_level == 2 %>
-       <i class="fa-solid fa-hat-wizard fa-3x"></i>
-      <% elsif current_user.current_level == 3 %>
-       <i class="fa-light fa-chess-queen fa-3x"></i>
-      <% elsif current_user.current_level == 4 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
-      <% elsif current_user.current_level == 5 %>
-       <i class="fa-brands fa-d-and-d fa-3x"></i>
-      <% elsif current_user.current_level == 6 %>
-       <i class="fa-thin fa-skull-crossbones fa-3x"></i>
-      <% elsif current_user.current_level == 7 %>
-       <i class="fa-solid fa-skull-crossbones fa-3x"></i>
-      <% elsif current_user.current_level == 8 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
-      <% elsif current_user.current_level == 9 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
-      <% elsif current_user.current_level == 10 %>
-       <i class="fa-solid fa-dragon fa-3x"></i>
-      <% end %>
+    <div class="heroheader-exp-row">
+      <div class="heroheader-exp">XP: <%= current_user.total_xp || 0 %></div>
+      <div class="xp-remain">
+       Remaining: <%= current_user.xp_progress_percent[:remaining] %>
+      </div>
     </div>
 
-    <p style="font-size: 1.1rem;"> Mood: <%= current_user.user_mood.mood_type %></p>
+    <div style="font-size: 1.1rem;"> Mood: <%= current_user.user_mood.mood_type %></div>
 
   </div>
 </header>
