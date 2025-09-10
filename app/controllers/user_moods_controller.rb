@@ -28,9 +28,9 @@ class UserMoodsController < ApplicationController
   def set_xp_bonus
     case @user_mood.mood_type
     when "Amazing" then 1.25
-    when "Good" then 1.5
-    when "Ok'ish" then 2.0
-    when "Bad" then 3.0
+    when "Good" then 1.50
+    when "Ok'ish" then 2.00
+    when "Bad" then 3.00
     end
   end
 

@@ -6,7 +6,6 @@
   text-align: center;
 }
 
-
 .mood-cards-container {
   display: flex;
   align-items: center;
@@ -16,9 +15,6 @@
   margin: 20px;
   margin-bottom: 8px;
 }
-// amazing left, select middle, icon right side --check
-// display the xp bonus --
-// make border disappear -- check
 
 .mood-card {
   display: flex;
@@ -28,6 +24,13 @@
   box-sizing: border-box;
   margin-bottom: 6px;
 }
+
+.mood-content-box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 
 .mood-icon {
     padding: 10px;
