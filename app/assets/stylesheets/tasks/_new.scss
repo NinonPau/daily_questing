@@ -1,13 +1,21 @@
 #new-quest-h1 {
   font-family: 'Press Start 2P';
   color: white;
-  padding: 10px auto 5px;
+  padding: 10px auto 10px;
 }
 
-h5 {
+#new-quest-h3 {
   font-family: 'Press Start 2P';
-  font-size: 10px;
+  font-size: 18x;
+  text-shadow: 0 0 3px #fd9e7baf, 0 0 6px #ffcca5;
+  width: fit-content;
   padding: 12px 0 6px;
+  margin: 15px auto 0;
+}
+
+#new-quest-p {
+  padding-bottom: 6px;
+  margin: 0 auto 10px;
 }
 
 .task-form-control, .task-form-select {
