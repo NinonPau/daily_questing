@@ -4,6 +4,12 @@
 
       <%= render "shared/taskform", h1: "Add a quest", submit: "Create" %>
 
+      <h5>Feeling lucky? Add a random quest!</h5>
+      <div class="buttons d-flex justify-content-center align-items-center">
+        <%= simple_form_for :task, url: random_tasks_path do |f| %>
+          <%= f.submit 'Random', class: "btn btn-primary" %>
+        <% end %>
+      </div>
       <!-- Popup message congrat -->
       <% if notice.present? %>
         <div class="modal fade show" style="display: block;" tabindex="-1">
