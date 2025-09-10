@@ -2,7 +2,18 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
 
-      <%= render "shared/taskform", h1: "Add special quest", submit: "Create the quest" %>
+      <%= render "shared/taskform", h1: "Add a quest", submit: "Create" %>
+
+      <!-- Random section -->
+      <div class="mb-2 p-2">
+        <h3 id="new-quest-h3">Feeling lucky?</h3>
+        <p id="new-quest-p">Add a random quest instead!</p>
+        <div class="buttons d-flex justify-content-center align-items-center">
+          <%= simple_form_for :task, url: random_tasks_path do |f| %>
+            <%= f.submit 'Random', class: "btn btn-primary p-3" %>
+          <% end %>
+        </div>
+      </div>
 
       <!-- Popup message congrat -->
       <% if notice.present? %>

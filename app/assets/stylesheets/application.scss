@@ -11,6 +11,7 @@
 @import "components/index";
 @import "pages/index";
 @import "moods/index";
+@import "tasks/new";
 @import "components/footer";
 
 
@@ -24,6 +25,7 @@
 @import 'chat_room/typography';
 @import "components/heroheader";
 @import "mood";
+@import "moods/moodform";
 
 // Global
 html, body {
