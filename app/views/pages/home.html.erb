@@ -1,51 +1,48 @@
 <% if user_signed_in? %>
-  <div class="dashboard d-flex flex-column align-items-center gap-4 my-5">
+  <!-- Dashboard Actions -->
+  <div class="d-flex justify-content-center flex-wrap gap-3 my-4">
 
-    <!-- Liquid Hover - Add Special Quest -->
-    <%= link_to new_task_path, class: "btn liquid" do %>
-      <span>Add Special Quest</span>
+    <%= link_to new_task_path, class: "btn hologram hologram-cyan" do %>
+      <span data-text="Add Special Quest">Add Special Quest</span>
+      <div class="scan-line"></div>
     <% end %>
 
-    <!-- Hologram Scan - Update or Log Mood -->
+    <%= link_to tasks_path, class: "btn hologram hologram-cyan" do %>
+      <span data-text="View Quests">View Quests</span>
+      <div class="scan-line"></div>
+    <% end %>
+
     <% if current_user.user_mood %>
       <%= link_to edit_user_mood_path(current_user.user_mood), class: "btn hologram hologram-cyan" do %>
         <span data-text="Update Mood">Update Mood</span>
         <div class="scan-line"></div>
       <% end %>
     <% else %>
-      <%= link_to "Log Mood", new_user_mood_path, class: "btn hologram hologram-cyan" do %>
+      <%= link_to new_user_mood_path, class: "btn hologram hologram-cyan" do %>
         <span data-text="Log Mood">Log Mood</span>
         <div class="scan-line"></div>
       <% end %>
     <% end %>
 
-    <!-- Quick Hover - View Quests -->
-    <%= link_to tasks_path, class: "btn btn-flip" do %>
-      <span>View Quests</span>
-      <span>View Quests</span>
-      <span>View Quests</span>
-      <span>View Quests</span>
+    <%= simple_form_for :task, url: random_tasks_path do |f| %>
+      <%= f.button :submit, class: "btn hologram hologram-cyan" do %>
+        <span data-text="Random Quest">Random Quest</span>
+        <div class="scan-line"></div>
+      <% end %>
     <% end %>
 
-    <!-- Quick Hover - Manage Friends -->
-    <%= link_to friendships_path, class: "btn quick-hover quick-hover-green" do %>
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      Manage Friends
+    <%= link_to friendships_path, class: "btn hologram hologram-cyan" do %>
+      <span data-text="Manage Friends">Manage Friends</span>
+      <div class="scan-line"></div>
     <% end %>
 
-    <%= link_to chat_rooms_path, class: "btn btn-explode" do %>
-      Chat Rooms
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
-      <span class="particle"></span>
+    <%= link_to chat_rooms_path, class: "btn hologram hologram-cyan" do %>
+      <span data-text="Chat Rooms">Chat Rooms</span>
+      <div class="scan-line"></div>
     <% end %>
-
 
   </div>
 <% else %>
   <%= render "public_home" %>
 <% end %>
+

@@ -1,36 +1,50 @@
 <div class="moods-card">
   <ul>
-    <li> <i class="fa-solid fa-face-smile-wink"></i> Amazing
+    <li>
+      <i class="fa-solid fa-face-smile-wink"></i> Amazing
       <%= simple_form_for @user_mood do |f| %>
         <%= f.hidden_field :mood_type, value: "Amazing" %>
-        <%= f.submit "Select", class: "btn btn-warning" %>
+        <%= button_tag type: "submit", class: "btn liquid" do %>
+          <span>Select</span>
+        <% end %>
       <% end %>
     </li>
 
-    <li> <i class="fa-solid fa-face-smile-wink"></i> Good
+    <li>
+      <i class="fa-solid fa-face-smile-wink"></i> Good
       <%= simple_form_for @user_mood do |f| %>
         <%= f.hidden_field :mood_type, value: "Good" %>
-        <%= f.submit "Select", class: "btn btn-warning" %>
+        <%= button_tag type: "submit", class: "btn liquid" do %>
+          <span>Select</span>
+        <% end %>
       <% end %>
     </li>
 
-    <li> <i class="fa-solid fa-face-smile-wink"></i> Ok'ish
+    <li>
+      <i class="fa-solid fa-face-smile-wink"></i> Ok'ish
       <%= simple_form_for @user_mood do |f| %>
         <%= f.hidden_field :mood_type, value: "Ok'ish" %>
-        <%= f.submit "Select", class: "btn btn-warning" %>
+        <%= button_tag type: "submit", class: "btn liquid" do %>
+          <span>Select</span>
+        <% end %>
       <% end %>
     </li>
 
-        <li> <i class="fa-solid fa-face-smile-wink"></i> Bad
+    <li>
+      <i class="fa-solid fa-face-smile-wink"></i> Bad
       <%= simple_form_for @user_mood do |f| %>
         <%= f.hidden_field :mood_type, value: "Bad" %>
-        <%= f.submit "Select", class: "btn btn-warning" %>
+        <%= button_tag type: "submit", class: "btn liquid" do %>
+          <span>Select</span>
+        <% end %>
       <% end %>
     </li>
-
   </ul>
 </div>
 
 <div class="mb-3 back-link">
-  <%= link_to "Back", root_path, class: "btn btn-secondary" %>
+  <%= link_to root_path, class: "btn liquid" do %>
+    <span>Back</span>
+  <% end %>
 </div>
+

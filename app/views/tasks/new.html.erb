@@ -2,26 +2,14 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
 
-      <%= render "shared/taskform", h1: "Add special quest", submit: "Create the quest" %>
+      <!-- Task Form -->
+      <%= render "shared/taskform", h1: "Add special quest", submit: "Create the quest", btn_class: "btn btn-flip" %>
 
-      <!-- Popup message congrat -->
-      <% if notice.present? %>
-        <div class="modal fade show" style="display: block;" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center p-4 shadow rounded">
-              <h5 class="mb-3">Quest Successfully Created!</h5>
-              <p>Your quest has been added to your journey.</p>
-              <div class="d-flex justify-content-center gap-2 mt-3">
-                <%= link_to "Home Page", root_path, class: "btn btn-secondary" %>
-                <%= link_to "View All Quests", tasks_path, class: "btn btn-primary" %>
-              </div>
-            </div>
-          </div>
-        </div>
+      <%= render "shared/rpg_popup",
+      title: "Quest Successfully Created!",
+      message: "Your quest has been added to your journey.",
+      redirect_path: tasks_path if notice.present? %>
 
-        <!-- backdrop -->
-        <div class="modal-backdrop fade show"></div>
-      <% end %>
 
     </div>
   </div>

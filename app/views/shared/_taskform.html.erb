@@ -1,4 +1,4 @@
-<h1 class="text-center mb-4"> <%= h1 %> </h1>
+<h1 class="text-center mb-4"><%= h1 %></h1>
 
 <%= form_with model: @task, local: true do |f| %>
 
@@ -45,9 +45,25 @@
   </div>
 
   <!-- submit & back button -->
-  <div class="buttons d-flex justify-content-center align-items-center">
-    <%= link_to "Go back", tasks_path, class: "btn btn-primary me-4 back-link" %>
-    <%= f.submit submit, class: "btn btn-primary" %>
+  <div class="buttons d-flex justify-content-center align-items-center gap-4">
+
+    <!-- Go Back Button with flip -->
+    <%= link_to tasks_path, class: "btn btn-flip" do %>
+      <span>Go back</span>
+      <span>Go back</span>
+      <span>Go back</span>
+      <span>Go back</span>
+    <% end %>
+
+    <!-- Submit Button with flip -->
+    <%= f.button :submit, class: "btn btn-flip" do %>
+      <span><%= submit %></span>
+      <span><%= submit %></span>
+      <span><%= submit %></span>
+      <span><%= submit %></span>
+    <% end %>
+
   </div>
 
 <% end %>
+
