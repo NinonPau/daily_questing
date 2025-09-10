@@ -5,7 +5,7 @@
     <div class="heroheader-user-row">
       <div class="heroheader-username"><%= current_user.username %></div>
       <div class="heroheader-level-and-icon">
-        <div class="heroheader-level"> Level: <%= current_user.current_level || 0 %></div>
+        <div class="heroheader-level"> Level:<%= current_user.current_level || 0 %></div>
         <div class="level-icon">
           <% if current_user.current_level == 1 %>
           <i class="fa-solid fa-ghost fa-3x"></i>

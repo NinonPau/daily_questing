@@ -3,17 +3,19 @@
   max-width: 600px;
   margin: 0 auto;
   border-radius: 10px;
-  background: linear-gradient(135deg,#2C508C, #603FB2);
+  background: linear-gradient(135deg,#603FB2, #8839a0);
   color: white;
 }
 
 .heroheader-user-row {
   display: flex;
+  justify-content: space-evenly;
 }
 
 .heroheader-username {
-  flex: 1;
-  align-items: flex-start;
+  padding: 10px;
+  font-size: 16px;
+  color: #FFA25C;
 }
 
 .heroheader-level-and-icon {
@@ -23,12 +25,11 @@
 }
 
 .heroheader-level {
-  flex: 1;
-
+  flex-wrap: nowrap;
 }
 
 .level-icon {
-  flex: 2;
+  margin-left: 12px;
 }
 
 .xp-bar-container {
@@ -43,7 +44,7 @@
 
 .xp-fill {
   height: 100%;
-  background-color: #603FB2;
+  background-color: #FF6F3C;;
   transition: width 0.5s ease;
   border-radius: 12px 0 0 12px;
 }
