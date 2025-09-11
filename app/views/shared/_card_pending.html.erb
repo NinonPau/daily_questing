@@ -1,8 +1,8 @@
-<div class="renata-card pending-card text-white" id="task_<%= task.id %>">
+<div class="renata-card pending-card" id="task_<%= task.id %>">
   <!-- Card Body -->
   <div class="card-body">
     <h4 class="task-title"><%= task.name %></h4>
-    <p class="card-text"><%= task.description %></p>
+    <p class="card-text" id="card-text"><%= task.description %></p>
     <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
 
     <% if task.daily? %>
@@ -79,4 +79,4 @@
     </div>
   <% end %>
 
-</div> 
+</div>
