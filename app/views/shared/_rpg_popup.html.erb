@@ -1,0 +1,31 @@
+<div id="rpg-popup" class="rpg-popup">
+  <div class="rpg-popup-content">
+    <h5 class="rpg-popup-title"><%= title %></h5>
+    <p class="rpg-popup-text"><%= message %></p>
+  </div>
+</div>
+
+<script>
+  const popup = document.getElementById("rpg-popup");
+
+  function redirect() {
+    window.location.href = "<%= redirect_path %>";
+  }
+
+  // Automatically redirect after 5 seconds
+  const timer = setTimeout(() => {
+    popup.classList.add('fade-out');
+    setTimeout(redirect, 500); // fade-out duration
+  }, 5000);
+
+  // Redirect immediately if clicked
+  if (popup) {
+    popup.addEventListener("click", () => {
+      clearTimeout(timer);
+      popup.classList.add('fade-out');
+      setTimeout(redirect, 500);
+    });
+  }
+</script>
+
+<div id="rpg-popup-backdrop" class="modal-backdrop fade show"></div>
