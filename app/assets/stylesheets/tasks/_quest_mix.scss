@@ -1,0 +1,265 @@
+.renata-card {
+  position: relative; // nécessaire pour centrer le stamp
+  flex: 0 0 90%;
+  min-width: 340px;
+  max-width: 340px;
+  min-height: 480px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: rgba(255,255,255,0.6);
+  scroll-snap-align: center;
+  padding-bottom: 5rem;
+
+
+  .card-body {
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    background-color: rgba(255,255,255,0.3);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    align-items: center;
+
+    h4.task-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2rem;
+      color: #7E569D;
+      text-shadow: 1px 1px 2px black;
+      font-weight: bold;
+      margin-bottom: auto;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-top: auto;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .pending-player { color: #f1c40f; font-weight: bold; }
+    .accepted-player { color: #3498db; font-weight: bold; }
+  }
+
+
+  .card-footer.actions-footer {
+    position: absolute;
+    bottom: 1rem;
+    right: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+
+    .btn-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background-color: $panel-bg;
+      border: 2px solid $dark-bg;
+      color: $text-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      i { font-size: 18px; margin: 3px; }
+
+      &:hover {
+        background-color: $secondary-color;
+        color: #1B1B2F;
+        box-shadow: $hover-glow;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+
+  .complete-toggle {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+}
+
+.stamp-completed {
+  position: absolute;
+  top: -20%; /* On part hors de la carte */
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-25deg) scale(1.1);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: rgba(220, 53, 69, 0.8);
+  border: 4px solid rgba(220, 53, 69, 0.8);
+  padding: 0.3em 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 10;
+  background: transparent;
+  opacity: 0;
+}
+
+/* Quand completed → animation déclenchée */
+.completed-card .stamp-completed {
+  animation: stampFall 0.6s ease-out forwards;
+}
+
+/* Animation qui simule la chute */
+@keyframes stampFall {
+  0% {
+    top: -20%;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-25deg) scale(1.5);
+  }
+  70% {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-20deg) scale(1.05);
+  }
+  90% {
+    transform: translate(-50%, -50%) rotate(-28deg) scale(0.95); /* petit rebond */
+  }
+  100% {
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-25deg) scale(1);
+  }
+}
+
+
+
+.pending-card {
+  @extend .renata-card;
+  background-image: url("https://pics.craiyon.com/2023-06-21/0855460af0e341feacee519f0d168140.webp");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+
+.completed-card {
+  @extend .renata-card;
+  background-image: url("https://pics.craiyon.com/2023-06-21/0855460af0e341feacee519f0d168140.webp");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+
+  /* Cache les boutons */
+  .card-footer.actions-footer {
+    display: none;
+  }
+}
+
+
+.frozen-card {
+  background-image: url('https://image.lexica.art/full_webp/67b84271-161e-4c2a-ac51-4898424ec2ba');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  min-height: 480px;
+  flex: 0 0 90%;
+  max-width: 330px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+
+  .card-body {
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    h4.task-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2rem;
+      color: #7E569D;
+      text-shadow: 1px 1px 2px black;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .card-footer.actions-footer {
+    position: absolute;
+    bottom: 0.8rem;
+    right: 0.8rem;
+  }
+}
+
+
+.quests-container {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 4.5rem;
+  padding: 2.5rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  justify-content: flex-start;
+  margin-top: -1.5rem;
+}
+
+
+.sticky-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 2rem;
+  flex-direction: row;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-top: -2.5rem;
+
+  .btn {
+    background-color: $panel-bg;
+    border: 2px solid $dark-bg;
+    color: $text-color;
+    font-size: 11px;
+    padding: 6px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s;
+    width: 170px;
+
+    &:hover {
+      background-color: $secondary-color;
+      color: #1B1B2F;
+      box-shadow: $hover-glow;
+      transform: scale(1.05);
+    }
+  }
+}
+
+
+.page-title {
+  margin-top: -2rem;
+  margin-bottom: 2rem;
+} 

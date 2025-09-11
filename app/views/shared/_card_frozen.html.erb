@@ -1,30 +1,15 @@
-<!--Card template -->
-          <div class="card shadow-sm renata-card"
-               style="border-radius:15px;  background-color: '#f0f8ff';
-              <%= 'background-image: url("https://image.lexica.art/full_webp/67b84271-161e-4c2a-ac51-4898424ec2ba"); background-size: cover; background-position: center;' if task.ignored %>">
+<div class="renata-card frozen-card text-white" id="task_<%= task.id %>">
 
-            <!--Card header -->
-            <div class="card-header d-flex justify-content-center align-items-center"
-                 style="color:white; font-weight:bold; border-top-left-radius:15px; border-top-right-radius:15px;">
+  <!-- Card body: only title -->
+  <div class="card-body">
+    <h4 class="task-title"><%= task.name %></h4>
+  </div>
 
-              <!--Number of participants -->
-              <% accepted_participants = task.task_participants.where(status: "accepted") %>
-              <% if accepted_participants.count > 1 %>
-                <span class="badge text-white" style="background-color:#9b59b6;">Partner Quest</span>
-              <% end %>
-            </div>
+  <!-- Card footer: unfreeze button -->
+  <div class="card-footer actions-footer">
+    <%= button_to unignore_task_path(task), method: :patch, class: "btn btn-icon frozen-btn" do %>
+      <i class="bi bi-arrow-counterclockwise"></i>
+    <% end %>
+  </div>
 
-          <!--Card body -->
-
-            <!--task description, reward, frequency-->
-            <div class="card-body text-center d-flex flex-column align-items-center justify-content-center">
-              <!--Task name -->
-              <h4 class="task-title"><%= task.name %></h4>
-            </div>
-
-            <!--Card footer -->
-            <div class="card-footer text-center">
-              <%= button_to "Unfreeze", unignore_task_path(task), method: :patch, class: "btn btn-primary btn-sm" %>
-            </div>
-
-          </div>
+</div>
