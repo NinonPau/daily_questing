@@ -29,6 +29,15 @@
 @import "tasks/quest_mix.scss";
 
 // Global
+h1 {
+  font-family: 'Press Start 2P' !important;
+  color: white !important;
+  padding: 10px auto 10px !important;
+  text-shadow: 0 0 3px #FF6F3C, 0 0 6px #FFA25C !important;
+  text-align: center !important;
+}
+
+
 html, body {
   height: 100%;
 }
