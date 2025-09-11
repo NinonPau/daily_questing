@@ -21,9 +21,9 @@
   <% if @pending_requests_received.any? %>
     <ul class="list-group mb-4">
       <% @pending_requests_received.each do |friendship| %>
-        <li class="friend list-group-item d-flex justify-content-between align-items-center">
+        <li class="friend d-flex justify-content-between align-items-center">
           <span><%= friendship.user.username %></span>
-          <div>
+          <div class="d-flex">
             <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch, class: "btn btn-sm btn-success me-2" %>
             <%= button_to "Reject", friendship_path(friendship, status: "rejected"), method: :patch, class: "btn btn-sm btn-danger" %>
           </div>
