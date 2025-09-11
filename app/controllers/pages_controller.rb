@@ -15,7 +15,7 @@ class PagesController < ApplicationController
   def update
     authorize @page
     if @page.update(page_params)
-      redirect_to @page, 
+      redirect_to @page, notice: "Page mise à jour."
     else
       render :edit
     end
