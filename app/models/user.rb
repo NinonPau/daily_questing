@@ -75,6 +75,7 @@ class User < ApplicationRecord
     10 => 224001..480000
   }
   current_level_range = levels[current_level]
+  return { percent: 100, remaining: 0 } if current_level_range.nil? 
   min = current_level_range.begin
   max = current_level_range.end
   xp_into_level = total_xp - min

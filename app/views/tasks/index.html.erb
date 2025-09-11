@@ -1,43 +1,39 @@
 <% if user_signed_in? %>
 
-  <!-- Page header -->
-  <h3 class="mb-4 text-center page-title">Your Quests</h3>
+  <!-- Page title -->
+  <h1 class="page-title text-center">Your Quests</h1>
 
-  <!-- Sticky Add/Random Quest buttons -->
+  <!-- Sticky action buttons -->
   <div class="quest-actions sticky-actions">
-    <%= link_to "Add Quest", new_task_path, class: "btn btn-new-quest" %>
-    <%= link_to "Random Quest", random_tasks_path, class: "btn btn-random-quest" %>
+    <%= link_to "Add New Quest", new_task_path, class: "btn invite-btn" %>
+
+    <%= simple_form_for :task, url: random_tasks_path do |f| %>
+      <%= f.submit "Random Quest", class: "btn invite-btn" %>
+    <% end %>
   </div>
 
-  <!-- Quests container -->
+  <!-- Task container -->
   <div class="quests-container">
 
     <!-- Pending invitations -->
     <% if current_user.pending_invitations.any? %>
-      <h4 class="mb-3 w-100 text-center">Invitations in Waiting</h4>
       <% current_user.pending_invitations.each do |task| %>
-        <div class="mb-4" id="task_<%= task.id %>">
-          <%= render 'shared/card_pending', task: task %>
-        </div>
+        <%= render "shared/card_pending_invitation", task: task %>
       <% end %>
     <% end %>
 
-    <!-- Created & Accepted Tasks -->
+    <!-- Visible tasks -->
     <% visible_tasks = (@tasks + @participating_tasks).uniq.select do |task|
          task.user == current_user || task.task_participants.exists?(user: current_user, status: "accepted")
        end.sort_by(&:created_at).reverse %>
 
-    <% if visible_tasks.any? %>
-      <% visible_tasks.each do |task| %>
-        <div class="mb-4" id="task_<%= task.id %>">
-          <% if task.completed? %>
-            <%= render 'shared/card_completed', task: task %>
-          <% elsif task.ignored? %>
-            <%= render 'shared/card_frozen', task: task %>
-          <% else %>
-            <%= render 'shared/card_pending', task: task %>
-          <% end %>
-        </div>
+    <% visible_tasks.each do |task| %>
+      <% if task.completed %>
+        <%= render 'shared/card_completed', task: task %>
+      <% elsif task.ignored %>
+        <%= render 'shared/card_frozen', task: task %>
+      <% else %>
+        <%= render 'shared/card_pending', task: task %>
       <% end %>
     <% end %>
 

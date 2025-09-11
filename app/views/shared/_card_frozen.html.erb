@@ -1,13 +1,15 @@
-<div class="renata-card frozen-card text-white">
+<div class="renata-card frozen-card text-white" id="task_<%= task.id %>">
 
   <!-- Card body: only title -->
-  <div class="card-body d-flex flex-column align-items-center justify-content-center">
+  <div class="card-body">
     <h4 class="task-title"><%= task.name %></h4>
   </div>
 
-  <!-- Card footer: only unfreeze button -->
+  <!-- Card footer: unfreeze button -->
   <div class="card-footer actions-footer">
-    <%= button_to "<i class='bi bi-arrow-counterclockwise'></i>".html_safe, unignore_task_path(task), method: :patch, class: "btn btn-icon" %>
+    <%= button_to unignore_task_path(task), method: :patch, class: "btn btn-icon frozen-btn" do %>
+      <i class="bi bi-arrow-counterclockwise"></i>
+    <% end %>
   </div>
 
 </div>
