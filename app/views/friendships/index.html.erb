@@ -1,26 +1,32 @@
-<div class="container mt-4">
+<div class="rpg-container">
 
   <h1 class="mb-4">Your Friends</h1>
 
-
-  <!-- Flash messages -->
-  <% if alert %>
-    <div class="alert">
+  <!-- Flash messages gamified -->
+  <% if notice.present? %>
+    <%= render "shared/rpg_popup",
+        title: "🎮 Quest Update!",
+        message: notice.include?("Invitation sent") ? "Scroll delivered to #{current_user.friendships.last.friend.username}! Await their reply " : " You and your ally are now friends",
+        redirect_path: friendships_path %>
+  <% end %>
+  <% if alert.present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <%= alert %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
 
+
   <!-- Pending friend requests received -->
-  <h2 class="h5 text-secondary mb-2">Pending Requests Received</h2>
+  <h2 class="h5 mb-2">Pending Requests Received</h2>
   <% if @pending_requests_received.any? %>
     <ul class="list-group mb-4">
       <% @pending_requests_received.each do |friendship| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        <li class="list-group-item">
           <span><%= friendship.user.username %></span>
           <div>
-            <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch, class: "btn btn-sm btn-success me-2" %>
-            <%= button_to "Reject", friendship_path(friendship, status: "rejected"), method: :patch, class: "btn btn-sm btn-danger" %>
+            <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch, class: "btn accept me-2" %>
+            <%= button_to "Reject", friendship_path(friendship, status: "rejected"), method: :patch, class: "btn reject" %>
           </div>
         </li>
       <% end %>
@@ -29,9 +35,24 @@
     <p class="text-muted mb-4">No pending requests received.</p>
   <% end %>
 
+  <!-- Pending friend requests sent -->
+  <h2 class="h5 mb-2">Pending Requests Sent</h2>
+  <% if @pending_requests_sent.any? %>
+    <ul class="list-group mb-4">
+      <% @pending_requests_sent.each do |friendship| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span><%= friendship.friend.username %></span>
+          <span class="text-muted">Pending...</span>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted mb-4">No pending requests sent.</p>
+  <% end %>
+
   <!-- Friends list -->
   <hr>
-  <h2 class="h5 text-secondary mb-2">Friends</h2>
+  <h2 class="h5 mb-2">Friends</h2>
   <% if @friends.any? %>
     <ul class="list-group mb-4">
       <% @friends.each do |friend| %>
@@ -39,7 +60,7 @@
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <span><%= friend.username %></span>
           <% if friendship %>
-            <%= button_to "Remove Friend", friendship_path(friendship), method: :delete, class: "btn btn-sm btn-outline-danger" %>
+            <%= button_to "Remove Friend", friendship_path(friendship), method: :delete, class: "btn remove" %>
           <% end %>
         </li>
       <% end %>
@@ -50,29 +71,28 @@
 
   <!-- Send new friend request -->
   <hr>
-  <h2 class="h5 text-secondary mb-2">Send Friend Request</h2>
+  <h2 class="h5 mb-2">Send Friend Request</h2>
   <%= form_with url: friendships_path, method: :post, local: true, html: { class: "mb-4 row g-2 align-items-center" } do %>
     <div class="col-auto">
       <%= label_tag :friend_username, "Friend's Username", class: "form-label" %>
       <%= text_field_tag :friend_username, nil, class: "form-control", placeholder: "Enter username", required: true %>
     </div>
     <div class="col-auto mt-4">
-      <%= submit_tag "Send Request", class: "btn btn-primary" %>
+      <%= submit_tag "Send Request", class: "btn primary" %>
     </div>
   <% end %>
 
   <!-- Create a New Chat Room -->
-<hr>
-<h2 class="h5 text-secondary mb-2">Create a New Chat Room</h2>
-<%= form_with model: @chat_room, url: chat_rooms_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
-  <div class="col-12 col-md-6">
-    <%= f.label :name, "Chat Name", class: "form-label" %>
-    <%= f.text_field :name, class: "form-control", placeholder: "Enter chat room name", required: true %>
-  </div>
-
-  <div class="col-12 mt-3">
-    <%= f.submit "Create Chat", class: "btn btn-primary" %>
-  </div>
-<% end %>
+  <hr>
+  <h2 class="h5 mb-2">Create a New Chat Room</h2>
+  <%= form_with model: @chat_room, url: chat_rooms_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
+    <div class="col-12 col-md-6">
+      <%= f.label :name, "Chat Name", class: "form-label" %>
+      <%= f.text_field :name, class: "form-control", placeholder: "Enter chat room name", required: true %>
+    </div>
+    <div class="col-12 mt-3">
+      <%= f.submit "Create Chat", class: "btn primary" %>
+    </div>
+  <% end %>
 
 </div>

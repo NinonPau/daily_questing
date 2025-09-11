@@ -37,9 +37,14 @@
         <%= render 'shared/card_pending', task: task %>
       <% end %>
     <% end %>
-    <% if notice.present? %>
-      <%= render "shared/rpg_popup"%>
-      <div class="modal-backdrop fade show"></div>
+    <% if flash[:notice].present? || flash[:alert].present? %>
+      <% popup_title = flash[:notice].present? ? "Quest Successfully Created!" : "Quest Alert" %>
+      <% popup_message = flash[:notice].present? ? flash[:notice] : flash[:alert] %>
+      <%= render "shared/rpg_popup", locals: {
+            title: popup_title,
+            message: popup_message,
+            redirect_path: tasks_path
+          } %>
     <% end %>
   </div> <!-- /quests-container -->
 

@@ -15,16 +15,11 @@
         </div>
       </div>
 
-      <!-- Popup message congrat -->
-      <% if notice.present? %>
-        <%= render "shared/rpg_popup",
-              title: "Quest Successfully Edited!",
-              message: "Your quest changes have been saved.",
-              redirect_path: tasks_path %>
+      <%= render "shared/rpg_popup",
+      title: "Quest Successfully Created!",
+      message: "Your quest has been added to your journey.",
+      redirect_path: tasks_path if notice.present? %>
 
-        <!-- backdrop (only if popup is shown) -->
-        <div class="modal-backdrop fade show"></div>
-      <% end %>
 
     </div>
   </div>
