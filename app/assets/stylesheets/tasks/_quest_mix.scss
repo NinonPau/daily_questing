@@ -14,7 +14,6 @@
   scroll-snap-align: center;
   padding-bottom: 5rem;
 
-
   .card-body {
     padding: 1rem;
     text-align: center;
@@ -26,6 +25,8 @@
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     align-items: center;
+    color: rgba(120, 90, 150, 0.85);
+    text-shadow: #1B1B2F;
 
     h4.task-title {
       font-family: 'Press Start 2P', cursive;
@@ -33,7 +34,6 @@
       color: #7E569D;
       text-shadow: 1px 1px 2px black;
       font-weight: bold;
-      margin-bottom: auto;
       padding: 1rem;
       text-align: center;
     }
@@ -41,13 +41,12 @@
     p {
       font-size: 1.1rem;
       line-height: 1.5;
-      margin-top: auto;
       padding: 1rem;
       text-align: center;
     }
 
-    .pending-player { color: #f1c40f; font-weight: bold; }
-    .accepted-player { color: #3498db; font-weight: bold; }
+    .pending-player { color: #FF6F3C; font-weight: bold; }
+    .accepted-player { color: rgba(100, 70, 120, 0.85); font-weight: bold; }
   }
 
 
@@ -64,9 +63,9 @@
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      background-color: $panel-bg;
-      border: 2px solid $dark-bg;
-      color: $text-color;
+      background-color: rgba(120, 90, 150, 0.85);
+      border: 2px solid rgba(100, 70, 120, 0.85);
+      color: #F5E6C8;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -77,9 +76,9 @@
       i { font-size: 18px; margin: 3px; }
 
       &:hover {
-        background-color: $secondary-color;
+        background-color:  #FF6F3C;
         color: #1B1B2F;
-        box-shadow: $hover-glow;
+        box-shadow:  #FF6F3C;
         transform: scale(1.1);
       }
     }
@@ -150,7 +149,6 @@
   color: #fff;
 }
 
-
 .completed-card {
   @extend .renata-card;
   background-image: url("https://pics.craiyon.com/2023-06-21/0855460af0e341feacee519f0d168140.webp");
@@ -190,6 +188,7 @@
     gap: 1rem;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    color: #7E569D;
 
     h4.task-title {
       font-family: 'Press Start 2P', cursive;
@@ -234,9 +233,9 @@
   margin-top: -2.5rem;
 
   .btn {
-    background-color: $panel-bg;
-    border: 2px solid $dark-bg;
-    color: $text-color;
+    background-color: rgba(120, 90, 150, 0.85);
+    border: 2px solid rgba(100, 70, 120, 0.85);
+    color: #F5E6C8;
     font-size: 11px;
     padding: 6px;
     text-transform: uppercase;
@@ -250,9 +249,9 @@
     width: 170px;
 
     &:hover {
-      background-color: $secondary-color;
+      background-color: #FF6F3C;
       color: #1B1B2F;
-      box-shadow: $hover-glow;
+      box-shadow:#FF6F3C;
       transform: scale(1.05);
     }
   }
@@ -262,4 +261,8 @@
 .page-title {
   margin-top: -2rem;
   margin-bottom: 2rem;
-} 
+}
+
+#quests-title {
+  padding: 10px auto 10px !important;
+}
