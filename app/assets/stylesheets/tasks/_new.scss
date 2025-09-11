@@ -10,6 +10,7 @@
 #new-quest-p {
   padding-bottom: 6px;
   margin: 0 auto 10px;
+  text-align: center;
 }
 
 .task-form-control, .task-form-select {
@@ -18,7 +19,7 @@
   color: rgba(255, 162, 92, 0.8);
   text-shadow: 0 0 1px #FFDDAA;
   border-radius: 5px;
-  font-size: 10px;
+  font-size: 12px;
   padding: 4px;
   width: 100%;
   box-sizing: border-box;
@@ -27,6 +28,7 @@
 
 .task-form-label {
   padding-bottom: 4px;
+  font-size: 15px;
 }
 
 .task-form-check {
@@ -35,7 +37,7 @@
 
 .task-form-check-label {
   color: rgba(255, 162, 92, 0.8);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .task-form-select {
