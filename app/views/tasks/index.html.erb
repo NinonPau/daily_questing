@@ -1,8 +1,7 @@
 <% if user_signed_in? %>
 
-
   <!-- Page title -->
-  <h1 class="page-title "mb-4">Your Quests</h1>
+  <h1 class="page-title text-center">Your Quests</h1>
 
   <!-- Sticky action buttons -->
   <div class="quest-actions sticky-actions">
@@ -12,6 +11,12 @@
       <%= f.submit "Random Quest", class: "btn invite-btn" %>
     <% end %>
   </div>
+
+  <!-- Render RPG popup for both Create and Random actions -->
+  <%= render "shared/rpg_popup",
+    title: "Quest Successfully Created!",
+    message: "Your quest has been added to your journey.",
+    redirect_path: tasks_path if notice.present? %>
 
   <!-- Task container -->
   <div class="quests-container">
@@ -37,17 +42,10 @@
         <%= render 'shared/card_pending', task: task %>
       <% end %>
     <% end %>
-    <% if flash[:notice].present? || flash[:alert].present? %>
-      <% popup_title = flash[:notice].present? ? "Quest Successfully Created!" : "Quest Alert" %>
-      <% popup_message = flash[:notice].present? ? flash[:notice] : flash[:alert] %>
-      <%= render "shared/rpg_popup", locals: {
-            title: popup_title,
-            message: popup_message,
-            redirect_path: tasks_path
-          } %>
-    <% end %>
+
   </div> <!-- /quests-container -->
 
 <% else %>
   <%= render "public_home" %>
 <% end %>
+

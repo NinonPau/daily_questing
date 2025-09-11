@@ -5,7 +5,7 @@
   <!-- Flash messages gamified -->
   <% if notice.present? %>
     <%= render "shared/rpg_popup",
-        title: "🎮 Quest Update!",
+        title: "Invite Sent !",
         message: notice.include?("Invitation sent") ? "Scroll delivered to #{current_user.friendships.last.friend.username}! Await their reply " : " You and your ally are now friends",
         redirect_path: friendships_path %>
   <% end %>

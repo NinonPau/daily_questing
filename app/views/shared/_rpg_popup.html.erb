@@ -1,8 +1,7 @@
-
 <div id="rpg-popup" class="rpg-popup">
   <div class="rpg-popup-content">
-    <h5 class="rpg-popup-title"><%= local_assigns[:title] %></h5>
-    <p class="rpg-popup-text"><%= local_assigns[:message] %></p>
+    <h5 class="rpg-popup-title"><%= title %></h5>
+    <p class="rpg-popup-text"><%= message %></p>
   </div>
 </div>
 
@@ -10,7 +9,7 @@
   const popup = document.getElementById("rpg-popup");
 
   function redirect() {
-    window.location.href = "<%= local_assigns[:redirect_path] %>";
+    window.location.href = "<%= redirect_path %>";
   }
 
   // Automatically redirect after 5 seconds

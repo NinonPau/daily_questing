@@ -15,11 +15,11 @@
         </div>
       </div>
 
+      <!-- RPG popup for Create action -->
       <%= render "shared/rpg_popup",
-      title: "Quest Successfully Created!",
-      message: "Your quest has been added to your journey.",
-      redirect_path: tasks_path if notice.present? %>
-
+        title: "Quest Successfully Created!",
+        message: "Your quest has been added to your journey.",
+        redirect_path: tasks_path if notice.present? %>
 
     </div>
   </div>
