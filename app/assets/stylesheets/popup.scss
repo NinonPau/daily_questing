@@ -20,7 +20,8 @@
   font-family: 'Press Start 2P';
 
   /* apparition + disparition automatique */
-  animation: popup-scale 0.5s ease-out, fadeOut 0.5s ease-out 5s forwards;
+  animation: popup-scale 0.5s ease-out, fadeOut 0.5s ease-out 2s forwards;
+  pointer-events: none;
 }
 
 /* Backdrop */
@@ -34,7 +35,8 @@
   z-index: 1040;
 
   /* disparition automatique */
-  animation: fadeOut 0.5s ease-out 5s forwards;
+  animation: fadeOut 0.5s ease-out 2s forwards;
+  pointer-events: none;
 }
 
 /* Text styles */
@@ -64,7 +66,7 @@
 
 @keyframes fadeOut {
   0% { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  100% { opacity: 0; }
 }
 
 @keyframes blink {
@@ -88,4 +90,3 @@
     font-size: 0.9rem;
   }
 }
-

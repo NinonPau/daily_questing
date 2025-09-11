@@ -1,16 +1,7 @@
 <div class="container d-flex justify-content-center align-items-center text-center">
   <div class="w-50" style="max-width: 900px;">
 
-    <%= render "shared/taskform", h1: "Edit quest", submit: "Save changes" %>
-
-    <% if notice.present? %>
-      <div id="rpg-popup-backdrop"></div>
-      <div class="rpg-popup auto-hide">
-        <h5 class="rpg-popup-title">Quest Successfully Edited!</h5>
-        <p class="rpg-popup-text">Your quest has been updated in your journey.</p>
-        <%= link_to "View All Quests", tasks_path, class: "btn btn-primary mt-3" %>
-      </div>
-    <% end %>
+  <%= render "shared/taskform", h1: "Edit quest", submit: "Save changes" %>
 
   </div>
 </div>
