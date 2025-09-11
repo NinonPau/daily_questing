@@ -3,6 +3,19 @@
     <div class="col-md-6">
 
       <%= render "shared/taskform", h1: "Add a quest", submit: "Create" %>
+      <% if flash[:notice].present? %>
+        <div id="rpg-popup-backdrop"></div>
+        <div class="rpg-popup auto-hide">
+          <h5 class="rpg-popup-title">Success!</h5>
+          <p class="rpg-popup-text"><%= flash[:notice] %></p>
+        </div>
+      <% elsif flash[:alert].present? %>
+        <div id="rpg-popup-backdrop"></div>
+        <div class="rpg-popup auto-hide alert-popup">
+          <h5 class="rpg-popup-title">Oops!</h5>
+          <p class="rpg-popup-text"><%= flash[:alert] %></p>
+        </div>
+      <% end %>
 
       <!-- Random section -->
       <div class="mb-2 p-2">

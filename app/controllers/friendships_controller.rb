@@ -8,7 +8,7 @@ before_action :authenticate_user!
     # bring all the frendships in db and filtered if pending or not
     @pending_requests_sent = current_user.friendships.where(status: "pending")
     @chat_room = ChatRoom.new
-    # empty instance permit to link the form for chat room 
+    # empty instance permit to link the form for chat room
   end
 
   def create
@@ -36,7 +36,7 @@ before_action :authenticate_user!
   def update
     @friendship = Friendship.find(params[:id])
     if @friendship.update(status: params[:status])
-      redirect_to friendships_path, notice: "Friend request updated."
+      redirect_to friendships_path
     else
       redirect_to friendships_path, alert: "Something went wrong."
     end

@@ -2,17 +2,12 @@
 
   <h1 class="mb-4">Your Allies</h1>
 
-  <!-- Flash messages -->
-  <% if notice %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <%= notice %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
-  <% if alert %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <%= alert %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <!-- RPG Popup Flash Messages -->
+  <% if flash[:notice].present? || flash[:alert].present? %>
+    <div id="rpg-popup-backdrop"></div>
+    <div class="rpg-popup auto-hide <%= flash[:alert].present? ? 'alert-popup' : '' %>">
+      <h5 class="rpg-popup-title"><%= flash[:notice].present? ? 'Success!' : 'Oops!' %></h5>
+      <p class="rpg-popup-text"><%= flash[:notice] || flash[:alert] %></p>
     </div>
   <% end %>
 
@@ -67,17 +62,17 @@
   <% end %>
 
   <!-- Create a New Chat Room -->
-<hr>
-<h2 class="friends-h2 text-secondary mb-2">Create New Hearth</h2>
-<%= form_with model: @chat_room, url: chat_rooms_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
-  <div class="col-12 col-md-6">
-    <%= f.label :name, "Hearth Name", class: "friend-form-label" %>
-    <%= f.text_field :name, class: "friend-form-control", placeholder: "Inscribe hearth name", required: true %>
-  </div>
 
-  <div class="col-12 mt-3">
-    <%= f.submit "Light the fire", class: "btn friend-btn" %>
-  </div>
-<% end %>
+  <hr>
+  <h2 class="friends-h2 text-secondary mb-2">Create New Hearth</h2>
+  <%= form_with model: @chat_room, url: chat_rooms_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
+    <div class="col-12 col-md-6">
+      <%= f.label :name, "Hearth Name", class: "friend-form-label" %>
+      <%= f.text_field :name, class: "friend-form-control", placeholder: "Inscribe hearth name", required: true %>
+    </div>
 
+    <div class="col-12 mt-3">
+      <%= f.submit "Light the fire", class: "btn friend-btn" %>
+    </div>
+  <% end %>
 </div>
