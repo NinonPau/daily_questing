@@ -1,6 +1,6 @@
 <div class="friend-container mt-4">
 
-  <h1 class="mb-4">Your Friends</h1>
+  <h1 class="mb-4">Your Allies</h1>
 
   <!-- Flash messages -->
   <% if notice %>
@@ -17,7 +17,7 @@
   <% end %>
 
   <!-- Pending friend requests received -->
-  <h2 class="friends-h2 text-secondary mb-2">Pending Requests Received</h2>
+  <h2 class="friends-h2 text-secondary mb-2">New Allies</h2>
   <% if @pending_requests_received.any? %>
     <ul class="list-group mb-4">
       <% @pending_requests_received.each do |friendship| %>
@@ -31,52 +31,52 @@
       <% end %>
     </ul>
   <% else %>
-    <p class="friend text-muted mb-4">No pending requests received.</p>
+    <p class="friend text-muted mb-4">No new invitation scrolls.</p>
   <% end %>
 
   <!-- Friends list -->
   <hr>
-  <h2 class="friends-h2 text-secondary mb-2">Friends</h2>
+  <h2 class="friends-h2 text-secondary mb-2">Allies</h2>
   <% if @friends.any? %>
     <ul class="list-group mb-4">
       <% @friends.each do |friend| %>
         <% friendship = Friendship.find_by(user: current_user, friend: friend) || Friendship.find_by(user: friend, friend: current_user) %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        <li class="friend d-flex justify-content-between align-items-center">
           <span><%= friend.username %></span>
           <% if friendship %>
-            <%= button_to "Remove Friend", friendship_path(friendship), method: :delete, class: "btn btn-sm btn-outline-danger" %>
+            <%= button_to "Remove Ally", friendship_path(friendship), method: :delete, class: "btn btn-sm btn-outline-danger" %>
           <% end %>
         </li>
       <% end %>
     </ul>
   <% else %>
-    <p class="friend text-muted mb-4">You have no friends yet.</p>
+    <p class="friend text-muted mb-4">Invite an ally right under!</p>
   <% end %>
 
   <!-- Send new friend request -->
   <hr>
-  <h2 class="friends-h2 text-secondary mb-2">Send Friend Request</h2>
+  <h2 class="friends-h2 text-secondary mb-2">Send Ally Request</h2>
   <%= form_with url: friendships_path, method: :post, local: true, html: { class: "mb-4 row g-2 align-items-center" } do %>
     <div class="col-auto">
-      <%= label_tag :friend_username, "Friend's Username", class: "form-label" %>
-      <%= text_field_tag :friend_username, nil, class: "friend-form-control", placeholder: "Enter username", required: true %>
+      <%= label_tag :friend_username, "Ally's Username", class: "form-label" %>
+      <%= text_field_tag :friend_username, nil, class: "friend-form-control", placeholder: "Inscribe username", required: true %>
     </div>
     <div class="col-auto mt-4">
-      <%= submit_tag "Send Request", class: "btn friend-btn" %>
+      <%= submit_tag "Send Scroll", class: "btn friend-btn" %>
     </div>
   <% end %>
 
   <!-- Create a New Chat Room -->
 <hr>
-<h2 class="friends-h2 text-secondary mb-2">Create a New Chat Room</h2>
+<h2 class="friends-h2 text-secondary mb-2">Create New Hearth</h2>
 <%= form_with model: @chat_room, url: chat_rooms_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
   <div class="col-12 col-md-6">
-    <%= f.label :name, "Chat Name", class: "form-label" %>
-    <%= f.text_field :name, class: "friend-form-control", placeholder: "Enter chat room name", required: true %>
+    <%= f.label :name, "Hearth Name", class: "form-label" %>
+    <%= f.text_field :name, class: "friend-form-control", placeholder: "Inscribe hearth name", required: true %>
   </div>
 
   <div class="col-12 mt-3">
-    <%= f.submit "Create Chat", class: "btn friend-btn" %>
+    <%= f.submit "Light the fire", class: "btn friend-btn" %>
   </div>
 <% end %>
 
