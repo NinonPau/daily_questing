@@ -3,6 +3,7 @@
 <%= form_with model: @task, local: true do |f| %>
 
   <!-- errors in red background -->
+
   <% if @task.errors.any? %>
     <div class="alert alert-danger">
       <h5><%= pluralize(@task.errors.count, "error") %> prevented this quest from being saved:</h5>

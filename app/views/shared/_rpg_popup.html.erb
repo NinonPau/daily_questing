@@ -1,0 +1,13 @@
+<!-- Checkbox pour contrôler la popup -->
+<input type="checkbox" id="popup-toggle" class="popup-toggle">
+
+<% if flash[:notice].present? || flash[:alert].present? %>
+  <!-- Backdrop -->
+  <div id="rpg-popup-backdrop"></div>
+
+  <!-- Popup -->
+  <label for="popup-toggle" class="rpg-popup auto-hide <%= flash[:alert].present? ? 'alert-popup' : '' %>">
+    <h5 class="rpg-popup-title"><%= flash[:notice].present? ? "Success!" : "Oops!" %></h5>
+    <p class="rpg-popup-text"><%= flash[:notice] || flash[:alert] %></p>
+  </label>
+<% end %>

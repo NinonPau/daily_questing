@@ -25,8 +25,11 @@ class TasksController < ApplicationController
     @task.date = Date.today
     if @task.save
       @task.add_creator_as_participant
-      redirect_to new_task_path, notice: "Quest successfully created!"
+      #flash[:notice] = "Quest successfully created!"
+      #flash[:type] = :success
+      redirect_to tasks_path
     else
+      flash.now[:alert] = "Failed to create quest."
       render :new, status: :unprocessable_entity
     end
   end
@@ -42,8 +45,11 @@ class TasksController < ApplicationController
       date: Date.today
     )
     if @task.save
-      redirect_to tasks_path, notice: "Quest successfully created!"
+      flash[:notice] = "Random Quest successfully created!"
+      flash[:type] = :success
+      redirect_to tasks_path
     else
+      flash.now[:alert] = "Failed to create random quest."
       render :home, status: :unprocessable_entity
     end
   end
@@ -53,7 +59,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "Your task was successfully updated"
+      redirect_to tasks_path
     else
       render :edit, status: :unprocessable_entity
     end
@@ -73,12 +79,12 @@ class TasksController < ApplicationController
       tp.user.add_xp(@task.xp.to_i)
     end
 
-    redirect_to tasks_path, notice: "Quest completed!"
+    redirect_to tasks_path
   end
 
   def ignore
     if @task.update(ignored: true)
-      redirect_to tasks_path, notice: "You freezed the quest '#{@task.name}'!"
+      redirect_to tasks_path
     else
       redirect_to tasks_path
     end
@@ -86,7 +92,7 @@ class TasksController < ApplicationController
 
   def unignore
     if @task.update(ignored: false)
-      redirect_to tasks_path, notice: "You unfreezed the quest '#{@task.name}'!"
+      redirect_to tasks_path
     else
       redirect_to tasks_path
     end
@@ -108,7 +114,7 @@ class TasksController < ApplicationController
   def accept_invitation
     tp = @task.task_participants.find_by(user: current_user)
     if tp&.update(status: "accepted")
-      redirect_to tasks_path, notice: "Quest accepted!"
+      redirect_to tasks_path
     else
       redirect_to tasks_path, alert: "You can't accept this quest."
     end
