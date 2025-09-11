@@ -8,31 +8,28 @@
       <div class="mb-2 p-2">
         <h3 id="new-quest-h3">Feeling lucky?</h3>
         <p id="new-quest-p">Add a random quest instead!</p>
+
         <div class="buttons d-flex justify-content-center align-items-center">
           <%= simple_form_for :task, url: random_tasks_path do |f| %>
             <%= f.submit 'Random', class: "btn btn-primary p-3" %>
           <% end %>
         </div>
-      </div>
 
-      <!-- Popup message congrat -->
-      <% if notice.present? %>
-        <div class="modal fade show" style="display: block;" tabindex="-1">
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center p-4 shadow rounded">
-              <h5 class="mb-3">Quest Successfully Created!</h5>
-              <p>Your quest has been added to your journey.</p>
-              <div class="d-flex justify-content-center gap-2 mt-3">
-                <%= link_to "Home Page", root_path, class: "btn btn-secondary" %>
-                <%= link_to "View All Quests", tasks_path, class: "btn btn-primary" %>
-              </div>
-            </div>
+        <!-- RPG Popup pour Random Quest -->
+        <% if notice.present? && request.path.include?("random") %>
+          <div id="rpg-popup-backdrop"></div>
+          <div class="rpg-popup auto-hide">
+            <h5 class="rpg-popup-title">
+              <%# Tu peux différencier le titre si tu veux %>
+              <% if notice == "Random Quest successfully created!" %>
+                Quest Successfully Created!
+              <% end %>
+            </h5>
+            <p class="rpg-popup-text"><%= notice %></p>
+            <%= link_to "View All Quests", tasks_path, class: "btn btn-primary mt-3" %>
           </div>
-        </div>
+        <% end %>
 
-        <!-- backdrop -->
-        <div class="modal-backdrop fade show"></div>
-      <% end %>
 
     </div>
   </div>

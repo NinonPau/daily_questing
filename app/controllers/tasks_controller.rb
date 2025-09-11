@@ -42,7 +42,7 @@ class TasksController < ApplicationController
       date: Date.today
     )
     if @task.save
-      redirect_to tasks_path, notice: "Quest successfully created!"
+      redirect_to tasks_path, notice: "Random Quest successfully created!"
     else
       render :home, status: :unprocessable_entity
     end

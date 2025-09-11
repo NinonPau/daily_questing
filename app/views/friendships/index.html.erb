@@ -2,19 +2,24 @@
 
   <h1 class="mb-4">Your Friends</h1>
 
-  <!-- Flash messages -->
-  <% if notice %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <%= notice %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<!-- RPG Popup -->
+  <% if notice.present? %>
+    <div id="rpg-popup-backdrop"></div>
+    <div class="rpg-popup auto-hide">
+      <h5 class="rpg-popup-title">Invitation sent!</h5>
+      <p class="rpg-popup-text">Your scroll is on its way to your future friend.</p>
+      <%= link_to "Back to friends", friendships_path, class: "btn btn-primary mt-3" %>
     </div>
   <% end %>
+
   <% if alert %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
       <%= alert %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
+
+</div>
 
   <!-- Pending friend requests received -->
   <h2 class="friends-h2 text-secondary mb-2">Pending Requests Received</h2>
