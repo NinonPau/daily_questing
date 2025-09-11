@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="friend-container mt-4">
 
   <h1 class="mb-4">Your Friends</h1>
 
@@ -17,11 +17,11 @@
   <% end %>
 
   <!-- Pending friend requests received -->
-  <h2 class="h5 text-secondary mb-2">Pending Requests Received</h2>
+  <h2 class="friends-h2 text-secondary mb-2">Pending Requests Received</h2>
   <% if @pending_requests_received.any? %>
     <ul class="list-group mb-4">
       <% @pending_requests_received.each do |friendship| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        <li class="friend list-group-item d-flex justify-content-between align-items-center">
           <span><%= friendship.user.username %></span>
           <div>
             <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch, class: "btn btn-sm btn-success me-2" %>
@@ -31,12 +31,12 @@
       <% end %>
     </ul>
   <% else %>
-    <p class="text-muted mb-4">No pending requests received.</p>
+    <p class="friend text-muted mb-4">No pending requests received.</p>
   <% end %>
 
   <!-- Friends list -->
   <hr>
-  <h2 class="h5 text-secondary mb-2">Friends</h2>
+  <h2 class="friends-h2 text-secondary mb-2">Friends</h2>
   <% if @friends.any? %>
     <ul class="list-group mb-4">
       <% @friends.each do |friend| %>
@@ -50,33 +50,33 @@
       <% end %>
     </ul>
   <% else %>
-    <p class="text-muted mb-4">You have no friends yet.</p>
+    <p class="friend text-muted mb-4">You have no friends yet.</p>
   <% end %>
 
   <!-- Send new friend request -->
   <hr>
-  <h2 class="h5 text-secondary mb-2">Send Friend Request</h2>
+  <h2 class="friends-h2 text-secondary mb-2">Send Friend Request</h2>
   <%= form_with url: friendships_path, method: :post, local: true, html: { class: "mb-4 row g-2 align-items-center" } do %>
     <div class="col-auto">
       <%= label_tag :friend_username, "Friend's Username", class: "form-label" %>
-      <%= text_field_tag :friend_username, nil, class: "form-control", placeholder: "Enter username", required: true %>
+      <%= text_field_tag :friend_username, nil, class: "friend-form-control", placeholder: "Enter username", required: true %>
     </div>
     <div class="col-auto mt-4">
-      <%= submit_tag "Send Request", class: "btn btn-primary" %>
+      <%= submit_tag "Send Request", class: "btn friend-btn" %>
     </div>
   <% end %>
 
   <!-- Create a New Chat Room -->
 <hr>
-<h2 class="h5 text-secondary mb-2">Create a New Chat Room</h2>
+<h2 class="friends-h2 text-secondary mb-2">Create a New Chat Room</h2>
 <%= form_with model: @chat_room, url: chat_rooms_path, local: true, html: { class: "mb-4 row g-2 align-items-center" } do |f| %>
   <div class="col-12 col-md-6">
     <%= f.label :name, "Chat Name", class: "form-label" %>
-    <%= f.text_field :name, class: "form-control", placeholder: "Enter chat room name", required: true %>
+    <%= f.text_field :name, class: "friend-form-control", placeholder: "Enter chat room name", required: true %>
   </div>
 
   <div class="col-12 mt-3">
-    <%= f.submit "Create Chat", class: "btn btn-primary" %>
+    <%= f.submit "Create Chat", class: "btn friend-btn" %>
   </div>
 <% end %>
 
