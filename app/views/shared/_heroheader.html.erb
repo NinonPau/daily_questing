@@ -7,40 +7,31 @@
       <div class="heroheader-level-and-icon">
         <div class="heroheader-level"> Level:<%= current_user.current_level || 0 %></div>
         <div class="level-icon">
-          <% if current_user.current_level == 1 %>
-          <i class="fa-solid fa-ghost fa-3x"></i>
-          <% elsif current_user.current_level == 2 %>
-          <i class="fa-solid fa-hat-wizard fa-3x"></i>
-          <% elsif current_user.current_level == 3 %>
-          <i class="fa-solid fa-crown fa-3x"></i>
-          <% elsif current_user.current_level == 4 %>
-          <i class="fa-solid fa-dragon fa-3x"></i>
-          <% elsif current_user.current_level == 5 %>
-          <i class="fa-brands fa-d-and-d fa-3x"></i>
-          <% elsif current_user.current_level == 6 %>
-          <i class="fa-thin fa-skull-crossbones fa-3x"></i>
-          <% elsif current_user.current_level == 7 %>
-          <i class="fa-solid fa-skull-crossbones fa-3x"></i>
-          <% elsif current_user.current_level == 8 %>
-          <i class="fa-solid fa-dragon fa-3x"></i>
-          <% elsif current_user.current_level == 9 %>
-          <i class="fa-solid fa-dragon fa-3x"></i>
-          <% elsif current_user.current_level == 10 %>
-          <i class="fa-solid fa-dragon fa-3x"></i>
-          <% end %>
+          <% icon_class = case current_user.current_level
+             when 1 then "fa-ghost"
+             when 2 then "fa-hat-wizard"
+             when 3 then "fa-crown"
+             when 4,8,9,10 then "fa-dragon"
+             when 5 then "fa-d-and-d"
+             when 6 then "fa-skull-crossbones"
+             when 7 then "fa-skull-crossbones"
+             end
+          %>
+
+          <!-- Mood attribute added for animation -->
+          <i class="fa-solid <%= icon_class %> fa-3x" data-mood="<%= current_user.user_mood&.mood_type&.downcase&.gsub("'", "") %>"></i>
         </div>
       </div>
     </div>
 
     <div class="xp-bar-container">
-      <div class="xp-fill" style="width: <%= current_user.xp_progress_percent[:percent] %>%;">
-      </div>
+      <div class="xp-fill" style="width: <%= current_user.xp_progress_percent[:percent] %>%;"></div>
     </div>
 
     <div class="heroheader-exp-row">
       <div class="heroheader-exp">XP: <%= (current_user.total_xp || 0).round(0) %></div>
       <div class="exp-remain">
-       Remaining:<%= current_user.xp_progress_percent[:remaining] || 0%>
+       Remaining:<%= current_user.xp_progress_percent[:remaining] || 0 %>
       </div>
     </div>
 
@@ -55,3 +46,4 @@
 
   </div>
 </header>
+

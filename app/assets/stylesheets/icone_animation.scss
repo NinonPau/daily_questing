@@ -1,0 +1,49 @@
+/* Base style for the level icon */
+.level-icon i {
+  display: inline-block;
+  transition: transform 0.5s ease, color 0.5s ease;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Subtle, attention-friendly animations */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); } /* gentle up-down motion */
+}
+
+@keyframes pulse-slow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); } /* soft pulse */
+}
+
+@keyframes color-shift {
+  0% { color: inherit; }
+  50% { color: #ffd54f; } /* gentle color change */
+  100% { color: inherit; }
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(3deg); } /* very soft sway */
+}
+
+/* Mood-based icon animations for attention-friendly experience */
+.level-icon i[data-mood="amazing"] {
+  animation: float-gentle 2s ease-in-out infinite;
+  color: #ffeb3b;
+}
+
+.level-icon i[data-mood="good"] {
+  animation: sway 3s ease-in-out infinite;
+  color: #4caf50;
+}
+
+.level-icon i[data-mood="okish"] {
+  animation: pulse-slow 2s ease-in-out infinite;
+  color: #2196f3;
+}
+
+.level-icon i[data-mood="bad"] {
+  animation: color-shift 4s ease-in-out infinite;
+  color: #f44336;
+}
