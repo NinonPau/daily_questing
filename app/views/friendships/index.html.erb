@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="friend-container mt-4">
 
   <h1 class="mb-4">Your Friends</h1>
 
@@ -21,7 +21,7 @@
   <% if @pending_requests_received.any? %>
     <ul class="list-group mb-4">
       <% @pending_requests_received.each do |friendship| %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        <li class="friend list-group-item d-flex justify-content-between align-items-center">
           <span><%= friendship.user.username %></span>
           <div>
             <%= button_to "Accept", friendship_path(friendship, status: "accepted"), method: :patch, class: "btn btn-sm btn-success me-2" %>
@@ -31,7 +31,7 @@
       <% end %>
     </ul>
   <% else %>
-    <p class="text-muted mb-4">No pending requests received.</p>
+    <p class="friend text-muted mb-4">No pending requests received.</p>
   <% end %>
 
   <!-- Friends list -->
@@ -50,7 +50,7 @@
       <% end %>
     </ul>
   <% else %>
-    <p class="text-muted mb-4">You have no friends yet.</p>
+    <p class="friend text-muted mb-4">You have no friends yet.</p>
   <% end %>
 
   <!-- Send new friend request -->
@@ -62,7 +62,7 @@
       <%= text_field_tag :friend_username, nil, class: "friend-form-control", placeholder: "Enter username", required: true %>
     </div>
     <div class="col-auto mt-4">
-      <%= submit_tag "Send Request", class: "btn btn-primary" %>
+      <%= submit_tag "Send Request", class: "btn friend-btn" %>
     </div>
   <% end %>
 
@@ -76,7 +76,7 @@
   </div>
 
   <div class="col-12 mt-3">
-    <%= f.submit "Create Chat", class: "btn btn-primary" %>
+    <%= f.submit "Create Chat", class: "btn friend-btn" %>
   </div>
 <% end %>
 

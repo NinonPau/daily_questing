@@ -1,7 +1,12 @@
+.friend-container {
+  margin: 0 30px;
+}
+
 .friends-h2 {
   font-family: 'Press Start 2P';
   color: #F5E6C8 !important;
   font-size: 12px;
+  margin: 30px auto 15px !important;
 }
 
 .friend-form-control {
@@ -15,4 +20,13 @@
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 6px;
+}
+
+.friend {
+  color: rgba(255, 162, 92, 0.8) !important;
+  text-shadow: 0 0 1px #FFDDAA !important;
+}
+
+.friend-btn {
+  justify-content: center;
 }
