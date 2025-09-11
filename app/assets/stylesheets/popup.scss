@@ -1,0 +1,88 @@
+/* Popup container */
+.rpg-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(155, 50, 255, 0.85);
+  border: 4px solid #ff33ff;
+  padding: 25px 35px;
+  border-radius: 16px;
+  z-index: 1050;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow:
+    0 0 20px #ff33ff,
+    0 0 40px #ff33ff inset,
+    0 0 60px #bb33ff;
+  animation: popup-scale 0.5s ease-out;
+  cursor: pointer;
+  font-family: 'Press Start 2P'
+}
+
+/* Fade-out animation */
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes popup-scale {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+}
+
+/* Text styles */
+.rpg-popup-title {
+  color: #ff99ff;
+  font-size: 1.3rem;
+  font-family: 'Press Start 2P';
+  margin-bottom: 16px;
+  text-shadow:
+    0 0 8px #ff99ff,
+    0 0 15px #ff33ff,
+    0 0 25px #bb33ff;
+  animation: blink 1s infinite alternate;
+}
+
+.rpg-popup-text {
+  color: #ffffff;
+  font-size: 1rem;
+  text-shadow: 0 0 5px #bb33ff, 0 0 10px #ff33ff;
+}
+
+/* Blinking glow animation */
+@keyframes blink {
+  0% { color: #ff99ff; text-shadow: 0 0 8px #ff99ff, 0 0 15px #ff33ff; }
+  50% { color: #ff33ff; text-shadow: 0 0 12px #ff33ff, 0 0 20px #bb33ff; }
+  100% { color: #ff99ff; text-shadow: 0 0 8px #ff99ff, 0 0 15px #ff33ff; }
+}
+
+/* Ensure it fits smaller smartphones */
+@media (max-width: 480px) {
+  .rpg-popup {
+    padding: 20px 25px;
+    max-width: 90%;
+  }
+
+  .rpg-popup-title {
+    font-size: 1.1rem;
+  }
+
+  .rpg-popup-text {
+    font-size: 0.9rem;
+  }
+}
+#rpg-popup-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1040;
+}
