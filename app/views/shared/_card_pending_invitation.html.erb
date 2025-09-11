@@ -1,0 +1,28 @@
+<div class="renata-card pending-card text-white" id="task_<%= task.id %>">
+
+  <!-- Pending Label -->
+  <div class="pending-label">Invitation</div>
+
+  <!-- Card body -->
+  <div class="card-body">
+    <h4 class="task-title"><%= task.name %></h4>
+    <p class="card-text"><%= task.description %></p>
+    <p>XP Reward: <strong><%= task.xp || 0 %> XP</strong></p>
+    <% if task.daily? %>
+      <p><em>Daily Quest</em></p>
+    <% end %>
+    <p>Creator: <%= task.user.username %></p>
+  </div>
+
+  <!-- Card footer buttons -->
+  <div class="card-footer actions-footer">
+    <%= button_to accept_invitation_task_path(task), method: :patch, class: "btn btn-icon btn-accept" do %>
+      <i class="bi bi-check-lg"></i>
+    <% end %>
+
+    <%= button_to decline_invitation_task_path(task), method: :patch, class: "btn btn-icon btn-decline" do %>
+      <i class="bi bi-x-lg"></i>
+    <% end %>
+  </div>
+
+</div>
