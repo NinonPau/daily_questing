@@ -37,7 +37,10 @@
         <%= render 'shared/card_pending', task: task %>
       <% end %>
     <% end %>
-
+    <% if notice.present? %>
+      <%= render "shared/rpg_popup"%>
+      <div class="modal-backdrop fade show"></div>
+    <% end %>
   </div> <!-- /quests-container -->
 
 <% else %>

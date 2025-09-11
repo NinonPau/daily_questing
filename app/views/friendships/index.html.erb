@@ -2,12 +2,8 @@
 
   <h1 class="mb-4">Your Friends</h1>
 
-  
+
   <!-- Flash messages -->
-  <%= render "shared/rpg_popup",
-      title: "Invitation Sent",
-      message: "You just have to wait for the answer",
-      redirect_path: friendships_path if notice.present? %>
   <% if alert %>
     <div class="alert">
       <%= alert %>

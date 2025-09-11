@@ -2,6 +2,11 @@
   <div class="w-50" style="max-width: 900px;">
 
   <%= render "shared/taskform", h1: "Edit quest", submit: "Save changes" %>
-
+  <% if notice.present? %>
+    <%= render "shared/rpg_popup",
+          title: "Quest Successfully Edited!",
+          message: "Your quest changes have been saved.",
+          redirect_path: tasks_path %>
+  <% end %>
   </div>
 </div>
