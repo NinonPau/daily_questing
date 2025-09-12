@@ -1,0 +1,21 @@
+.renata-card {
+  position: relative;  /* needed for absolute positioning of ribbon */
+}
+
+.pending-label {
+  position: absolute;
+  top: 15px;            /* distance from top corner */
+  right: -35px;         /* negative to make it diagonal */
+  background: #e63946;  /* ribbon color */
+  color: white;
+  padding: 3px 50px;    /* width of ribbon */
+  font-weight: bold;
+  font-size: 11px;      /* smaller text to fit */
+  transform: rotate(45deg);  /* diagonal effect */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: center;  /* center text inside ribbon */
+  align-items: center;
+  white-space: nowrap;      /* keep text on one line */
+  z-index: 10;              /* stay above card content */
+}
