@@ -1,6 +1,6 @@
 <div class="friend-container mt-4">
 
-  <h1 class="mb-4">Your Allies</h1>
+  <h1 class="mb-4" id="friend-title">Your Allies</h1>
 
   <!-- RPG Popup Flash Messages -->
   <% if flash[:notice].present? || flash[:alert].present? %>
@@ -12,7 +12,7 @@
   <% end %>
 
   <!-- Pending friend requests received -->
-  <h2 class="friends-h2 text-secondary mb-2">New Allies</h2>
+  <h2 class="friends-h2 text-secondary mb-">New Allies</h2>
   <% if @pending_requests_received.any? %>
     <ul class="list-group mb-4">
       <% @pending_requests_received.each do |friendship| %>

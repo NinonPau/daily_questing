@@ -7,6 +7,7 @@
   color: #F5E6C8 !important;
   font-size: 12px;
   margin: 30px auto 15px !important;
+
 }
 
 .friend-form-control {
@@ -27,10 +28,15 @@
 }
 
 .friend {
-  color: rgba(255, 162, 92, 0.8) !important;
-  text-shadow: 0 0 1px #FFDDAA !important;
+  color: #FF6F3C !important;
+  text-shadow: 0 0 1px #FF6F3C, 0 0 2px white !important;
 }
 
 .friend-btn {
   justify-content: center;
+
+}
+#friend-title {
+  padding-bottom: 16px;
+
 }
